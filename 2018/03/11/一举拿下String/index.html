@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>一举拿下String - flyapi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="baidu-site-verification" content="vuLJkgHfME" />
+<meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"> -->
+<link href="https://cdn.bootcss.com/lightgallery/1.6.10/css/lightgallery.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css"> -->
+<link href="https://cdn.bootcss.com/justifiedGallery/3.7.0/css/justifiedGallery.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- <script defer src="//use.fontawesome.com/releases/v5.0.13/js/all.js"></script> -->
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">归档</a>
+            
+            <a class="navbar-item "
+               href="/read">阅读</a>
+            
+            <a class="navbar-item "
+               href="/about">关于</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fa fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/flyhero">
+                
+                <i class="fa fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section" style="overflow: hidden;">
+    <div class="container" style="overflow: hidden;">
+        <div style="overflow: hidden;">
+        
+            <div class="article-left">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+        <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+            
+                    一举拿下String
+                        
+        </h1>
+        <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+            
+                    <span class="column is-narrow ">
+                        <span class="badge badge-pill badge-success">原创</span>
+                    </span>
+                
+
+                    <span class="column is-narrow">
+                        <i class="fa fa-calendar-o"></i>
+                        <time datetime="2018-03-11T10:07:00.000Z" itemprop="datePublished">
+                            2018-03-11 18:07
+                        </time>
+                    </span>
+
+                    
+                        <span style="display: none;" class="column is-narrow">
+                           <!--  <i class="fa fa-eye"></i> -->
+                            <span id="/2018/03/11/一举拿下String/" class="leancloud_visitors" data-title="一举拿下String">
+                            </span>
+                        </span>
+                        
+
+                            
+                                <span class="column is-narrow">
+                                    <i class="fa fa-clock-o"></i>
+                                    
+                                        
+                                            17 分钟 读完 (约 2479 字)
+                                </span>
+                                
+        </div>
+        <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+            
+                                <p>字符串广泛应用 在Java 编程中，在 Java 中字符串属于对象，Java 提供了 String 类来创建和操作字符串。</p>
+<a id="more"></a>
+<h2 id="1-String-简介"><a href="#1-String-简介" class="headerlink" title="1. String 简介"></a>1. String 简介</h2><p>String定义:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-为什么设计为不可变类呢？"><a href="#1-1-为什么设计为不可变类呢？" class="headerlink" title="1.1 为什么设计为不可变类呢？"></a>1.1 为什么设计为不可变类呢？</h3><blockquote>
+<p>String设计为不可变类主要考虑到：效率和安全。</p>
+<ul>
+<li>效率：1.在早期的JVM实现版本中，被final修饰的方法会被转为内嵌调用以提升执行效率。而从Java SE5/6开始，就渐渐摈弃这种方式了。因此在现在的Java SE版本中，不需要考虑用final去提升方法调用效率。只有在确定不想让该方法被覆盖时，才将方法设置为final。2.缓存hashcode，String不可变，所以hashcode不变，这样缓存才有意义，不必重新计算。</li>
+<li>安全：String常被作为网络连接，文件操作等参数类型，倘若可改变，会出现意想不到的结果。</li>
+</ul>
+</blockquote>
+<h2 id="2-测试掌握程度"><a href="#2-测试掌握程度" class="headerlink" title="2. 测试掌握程度"></a>2. 测试掌握程度</h2><p>为了不浪费你的时间，请看下面的题目，若你一目了然，可以跳过本文了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"HelloFlyapi"</span>;</span><br><span class="line">String str2 = <span class="string">"HelloFlyapi"</span>;</span><br><span class="line">String str3 = <span class="keyword">new</span> String(<span class="string">"HelloFlyapi"</span>);</span><br><span class="line">String str4 = <span class="string">"Hello"</span>;</span><br><span class="line">String str5 = <span class="string">"Flyapi"</span>;</span><br><span class="line">String str6 = <span class="string">"Hello"</span> + <span class="string">"Flyapi"</span>;</span><br><span class="line">String str7 = str4 + str5;</span><br><span class="line"></span><br><span class="line">logger.info(<span class="string">"str1 == str2 result: &#123;&#125;"</span>,str1 == str2);</span><br><span class="line"></span><br><span class="line">logger.info(<span class="string">"str1 == str3 result: &#123;&#125;"</span>,str1 == str3);</span><br><span class="line"></span><br><span class="line">logger.info(<span class="string">"str1 == str6 result: &#123;&#125;"</span>,str1 == str6);</span><br><span class="line"></span><br><span class="line">logger.info(<span class="string">"str1 == str7 result: &#123;&#125;"</span>,str1 == str7);</span><br><span class="line"></span><br><span class="line">logger.info(<span class="string">"str1 == str7.intern() result: &#123;&#125;"</span>,str1 == str7.intern());</span><br><span class="line"></span><br><span class="line">logger.info(<span class="string">"str3 == str3.intern() result: &#123;&#125;"</span>,str3 == str3.intern());</span><br></pre></td></tr></table></figure>
+<h2 id="3-String-的创建方式"><a href="#3-String-的创建方式" class="headerlink" title="3. String 的创建方式"></a>3. String 的创建方式</h2><p>从上面的题中你会知道，String的创建方式有两种：</p>
+<h3 id="3-1-直接赋值"><a href="#3-1-直接赋值" class="headerlink" title="3.1 直接赋值"></a>3.1 直接赋值</h3><ul>
+<li>此方式在方法区中字符串常量池中创建对象<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str = &quot;flyapi&quot;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-2-构造器"><a href="#3-2-构造器" class="headerlink" title="3.2 构造器"></a>3.2 构造器</h3><ul>
+<li>此方式在堆内存创建对象</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str = new String();</span><br></pre></td></tr></table></figure>
+<h2 id="4-分析"><a href="#4-分析" class="headerlink" title="4. 分析"></a>4. 分析</h2><p>要理解String，那么要了解JVM内存中的栈(stack)、堆(heap)和方法区。简要图（详细可查看另一篇文章）如下：<br><img src="http://p0y35f4y3.bkt.clouddn.com/JVM简内存.png" alt="JVM简内存分布图"></p>
+<ul>
+<li>str1 == str2</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str1 = &quot;HelloFlyapi&quot;;</span><br><span class="line">String str2 = &quot;HelloFlyapi&quot;;</span><br><span class="line"></span><br><span class="line">System.out.println(str1 == str2); // true</span><br></pre></td></tr></table></figure>
+<p>当执行第一句时，JVM会先去常量池中查找是否存在HelloFlyapi，当存在时直接返回常量池里的引用；当不存在时，会在字符创常量池中创建一个对象并返回引用。</p>
+<p>当执行第二句时，同样的道理，由于第一句已经在常量池中创建了，所以直接返回上句创建的对象的引用。</p>
+<ul>
+<li>str1 == str3</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"HelloFlyapi"</span>;</span><br><span class="line">String str3 = <span class="keyword">new</span> String(<span class="string">"HelloFlyapi"</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(str1 == str3); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>执行第一句，同上第一句。</p>
+<p>执行第二句时，会在堆（heap）中创建一个对象，当字符创常量池中没有‘HelloFlyapi’时，会在常量池中也创建一个对象；当常量池中已经存在了，就不会创建新的了。</p>
+<ul>
+<li>str1 == str6</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"HelloFlyapi"</span>;</span><br><span class="line">String str6 = <span class="string">"Hello"</span> + <span class="string">"Flyapi"</span>;</span><br><span class="line"></span><br><span class="line">System.out.println(str1 == str6); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>由于”Hello”和”Flyapi”都是常量，编译时，第二句会被自动编译为‘String str6 = “HelloFlyapi”;’</p>
+<ul>
+<li>str1 == str7</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"HelloFlyapi"</span>;</span><br><span class="line">String str4 = <span class="string">"Hello"</span>;</span><br><span class="line">String str5 = <span class="string">"Flyapi"</span>;</span><br><span class="line">String str7 = str4 + str5;</span><br><span class="line"></span><br><span class="line">System.out.println(str1 == str7); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>其中前三句变量存储的是常量池中的引用地址。</p>
+<p>第四句执行时，JVM会在堆（heap）中创建一个以str4为基础的一个StringBuilder对象，然后调用StringBuilder的append()方法完成与str5的合并，之后会调用toString()方法在堆（heap）中创建一个String对象，并把这个String对象的引用赋给str7。</p>
+<h2 id="5-常用方法"><a href="#5-常用方法" class="headerlink" title="5. 常用方法"></a>5. 常用方法</h2><p>下面是 String 类支持的方法，更多详细，参看 Java String API 文档:</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char charAt(int index)</td>
+<td>返回指定索引处的 char 值。</td>
+</tr>
+<tr>
+<td>int compareTo(Object o)</td>
+<td>把这个字符串和另一个对象比较。</td>
+</tr>
+<tr>
+<td>int compareTo(String anotherString)</td>
+<td>按字典顺序比较两个字符串。</td>
+</tr>
+<tr>
+<td>int compareToIgnoreCase(String str)</td>
+<td>按字典顺序比较两个字符串，不考虑大小写。</td>
+</tr>
+<tr>
+<td>String concat(String str)</td>
+<td>将指定字符串连接到此字符串的结尾。</td>
+</tr>
+<tr>
+<td>boolean contentEquals(StringBuffer sb)</td>
+<td>当且仅当字符串与指定的StringButter有相同顺序的字符时候返回真。</td>
+</tr>
+<tr>
+<td>static String copyValueOf(char[] data)</td>
+<td>返回指定数组中表示该字符序列的 String。</td>
+</tr>
+<tr>
+<td>static String copyValueOf(char[] data, int offset, int count)</td>
+<td>返回指定数组中表示该字符序列的 String。</td>
+</tr>
+<tr>
+<td>boolean endsWith(String suffix)</td>
+<td>测试此字符串是否以指定的后缀结束。</td>
+</tr>
+<tr>
+<td>boolean equals(Object anObject)</td>
+<td>将此字符串与指定的对象比较。</td>
+</tr>
+<tr>
+<td>boolean equalsIgnoreCase(String anotherString)</td>
+<td>将此 String 与另一个 String 比较，不考虑大小写。</td>
+</tr>
+<tr>
+<td>byte[] getBytes()</td>
+<td>使用平台的默认字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</td>
+</tr>
+<tr>
+<td>byte[] getBytes(String charsetName)</td>
+<td>使用指定的字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</td>
+</tr>
+<tr>
+<td>void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)</td>
+<td>将字符从此字符串复制到目标字符数组。</td>
+</tr>
+<tr>
+<td>int hashCode()</td>
+<td>返回此字符串的哈希码。</td>
+</tr>
+<tr>
+<td>int indexOf(int ch)</td>
+<td>返回指定字符在此字符串中第一次出现处的索引。</td>
+</tr>
+<tr>
+<td>int indexOf(int ch, int fromIndex)</td>
+<td>返回在此字符串中第一次出现指定字符处的索引，从指定的索引开始搜索。</td>
+</tr>
+<tr>
+<td>int indexOf(String str)</td>
+<td>返回指定子字符串在此字符串中第一次出现处的索引。</td>
+</tr>
+<tr>
+<td>int indexOf(String str, int fromIndex)</td>
+<td>返回指定子字符串在此字符串中第一次出现处的索引，从指定的索引开始。</td>
+</tr>
+<tr>
+<td>String intern()</td>
+<td>返回字符串对象的规范化表示形式。</td>
+</tr>
+<tr>
+<td>int lastIndexOf(int ch)</td>
+<td>返回指定字符在此字符串中最后一次出现处的索引。</td>
+</tr>
+<tr>
+<td>int lastIndexOf(int ch, int fromIndex)</td>
+<td>返回指定字符在此字符串中最后一次出现处的索引，从指定的索引处开始进行反向搜索。</td>
+</tr>
+<tr>
+<td>int lastIndexOf(String str)</td>
+<td>返回指定子字符串在此字符串中最右边出现处的索引。</td>
+</tr>
+<tr>
+<td>int lastIndexOf(String str, int fromIndex)</td>
+<td>返回指定子字符串在此字符串中最后一次出现处的索引，从指定的索引开始反向搜索。</td>
+</tr>
+<tr>
+<td>int length()</td>
+<td>返回此字符串的长度。</td>
+</tr>
+<tr>
+<td>boolean matches(String regex)</td>
+<td>告知此字符串是否匹配给定的正则表达式。</td>
+</tr>
+<tr>
+<td>boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)</td>
+<td>测试两个字符串区域是否相等。</td>
+</tr>
+<tr>
+<td>boolean regionMatches(int toffset, String other, int ooffset, int len)</td>
+<td>测试两个字符串区域是否相等。</td>
+</tr>
+<tr>
+<td>String replace(char oldChar, char newChar)</td>
+<td>返回一个新的字符串，它是通过用 newChar 替换此字符串中出现的所有 oldChar 得到的。</td>
+</tr>
+<tr>
+<td>String replaceAll(String regex, String replacement)</td>
+<td>使用给定的 replacement 替换此字符串所有匹配给定的正则表达式的子字符串。</td>
+</tr>
+<tr>
+<td>String replaceFirst(String regex, String replacement)</td>
+<td>使用给定的 replacement 替换此字符串匹配给定的正则表达式的第一个子字符串。</td>
+</tr>
+<tr>
+<td>String[] split(String regex)</td>
+<td>根据给定正则表达式的匹配拆分此字符串。</td>
+</tr>
+<tr>
+<td>String[] split(String regex, int limit)</td>
+<td>根据匹配给定的正则表达式来拆分此字符串。</td>
+</tr>
+<tr>
+<td>boolean startsWith(String prefix)</td>
+<td>测试此字符串是否以指定的前缀开始。</td>
+</tr>
+<tr>
+<td>boolean startsWith(String prefix, int toffset)</td>
+<td>测试此字符串从指定索引开始的子字符串是否以指定前缀开始。</td>
+</tr>
+<tr>
+<td>CharSequence subSequence(int beginIndex, int endIndex)</td>
+<td>返回一个新的字符序列，它是此序列的一个子序列。</td>
+</tr>
+<tr>
+<td>String substring(int beginIndex)</td>
+<td>返回一个新的字符串，它是此字符串的一个子字符串。</td>
+</tr>
+<tr>
+<td>String substring(int beginIndex, int endIndex)</td>
+<td>返回一个新字符串，它是此字符串的一个子字符串。</td>
+</tr>
+<tr>
+<td>char[] toCharArray()</td>
+<td>将此字符串转换为一个新的字符数组。</td>
+</tr>
+<tr>
+<td>String toLowerCase()</td>
+<td>使用默认语言环境的规则将此 String 中的所有字符都转换为小写。</td>
+</tr>
+<tr>
+<td>String toLowerCase(Locale locale)</td>
+<td>使用给定 Locale 的规则将此 String 中的所有字符都转换为小写。</td>
+</tr>
+<tr>
+<td>String toString()</td>
+<td>返回此对象本身（它已经是一个字符串！）。</td>
+</tr>
+<tr>
+<td>String toUpperCase()</td>
+<td>使用默认语言环境的规则将此 String 中的所有字符都转换为大写。</td>
+</tr>
+<tr>
+<td>String toUpperCase(Locale locale)</td>
+<td>使用给定 Locale 的规则将此 String 中的所有字符都转换为大写。</td>
+</tr>
+<tr>
+<td>String trim()</td>
+<td>返回字符串的副本，忽略前导空白和尾部空白。</td>
+</tr>
+<tr>
+<td>static String valueOf(primitive data type x)</td>
+<td>返回给定data type类型x参数的字符串表示形式。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-String相关"><a href="#6-String相关" class="headerlink" title="6. String相关"></a>6. String相关</h2><p>由于String的不可变性导致，字符串变更时效率低下，在之后得JDK版本中出现了StringBuilder和StringBuffer.</p>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>可变性</th>
+<th>线程安全</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>不可变</td>
+<td>安全</td>
+</tr>
+<tr>
+<td>StringBuffer</td>
+<td>可变</td>
+<td>安全</td>
+</tr>
+<tr>
+<td>StringBuilder</td>
+<td>可变</td>
+<td>非安全</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-常见String面试题"><a href="#7-常见String面试题" class="headerlink" title="7. 常见String面试题"></a>7. 常见String面试题</h2><ul>
+<li>String str = new String(“abc”)创建了多少个对象？</li>
+</ul>
+<blockquote>
+<p>这个问题其实是不严谨的，但面试一般会遇到，所以我们要补充来说明。</p>
+</blockquote>
+<blockquote>
+<p>类的加载和执行要分开来讲：</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>当加载类时，”abc”被创建并驻留在了字符创常量池中（如果先前加载中没有创建驻留过）。</li>
+<li>当执行此句时，因为”abc”对应的String实例已经存在于字符串常量池中，所以JVM会将此实例复制到会在堆（heap）中并返回引用地址。</li>
+</ol>
+</blockquote>
+<p>通过字节码我们可以看到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Code:</span><br><span class="line">   0: new           #2                  // class java/lang/String</span><br><span class="line">   3: dup</span><br><span class="line">   4: ldc           #3                  // String wang</span><br><span class="line">   6: invokespecial #4                  // Method java/lang/String.&quot;&lt;init&gt;&quot;:(Ljava/lang/String;)V</span><br><span class="line">   9: astore_1</span><br><span class="line">  10: return</span><br></pre></td></tr></table></figure></p>
+<p>执行时仅创建了一个对象。</p>
+<blockquote>
+<p>关于这个面试题，可以看看一个超大牛的回答：<a href="http://rednaxelafx.iteye.com/blog/774673" target="_blank" rel="noopener">http://rednaxelafx.iteye.com/blog/774673</a></p>
+</blockquote>
+
+                                    
+        </div>
+        
+            <div class="columns is-variable is-1 is-multiline is-mobile" style="padding-top: 2em;">
+                
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/Java/">#
+                            Java
+                        </a>
+                    </span>
+                    
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/String/">#
+                            String
+                        </a>
+                    </span>
+                    
+            </div>
+            
+
+    </article>
+
+    <!-- 
+
+
+<div class="comments">
+    <h3 class="title is-4">评论</h3>
+    
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2018/03/11/一举拿下String/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+</div>
+ -->
+
+
+    <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            
+                flyhero
+            
+        </li>
+       
+        <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+                        
+                                <a target="_blank" href="/2018/03/11/一举拿下String/" title="一举拿下String">
+                                    http://iflyapi.cn/2018/03/11/一举拿下String/
+                                </a>
+                        
+            
+        </li>
+        <li class="post-copyright-license">
+            <strong>版权： </strong>
+            本站文章均采用
+            <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+    </ul>
+    
+</div>
+
+<div class="author-right">
+    <div class="toc-fixed">
+        <h1>文章目录</h1>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-String-简介"><span class="toc-number">1.</span> <span class="toc-text">1. String 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-为什么设计为不可变类呢？"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 为什么设计为不可变类呢？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-测试掌握程度"><span class="toc-number">2.</span> <span class="toc-text">2. 测试掌握程度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-String-的创建方式"><span class="toc-number">3.</span> <span class="toc-text">3. String 的创建方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-直接赋值"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 直接赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-构造器"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 构造器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-分析"><span class="toc-number">4.</span> <span class="toc-text">4. 分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-常用方法"><span class="toc-number">5.</span> <span class="toc-text">5. 常用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-String相关"><span class="toc-number">6.</span> <span class="toc-text">6. String相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-常见String面试题"><span class="toc-number">7.</span> <span class="toc-text">7. 常见String面试题</span></a></li></ol>
+    </div>
+
+</div>
+
+<!-- 百度站长推送 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+    
+        </div>
+
+        
+
+                
+                    <div class="comments">
+                        <h3 class="title is-4">
+                            评论
+                        </h3>
+                        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2018/03/11/一举拿下String/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+                    </div>
+                    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2016 - 2018 flyhero&nbsp;
+                <a href="http://www.miitbeian.gov.cn/">皖ICP备18004846号</a>
+            </div>
+            
+            <div class="column is-hidden-mobile"></div>
+        </div>
+
+    <div class="columns">
+        <div class="column is-narrow has-text-centered">
+                            <span id="busuanzi_container_site_pv">
+                                <i class="fa fa-eye"></i>
+                                <span id="busuanzi_value_site_pv"></span>次
+                            </span>
+                            <span id="busuanzi_container_site_uv">
+                                <i class="fa fa-user"></i>
+                                <span id="busuanzi_value_site_uv"></span>人次
+                            </span>
+                    &nbsp;Powered by
+                    <a href="" target="_blank">Simele</a>&nbsp;&nbsp;
+                    base on
+                    <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+        </div>
+    
+        <div class="column is-hidden-mobile"></div>
+    
+        
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                    
+                        
+                            <a class="column is-narrow has-text-black" href="https://github.com/flyhero/hexo-theme-simele">
+                                
+                                    GitHub
+                                        
+                            </a>
+                            
+                </div>
+            </div>
+            
+                
+    </div>
+
+
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+
+
+<script src="//cdn1.lncld.net/static/js/3.6.8/av-min.js"></script>
+<script>AV.initialize("BofKiGH8KL9dm9JcFAOS5k2q-gzGzoHsz", "MfK5JCAY0d9Y2dLWKDfFMbeX");</script>
+<script>
+    function showTime(Counter) {
+        
+        document.querySelectorAll(".leancloud_visitors").forEach(function (item) {
+            console.log(item.id);
+            var url = item.id.trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find().then(function (results) {
+                    if (results.length == 0) {
+                        document.getElementById(url).innerHTML = 0;
+                        return;
+                    }
+                    for (var i = 0; i < results.length; i++) {
+                        var object = results[i];
+                        document.getElementById(url).innerHTML = object.get('hits');
+                    }
+                },function (object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                }
+            );
+        });
+    }
+    function addCount(Counter) {
+        var Counter = AV.Object.extend("Counter");
+        url = document.querySelector(".leancloud_visitors").id.trim();
+        title = document.querySelector(".leancloud_visitors").getAttribute('data-title').trim();
+        var query = new AV.Query(Counter);
+        query.equalTo("url", url);
+        query.find().then(function (results) {
+                if (results.length > 0) {
+                    var counter = results[0];
+                    counter.fetchWhenSave(true);
+                    counter.increment("hits");
+                    counter.save().then(function (counter) {
+                            document.getElementById(url).innerHTML = counter.get('hits');
+                        },function (counter, error) {
+                            console.log('Failed to save Visitor num, with error message: ' + error.message);
+                        }
+                    );
+                } else {
+                    var newcounter = new Counter();
+                    newcounter.set("title", title);
+                    newcounter.set("url", url);
+                    newcounter.set("hits", 1);
+                    newcounter.save().then(function (newcounter) {
+                            console.log("newcounter.get('hits')=" + newcounter.get('hits'));
+                            document.getElementById(url).innerHTML = newcounter.get('hits');
+                        },function (newcounter, error) {
+                            console.log('Failed to create');
+                        }
+                    );
+                }
+            },function (error) {
+                console.log('Error:' + error.code + " " + error.message);
+            }
+        );
+    }
+    (function () {
+        var Counter = AV.Object.extend("Counter");
+        // 如果页面只有一个 leancloud_visitors 则认为它是文章页面
+        // 如果有多个，认为它是列表页
+        if (document.querySelectorAll('.leancloud_visitors').length == 1) {
+            addCount(Counter);
+        } else if (document.querySelectorAll('.leancloud_visitors').length > 1) {
+            showTime(Counter);
+        }
+    })();
+    </script>
+    
+    
+
+
+<script src="/js/script.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+                <!-- 
+                    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                     -->
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索" />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

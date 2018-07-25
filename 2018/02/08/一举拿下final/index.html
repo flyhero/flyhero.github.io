@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>一举拿下final - flyapi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="baidu-site-verification" content="vuLJkgHfME" />
+<meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"> -->
+<link href="https://cdn.bootcss.com/lightgallery/1.6.10/css/lightgallery.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css"> -->
+<link href="https://cdn.bootcss.com/justifiedGallery/3.7.0/css/justifiedGallery.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- <script defer src="//use.fontawesome.com/releases/v5.0.13/js/all.js"></script> -->
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">归档</a>
+            
+            <a class="navbar-item "
+               href="/read">阅读</a>
+            
+            <a class="navbar-item "
+               href="/about">关于</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fa fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/flyhero">
+                
+                <i class="fa fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section" style="overflow: hidden;">
+    <div class="container" style="overflow: hidden;">
+        <div style="overflow: hidden;">
+        
+            <div class="article-left">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+        <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+            
+                    一举拿下final
+                        
+        </h1>
+        <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+            
+                    <span class="column is-narrow ">
+                        <span class="badge badge-pill badge-success">原创</span>
+                    </span>
+                
+
+                    <span class="column is-narrow">
+                        <i class="fa fa-calendar-o"></i>
+                        <time datetime="2018-02-08T12:37:15.000Z" itemprop="datePublished">
+                            2018-02-08 20:37
+                        </time>
+                    </span>
+
+                    
+                        <span style="display: none;" class="column is-narrow">
+                           <!--  <i class="fa fa-eye"></i> -->
+                            <span id="/2018/02/08/一举拿下final/" class="leancloud_visitors" data-title="一举拿下final">
+                            </span>
+                        </span>
+                        
+
+                            
+                                <span class="column is-narrow">
+                                    <i class="fa fa-clock-o"></i>
+                                    
+                                        
+                                            7 分钟 读完 (约 990 字)
+                                </span>
+                                
+        </div>
+        <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+            
+                                <p>final通常指被修饰的东西不能被改变的，不能被改变的原因旺往往处于设计和效率的考虑。<br><a id="more"></a></p>
+<h2 id="final常量"><a href="#final常量" class="headerlink" title="final常量"></a>final常量</h2><p>final修饰的常量必须在被使用前进行初始化，初始化的方式无非两种：定义时赋值或构造函数内赋值</p>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line"></span><br><span class="line">    private final int A;</span><br><span class="line">    private final int B = 3;</span><br><span class="line">    private final int C = new Random().nextInt();</span><br><span class="line"></span><br><span class="line">    public Test() &#123;</span><br><span class="line">        this.a = 5;</span><br><span class="line">    &#125;</span><br><span class="line">    public Test(int a) &#123;</span><br><span class="line">        this.a = a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为什么常量B要用final修饰？</li>
+</ul>
+<blockquote>
+<p>因为这种确定值(定义便立即赋值)的final常量，编译器会在编译时将该常量值带入到任何可能用到它的计算式中，这会减轻运行时的一些负担。</p>
+</blockquote>
+<ul>
+<li>final修饰的常量值是在编译期间被确定的吗？</li>
+</ul>
+<blockquote>
+<p>注意上面的变量C，我们并不能以为final修饰的就能在编译时知道它的值，C的值只有在运行时被初始化时才会显现。</p>
+</blockquote>
+<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><p>引用类型不能改变指的是引用被初始化指向一个对象后，就再也无法改为指向其他对象，但其指向的对象本身是可以被修改的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> D d =<span class="keyword">new</span> D();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> D <span class="title">change</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.d.setS(<span class="string">"change"</span>);</span><br><span class="line">        <span class="keyword">return</span> d;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> D <span class="title">newD</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.d = <span class="keyword">new</span> D();</span><br><span class="line">        <span class="keyword">return</span> d;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">D</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String s= <span class="string">"init"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getS</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setS</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.s = s;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码是无法编译的，因为this.d=new D()会提示Cannot assign a value to final variable ‘d’,但是你却可以调用change()方法来改变d对象的s变量值。</p>
+<h2 id="final方法"><a href="#final方法" class="headerlink" title="final方法"></a>final方法</h2><ul>
+<li>为什么使用final修饰方法</li>
+</ul>
+<ol>
+<li>设计：把方法锁定，防止继承类重写或重载。</li>
+<li>效率：早期编译器会将final方法所有的调用转为内嵌调用，随着JVM的提高，这种方式已被丢弃。</li>
+</ol>
+<ul>
+<li>final和private</li>
+</ul>
+<p>当一个方法被private修饰，这会隐式的指定为final，这也会使得子类无法覆盖此方法，可以对private方法增加final修饰，但对该方法并不能增加任何意义。</p>
+<h2 id="final类"><a href="#final类" class="headerlink" title="final类"></a>final类</h2><p>String类是final应用的典型例子，可去查看《一举拿下String》。</p>
+<ul>
+<li>为什么要把类指定为final？</li>
+</ul>
+<p>出于安全考虑或其他原因，你不希望该类有任何变动或被继承。</p>
+<blockquote>
+<p>一旦类被final修饰，即代表final类中的所有成员变量和方法都会隐式的final.</p>
+</blockquote>
+<h2 id="final参数"><a href="#final参数" class="headerlink" title="final参数"></a>final参数</h2><p>在方法的参数列表中将参数指定为final，即代表该参数引用所指向的对象是无法改变的；若为基本类型，则表示值可以读取，但无法修改。修饰情况和final常量类似。</p>
+<h2 id="final相关"><a href="#final相关" class="headerlink" title="final相关"></a>final相关</h2><h3 id="static-和-final"><a href="#static-和-final" class="headerlink" title="static 和 final"></a>static 和 final</h3><ol>
+<li>static强调的是该数据只存在一份</li>
+<li>final强调该数据不可变</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class C &#123;</span><br><span class="line"></span><br><span class="line">    private final double a = Math.random();</span><br><span class="line"></span><br><span class="line">    private static double b = Math.random();</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        new C();</span><br><span class="line">        new C();</span><br><span class="line">        new C();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码运行后，a会存在3个，但b只有一个。</p>
+<h3 id="final，finally和finalize"><a href="#final，finally和finalize" class="headerlink" title="final，finally和finalize"></a>final，finally和finalize</h3><ul>
+<li>finally </li>
+</ul>
+<p>是在异常处理时配合<code>try-catch</code>执行清理操作，需要清理的资源包括：打开的文件或网络连接等，它会把内存之外的资源恢复到他们的初始状态。无论try中是否有异常出现，finally里的操作都会被执行。</p>
+<ul>
+<li>finalize</li>
+</ul>
+<p>这是Object基类的一个方法，垃圾收集器在将对象清除出内存之前调用的清理资源方法，且此方法只会被系统调用一次，其实finalize能做的工作，try-finally能做的更好，《深入理解Java虚拟机》中建议大家忘掉这个方法的存在。</p>
+
+                                    
+        </div>
+        
+            <div class="columns is-variable is-1 is-multiline is-mobile" style="padding-top: 2em;">
+                
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/Java/">#
+                            Java
+                        </a>
+                    </span>
+                    
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/final/">#
+                            final
+                        </a>
+                    </span>
+                    
+            </div>
+            
+
+    </article>
+
+    <!-- 
+
+
+<div class="comments">
+    <h3 class="title is-4">评论</h3>
+    
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2018/02/08/一举拿下final/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+</div>
+ -->
+
+
+    <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            
+                flyhero
+            
+        </li>
+       
+        <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+                        
+                                <a target="_blank" href="/2018/02/08/一举拿下final/" title="一举拿下final">
+                                    http://iflyapi.cn/2018/02/08/一举拿下final/
+                                </a>
+                        
+            
+        </li>
+        <li class="post-copyright-license">
+            <strong>版权： </strong>
+            本站文章均采用
+            <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+    </ul>
+    
+</div>
+
+<div class="author-right">
+    <div class="toc-fixed">
+        <h1>文章目录</h1>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#final常量"><span class="toc-number">1.</span> <span class="toc-text">final常量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本数据类型"><span class="toc-number">1.1.</span> <span class="toc-text">基本数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用类型"><span class="toc-number">1.2.</span> <span class="toc-text">引用类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final方法"><span class="toc-number">2.</span> <span class="toc-text">final方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final类"><span class="toc-number">3.</span> <span class="toc-text">final类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final参数"><span class="toc-number">4.</span> <span class="toc-text">final参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final相关"><span class="toc-number">5.</span> <span class="toc-text">final相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#static-和-final"><span class="toc-number">5.1.</span> <span class="toc-text">static 和 final</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#final，finally和finalize"><span class="toc-number">5.2.</span> <span class="toc-text">final，finally和finalize</span></a></li></ol></li></ol>
+    </div>
+
+</div>
+
+<!-- 百度站长推送 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+    
+        </div>
+
+        
+
+                
+                    <div class="comments">
+                        <h3 class="title is-4">
+                            评论
+                        </h3>
+                        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2018/02/08/一举拿下final/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+                    </div>
+                    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2016 - 2018 flyhero&nbsp;
+                <a href="http://www.miitbeian.gov.cn/">皖ICP备18004846号</a>
+            </div>
+            
+            <div class="column is-hidden-mobile"></div>
+        </div>
+
+    <div class="columns">
+        <div class="column is-narrow has-text-centered">
+                            <span id="busuanzi_container_site_pv">
+                                <i class="fa fa-eye"></i>
+                                <span id="busuanzi_value_site_pv"></span>次
+                            </span>
+                            <span id="busuanzi_container_site_uv">
+                                <i class="fa fa-user"></i>
+                                <span id="busuanzi_value_site_uv"></span>人次
+                            </span>
+                    &nbsp;Powered by
+                    <a href="" target="_blank">Simele</a>&nbsp;&nbsp;
+                    base on
+                    <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+        </div>
+    
+        <div class="column is-hidden-mobile"></div>
+    
+        
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                    
+                        
+                            <a class="column is-narrow has-text-black" href="https://github.com/flyhero/hexo-theme-simele">
+                                
+                                    GitHub
+                                        
+                            </a>
+                            
+                </div>
+            </div>
+            
+                
+    </div>
+
+
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+
+
+<script src="//cdn1.lncld.net/static/js/3.6.8/av-min.js"></script>
+<script>AV.initialize("BofKiGH8KL9dm9JcFAOS5k2q-gzGzoHsz", "MfK5JCAY0d9Y2dLWKDfFMbeX");</script>
+<script>
+    function showTime(Counter) {
+        
+        document.querySelectorAll(".leancloud_visitors").forEach(function (item) {
+            console.log(item.id);
+            var url = item.id.trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find().then(function (results) {
+                    if (results.length == 0) {
+                        document.getElementById(url).innerHTML = 0;
+                        return;
+                    }
+                    for (var i = 0; i < results.length; i++) {
+                        var object = results[i];
+                        document.getElementById(url).innerHTML = object.get('hits');
+                    }
+                },function (object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                }
+            );
+        });
+    }
+    function addCount(Counter) {
+        var Counter = AV.Object.extend("Counter");
+        url = document.querySelector(".leancloud_visitors").id.trim();
+        title = document.querySelector(".leancloud_visitors").getAttribute('data-title').trim();
+        var query = new AV.Query(Counter);
+        query.equalTo("url", url);
+        query.find().then(function (results) {
+                if (results.length > 0) {
+                    var counter = results[0];
+                    counter.fetchWhenSave(true);
+                    counter.increment("hits");
+                    counter.save().then(function (counter) {
+                            document.getElementById(url).innerHTML = counter.get('hits');
+                        },function (counter, error) {
+                            console.log('Failed to save Visitor num, with error message: ' + error.message);
+                        }
+                    );
+                } else {
+                    var newcounter = new Counter();
+                    newcounter.set("title", title);
+                    newcounter.set("url", url);
+                    newcounter.set("hits", 1);
+                    newcounter.save().then(function (newcounter) {
+                            console.log("newcounter.get('hits')=" + newcounter.get('hits'));
+                            document.getElementById(url).innerHTML = newcounter.get('hits');
+                        },function (newcounter, error) {
+                            console.log('Failed to create');
+                        }
+                    );
+                }
+            },function (error) {
+                console.log('Error:' + error.code + " " + error.message);
+            }
+        );
+    }
+    (function () {
+        var Counter = AV.Object.extend("Counter");
+        // 如果页面只有一个 leancloud_visitors 则认为它是文章页面
+        // 如果有多个，认为它是列表页
+        if (document.querySelectorAll('.leancloud_visitors').length == 1) {
+            addCount(Counter);
+        } else if (document.querySelectorAll('.leancloud_visitors').length > 1) {
+            showTime(Counter);
+        }
+    })();
+    </script>
+    
+    
+
+
+<script src="/js/script.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+                <!-- 
+                    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                     -->
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索" />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

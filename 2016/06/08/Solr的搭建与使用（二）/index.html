@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Solr的搭建与使用（二） - flyapi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="baidu-site-verification" content="vuLJkgHfME" />
+<meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"> -->
+<link href="https://cdn.bootcss.com/lightgallery/1.6.10/css/lightgallery.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css"> -->
+<link href="https://cdn.bootcss.com/justifiedGallery/3.7.0/css/justifiedGallery.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- <script defer src="//use.fontawesome.com/releases/v5.0.13/js/all.js"></script> -->
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">归档</a>
+            
+            <a class="navbar-item "
+               href="/read">阅读</a>
+            
+            <a class="navbar-item "
+               href="/about">关于</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fa fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/flyhero">
+                
+                <i class="fa fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section" style="overflow: hidden;">
+    <div class="container" style="overflow: hidden;">
+        <div style="overflow: hidden;">
+        
+            <div class="article-left">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+        <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+            
+                    Solr的搭建与使用（二）
+                        
+        </h1>
+        <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+            
+                    <span class="column is-narrow ">
+                        <span class="badge badge-pill badge-success">原创</span>
+                    </span>
+                
+
+                    <span class="column is-narrow">
+                        <i class="fa fa-calendar-o"></i>
+                        <time datetime="2016-06-08T12:25:38.000Z" itemprop="datePublished">
+                            2016-06-08 20:25
+                        </time>
+                    </span>
+
+                    
+                        <span style="display: none;" class="column is-narrow">
+                           <!--  <i class="fa fa-eye"></i> -->
+                            <span id="/2016/06/08/Solr的搭建与使用（二）/" class="leancloud_visitors" data-title="Solr的搭建与使用（二）">
+                            </span>
+                        </span>
+                        
+
+                            
+                                <span class="column is-narrow">
+                                    <i class="fa fa-clock-o"></i>
+                                    
+                                        
+                                            7 分钟 读完 (约 1034 字)
+                                </span>
+                                
+        </div>
+        <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+            
+                                <h1 id="添加中文分词器"><a href="#添加中文分词器" class="headerlink" title="添加中文分词器"></a>添加中文分词器</h1><p>首先我们来测试一下solr对中英文的分词效果：<br><img src="http://7xv6ov.com1.z0.glb.clouddn.com/%E8%87%AA%E5%B8%A6%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E6%95%88%E6%9E%9C.png" alt="中文分词"><br><img src="http://7xv6ov.com1.z0.glb.clouddn.com/%E8%87%AA%E5%B8%A6%E8%8B%B1%E6%96%87%E5%88%86%E8%AF%8D%E6%95%88%E6%9E%9C.png" alt="英文分词"><br>由于solr对中文分词不太友好，需要添加中文分词器。</p>
+<a id="more"></a>
+<ol>
+<li>下载分词器，地址：<a href="http://" target="_blank" rel="noopener">http://download.csdn.net/detail/u010995578/9402443</a>；</li>
+<li>把jar包复制到\apache-tomcat-7.0.67\webapps\solr\WEB-INF\lib路径下；</li>
+<li><p>修改\solr-5.2.1\server\solr\test\conf下的schema.xml文件，添加如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--添加IK中文分词器--&gt;</span><br><span class="line">&lt;fieldType name=&quot;text_ik&quot; class=&quot;solr.TextField&quot;&gt;</span><br><span class="line">	&lt;analyzer type=&quot;index&quot; useSmart=&quot;false&quot; class=&quot;org.wltea.analyzer.lucene.IKAnalyzer&quot;/&gt;   </span><br><span class="line">	&lt;analyzer type=&quot;query&quot; useSmart=&quot;true&quot; class=&quot;org.wltea.analyzer.lucene.IKAnalyzer&quot;/&gt;   </span><br><span class="line">&lt;/fieldType&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开solr页面，找到test_ik字段名，测试一下效果：<br><img src="http://7xv6ov.com1.z0.glb.clouddn.com/IK%E5%88%86%E8%AF%8D%E5%99%A8%E6%95%88%E6%9E%9C.png" alt="测试效果"></p>
+</li>
+<li>添加自定义词库：解压刚才下载的jar包，如图：<br><img src="http://7xv6ov.com1.z0.glb.clouddn.com/%E8%A7%A3%E5%8E%8BIK%E5%90%8E.png" alt=""></li>
+<li>把ext.dic和IKAnalyzer.cfg.xml复制到\apache-tomcat-7.0.67\webapps\solr\WEB-INF\classes下；</li>
+<li>用notepad++打开ext.dic可编辑自定义的词。<br><em>本节参考</em> ：<a href="http://" target="_blank" rel="noopener">http://www.superwu.cn/2015/05/08/2134/</a><br><a href="http://" target="_blank" rel="noopener">http://iamyida.iteye.com/blog/2220474?utm_source=tuicool&amp;utm_medium=referral</a><h1 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h1></li>
+<li>区分你要从什么数据库导入，从什么数据库导入就下载什么数据库相应的驱动jar包；</li>
+<li>关闭tomat，将你的jar包复制到\apache-tomcat-7.0.67\webapps\solr\WEB-INF\lib下；</li>
+<li>将\solr-5.2.1\dist\下的solr-dataimporthandler-5.2.1.jar和solr-dataimporthandler-extras-5.2.1.jar复制到\apache-tomcat-7.0.67\webapps\solr\WEB-INF\lib目录下；</li>
+<li>打开\solr-5.2.1\server\solr\test\conf下的solrconfig.xml文件看看是否存在以下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;requestHandler name=&quot;/dataimport&quot; class=&quot;solr.DataImportHandler&quot;&gt;</span><br><span class="line">  &lt;lst name=&quot;defaults&quot;&gt;</span><br><span class="line">    &lt;str name=&quot;config&quot;&gt;solr-data-config.xml&lt;/str&gt;</span><br><span class="line">  &lt;/lst&gt;</span><br><span class="line">&lt;/requestHandler&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如不存在，添加进去；</p>
+<ol start="5">
+<li>打开同路径下的data-config.xml，添加如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;dataConfig&gt; </span><br><span class="line">  &lt;dataSource type=&quot;JdbcDataSource&quot; driver=&quot;oracle.jdbc.driver.OracleDriver&quot; </span><br><span class="line">              url=&quot;jdbc:oracle:thin:@//127.0.0.1:1521/orcl&quot;</span><br><span class="line">              user=&quot;root&quot; </span><br><span class="line">              password=&quot;123456&quot;</span><br><span class="line">              batchSize=&quot;10000&quot;/&gt;  </span><br><span class="line">  &lt;document name=&quot;search&quot;&gt; </span><br><span class="line">    &lt;entity name=&quot;view_table&quot; pk=&quot;id&quot; query=&quot;select * from s_table&quot;&gt; </span><br><span class="line">      &lt;field column=&quot;id&quot; name=&quot;id&quot;/&gt;</span><br><span class="line">      &lt;field column=&quot;title&quot; name=&quot;title&quot;/&gt;</span><br><span class="line">      &lt;field column=&quot;content&quot; name=&quot;content&quot;/&gt;</span><br><span class="line">    &lt;/entity&gt; </span><br><span class="line">  &lt;/document&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>配置好自己的数据源即可，多个表的话就追加entity标签即可。</p>
+<ol start="6">
+<li>需要将你上述表中的字段添加到同目录下的schema.xml中，如：<br><code>&lt;field name=&quot;title&quot; type=&quot;string&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;</code></li>
+<li>最后点击Dataimport,可以看到Command有full-import和delta-import两种），第一次可以选full-import，Entity下拉框面选view_table，选中“Auto-Refresh Status”，点击Execute,可以看到右边状态：Indexing，最后变为Indexing completed表示索引已经建好了。<br>然后点击左侧的Query，在q下面的输入框中输入：password:aaa，点击Execute Query来从索引中查询password为aaa的结果。<h1 id="Java代码导入数据"><a href="#Java代码导入数据" class="headerlink" title="Java代码导入数据"></a>Java代码导入数据</h1>数据库中存在一个字段用来标识本条记录是否已经导入，这个字段有三种状态：0未导入，1正在导入，2已导入。<br>一般这种导入我们是为了定时导入新生成的数据，作为后台job任务。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">import java.net.URI;</span><br><span class="line">import java.net.URL;</span><br><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line">import java.sql.Statement;</span><br><span class="line">import org.apache.log4j.Logger;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line">import com.sun.jersey.api.client.Client;</span><br><span class="line">import com.sun.jersey.api.client.WebResource;</span><br><span class="line">public class SolrDataImport &#123;</span><br><span class="line">	Logger logger = Logger.getLogger(SolrDataImport.class);</span><br><span class="line"></span><br><span class="line">	@Autowired</span><br><span class="line">	protected JdbcTemplate jdbcTemplate;</span><br><span class="line"></span><br><span class="line">	//多个表</span><br><span class="line">	private String[] tableNames = &#123;</span><br><span class="line">			&quot;表1&quot;,&quot;表2&quot;,&quot;表3&quot;</span><br><span class="line">	&#125;;</span><br><span class="line">	</span><br><span class="line">	public void run()&#123;</span><br><span class="line">		logger.info(&quot;-------Solr入库JOB 执行开始------------------&quot;);</span><br><span class="line">		String solrPath = &quot;http://localhost:8080/solr/mytest/dataimport?command=full-import&amp;clean=false&amp;commit=true&quot;;</span><br><span class="line">		String solrStatusPath = &quot;http://localhost:8080/solr/mytest/dataimport?command=status&quot;;</span><br><span class="line">		logger.info(&quot;获取dataimport地址&quot;+solrPath);</span><br><span class="line">		updateLog(&quot;0&quot;, &quot;1&quot;);</span><br><span class="line">		get(solrPath);</span><br><span class="line">		String result = get(solrStatusPath);</span><br><span class="line">		try &#123;</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				if(result.indexOf(&quot;busy&quot;) !=-1)&#123;</span><br><span class="line">					Thread.sleep(1000);</span><br><span class="line">					result = get(solrStatusPath);</span><br><span class="line">				&#125;else if(result.indexOf(&quot;idle&quot;) !=-1)&#123;</span><br><span class="line">					break;</span><br><span class="line">				&#125;else&#123;</span><br><span class="line">					updateLog(&quot;1&quot;,&quot;0&quot;);</span><br><span class="line">					return;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch (InterruptedException e) &#123;</span><br><span class="line">			// TODO Auto-generated catch block</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		updateLog(&quot;1&quot;, &quot;2&quot;);</span><br><span class="line">		logger.info(&quot;-------Solr入库JOB 执行结束------------------&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	private String get(String url_)&#123;</span><br><span class="line">		Client c = Client.create(); //创建一个Client的实例</span><br><span class="line">		String result = &quot;&quot;;</span><br><span class="line">		try &#123;</span><br><span class="line">        //配置Client参数</span><br><span class="line">			URL url = new URL(url_);</span><br><span class="line">			URI uri = new URI(url.getProtocol(), url.getHost()+&quot;:&quot;+url.getPort(), url.getPath(), url.getQuery(), null);</span><br><span class="line">            //获取一个WebResource实例</span><br><span class="line">			WebResource resource = c.resource(uri);</span><br><span class="line">            //发送了一个Get请求</span><br><span class="line">			result = resource.get(String.class);</span><br><span class="line">		&#125;catch(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">        return result;</span><br><span class="line">	&#125;</span><br><span class="line">	//更新数据库表记录的状态</span><br><span class="line">	private void updateLog(String from,String state)&#123;</span><br><span class="line">		String sql = &quot;&quot;;</span><br><span class="line">		Connection connection = null;</span><br><span class="line">		Statement st = null;</span><br><span class="line">		try &#123;</span><br><span class="line">			connection = jdbcTemplate.getDataSource().getConnection();</span><br><span class="line">			connection.setAutoCommit(false);</span><br><span class="line">			st = connection.createStatement();</span><br><span class="line">			for(String table :tableNames)&#123;</span><br><span class="line">				sql = &quot;update &quot;+ table+&quot; t set LAST_MODIFIED=&apos;&quot;+state+</span><br><span class="line">							&quot;&apos; where  LAST_MODIFIED=&apos;&quot;+from+&quot;&apos;&quot;;</span><br><span class="line">				st.executeUpdate(sql);</span><br><span class="line">				connection.commit();</span><br><span class="line">				logger.info(&quot;更新表状态sql:&quot;+sql);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;finally&#123;</span><br><span class="line">			try &#123;</span><br><span class="line">				st.close();</span><br><span class="line">				connection.close();</span><br><span class="line">			&#125; catch (SQLException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+                                    
+        </div>
+        
+            <div class="columns is-variable is-1 is-multiline is-mobile" style="padding-top: 2em;">
+                
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/solr/">#
+                            solr
+                        </a>
+                    </span>
+                    
+            </div>
+            
+
+    </article>
+
+    <!-- 
+
+
+<div class="comments">
+    <h3 class="title is-4">评论</h3>
+    
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2016/06/08/Solr的搭建与使用（二）/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+</div>
+ -->
+
+
+    <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            
+                flyhero
+            
+        </li>
+       
+        <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+                        
+                                <a target="_blank" href="/2016/06/08/Solr的搭建与使用（二）/" title="Solr的搭建与使用（二）">
+                                    http://iflyapi.cn/2016/06/08/Solr的搭建与使用（二）/
+                                </a>
+                        
+            
+        </li>
+        <li class="post-copyright-license">
+            <strong>版权： </strong>
+            本站文章均采用
+            <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+    </ul>
+    
+</div>
+
+<div class="author-right">
+    <div class="toc-fixed">
+        <h1>文章目录</h1>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#添加中文分词器"><span class="toc-number">1.</span> <span class="toc-text">添加中文分词器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#导入数据"><span class="toc-number">2.</span> <span class="toc-text">导入数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Java代码导入数据"><span class="toc-number">3.</span> <span class="toc-text">Java代码导入数据</span></a></li></ol>
+    </div>
+
+</div>
+
+<!-- 百度站长推送 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+    
+        </div>
+
+        
+
+                
+                    <div class="comments">
+                        <h3 class="title is-4">
+                            评论
+                        </h3>
+                        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2016/06/08/Solr的搭建与使用（二）/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+                    </div>
+                    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2016 - 2018 flyhero&nbsp;
+                <a href="http://www.miitbeian.gov.cn/">皖ICP备18004846号</a>
+            </div>
+            
+            <div class="column is-hidden-mobile"></div>
+        </div>
+
+    <div class="columns">
+        <div class="column is-narrow has-text-centered">
+                            <span id="busuanzi_container_site_pv">
+                                <i class="fa fa-eye"></i>
+                                <span id="busuanzi_value_site_pv"></span>次
+                            </span>
+                            <span id="busuanzi_container_site_uv">
+                                <i class="fa fa-user"></i>
+                                <span id="busuanzi_value_site_uv"></span>人次
+                            </span>
+                    &nbsp;Powered by
+                    <a href="" target="_blank">Simele</a>&nbsp;&nbsp;
+                    base on
+                    <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+        </div>
+    
+        <div class="column is-hidden-mobile"></div>
+    
+        
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                    
+                        
+                            <a class="column is-narrow has-text-black" href="https://github.com/flyhero/hexo-theme-simele">
+                                
+                                    GitHub
+                                        
+                            </a>
+                            
+                </div>
+            </div>
+            
+                
+    </div>
+
+
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+
+
+<script src="//cdn1.lncld.net/static/js/3.6.8/av-min.js"></script>
+<script>AV.initialize("BofKiGH8KL9dm9JcFAOS5k2q-gzGzoHsz", "MfK5JCAY0d9Y2dLWKDfFMbeX");</script>
+<script>
+    function showTime(Counter) {
+        
+        document.querySelectorAll(".leancloud_visitors").forEach(function (item) {
+            console.log(item.id);
+            var url = item.id.trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find().then(function (results) {
+                    if (results.length == 0) {
+                        document.getElementById(url).innerHTML = 0;
+                        return;
+                    }
+                    for (var i = 0; i < results.length; i++) {
+                        var object = results[i];
+                        document.getElementById(url).innerHTML = object.get('hits');
+                    }
+                },function (object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                }
+            );
+        });
+    }
+    function addCount(Counter) {
+        var Counter = AV.Object.extend("Counter");
+        url = document.querySelector(".leancloud_visitors").id.trim();
+        title = document.querySelector(".leancloud_visitors").getAttribute('data-title').trim();
+        var query = new AV.Query(Counter);
+        query.equalTo("url", url);
+        query.find().then(function (results) {
+                if (results.length > 0) {
+                    var counter = results[0];
+                    counter.fetchWhenSave(true);
+                    counter.increment("hits");
+                    counter.save().then(function (counter) {
+                            document.getElementById(url).innerHTML = counter.get('hits');
+                        },function (counter, error) {
+                            console.log('Failed to save Visitor num, with error message: ' + error.message);
+                        }
+                    );
+                } else {
+                    var newcounter = new Counter();
+                    newcounter.set("title", title);
+                    newcounter.set("url", url);
+                    newcounter.set("hits", 1);
+                    newcounter.save().then(function (newcounter) {
+                            console.log("newcounter.get('hits')=" + newcounter.get('hits'));
+                            document.getElementById(url).innerHTML = newcounter.get('hits');
+                        },function (newcounter, error) {
+                            console.log('Failed to create');
+                        }
+                    );
+                }
+            },function (error) {
+                console.log('Error:' + error.code + " " + error.message);
+            }
+        );
+    }
+    (function () {
+        var Counter = AV.Object.extend("Counter");
+        // 如果页面只有一个 leancloud_visitors 则认为它是文章页面
+        // 如果有多个，认为它是列表页
+        if (document.querySelectorAll('.leancloud_visitors').length == 1) {
+            addCount(Counter);
+        } else if (document.querySelectorAll('.leancloud_visitors').length > 1) {
+            showTime(Counter);
+        }
+    })();
+    </script>
+    
+    
+
+
+<script src="/js/script.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+                <!-- 
+                    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                     -->
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索" />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

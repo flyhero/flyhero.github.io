@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Spring整合Quartz任务调度 - flyapi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="baidu-site-verification" content="vuLJkgHfME" />
+<meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"> -->
+<link href="https://cdn.bootcss.com/lightgallery/1.6.10/css/lightgallery.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css"> -->
+<link href="https://cdn.bootcss.com/justifiedGallery/3.7.0/css/justifiedGallery.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- <script defer src="//use.fontawesome.com/releases/v5.0.13/js/all.js"></script> -->
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">归档</a>
+            
+            <a class="navbar-item "
+               href="/read">阅读</a>
+            
+            <a class="navbar-item "
+               href="/about">关于</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fa fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/flyhero">
+                
+                <i class="fa fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section" style="overflow: hidden;">
+    <div class="container" style="overflow: hidden;">
+        <div style="overflow: hidden;">
+        
+            <div class="article-left">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+        <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+            
+                    Spring整合Quartz任务调度
+                        
+        </h1>
+        <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+            
+                    <span class="column is-narrow ">
+                        <span class="badge badge-pill badge-success">原创</span>
+                    </span>
+                
+
+                    <span class="column is-narrow">
+                        <i class="fa fa-calendar-o"></i>
+                        <time datetime="2016-08-04T01:08:29.000Z" itemprop="datePublished">
+                            2016-08-04 09:08
+                        </time>
+                    </span>
+
+                    
+                        <span style="display: none;" class="column is-narrow">
+                           <!--  <i class="fa fa-eye"></i> -->
+                            <span id="/2016/08/04/Spring整合Quartz任务调度/" class="leancloud_visitors" data-title="Spring整合Quartz任务调度">
+                            </span>
+                        </span>
+                        
+
+                            
+                                <span class="column is-narrow">
+                                    <i class="fa fa-clock-o"></i>
+                                    
+                                        
+                                            5 分钟 读完 (约 756 字)
+                                </span>
+                                
+        </div>
+        <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+            
+                                <p>阅读本文你将了解到：</p>
+<ul>
+<li>什么是Quartz？</li>
+<li>Quartz的特点？</li>
+<li>任务调度的实现方式</li>
+<li>Cron表达式</li>
+</ul>
+<h2 id="什么是Quartz？"><a href="#什么是Quartz？" class="headerlink" title="什么是Quartz？"></a>什么是Quartz？</h2><p>Quartz是OpenSymphony开源组织在Job scheduling领域又一个开源项目，它可以与J2EE与J2SE应用程序相结合也可以单独使用。Quartz可以用来创建简单或为运行十个，百个，甚至是好几万个Jobs这样复杂的程序。Jobs可以做成标准的Java组件或 EJBs</p>
+<a id="more"></a>
+<p>下面是本文中用到的一些专用词汇，在此声明：<br><strong>scheduler：</strong><br>任务调度器<br><strong>trigger：</strong><br>触发器，用于定义任务调度时间规则<br><strong>job：</strong><br>任务，即被调度的任务<br><strong>misfire：</strong><br>错过的，指本来应该被执行但实际没有被执行的任务调度</p>
+<h2 id="Quartz的特点？"><a href="#Quartz的特点？" class="headerlink" title="Quartz的特点？"></a>Quartz的特点？</h2><p>作为一个优秀的开源调度框架，Quartz 具有以下特点：</p>
+<ol>
+<li>强大的调度功能，例如支持丰富多样的调度方法，可以满足各种常规及特殊需求；</li>
+<li>灵活的应用方式，例如支持任务和调度的多种组合方式，支持调度数据的多种存储方式；</li>
+<li>分布式和集群能力，Terracotta 收购后在原来功能基础上作了进一步提升。</li>
+<li>作为 Spring 默认的调度框架，Quartz 很容易与 Spring 集成实现灵活可配置的调度功能。</li>
+</ol>
+<h2 id="任务调度的实现方式"><a href="#任务调度的实现方式" class="headerlink" title="任务调度的实现方式"></a>任务调度的实现方式</h2><ol>
+<li>创建Maven project;</li>
+<li>添加Spring和Quartz的Jar包，如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">    &lt;!-- quartz start--&gt;</span><br><span class="line">  	&lt;dependency&gt;</span><br><span class="line">          &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;</span><br><span class="line">          &lt;artifactId&gt;quartz&lt;/artifactId&gt;</span><br><span class="line">          &lt;version&gt;2.2.2&lt;/version&gt;</span><br><span class="line">      &lt;/dependency&gt;</span><br><span class="line">      &lt;!-- quartz end --&gt;</span><br><span class="line">  	&lt;!--spring start --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-core&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-beans&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-context&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-aop&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-expression&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-tx&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-test&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!--spring end --&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="纯注解方式"><a href="#纯注解方式" class="headerlink" title="纯注解方式"></a>纯注解方式</h3><ol>
+<li>创建job任务<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.flyhero.demo;</span><br><span class="line"></span><br><span class="line">import org.springframework.scheduling.annotation.Scheduled;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class QuartzJob &#123;</span><br><span class="line"></span><br><span class="line">	private int i=0;</span><br><span class="line">	//9点到17点间每隔一分钟执行一次</span><br><span class="line">	@Scheduled(cron = &quot;0 0/1 9-17 * * ? &quot;)</span><br><span class="line">	public void taskQuartz()&#123;</span><br><span class="line">		i++;</span><br><span class="line">		System.out.println(&quot;now i=&quot;+i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="XML配置方式"><a href="#XML配置方式" class="headerlink" title="XML配置方式"></a>XML配置方式</h3><ol>
+<li><p>新建普通job类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">package com.flyhero.demo;</span><br><span class="line"></span><br><span class="line">public class QuartzNewJob &#123;</span><br><span class="line"></span><br><span class="line">	public void run()&#123;</span><br><span class="line">		System.out.println(&quot;xml配置定时任务执行！&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在spring-quartz.xml配置文件中配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; </span><br><span class="line">	xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">	xmlns:task=&quot;http://www.springframework.org/schema/task&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans </span><br><span class="line">	http://www.springframework.org/schema/beans/spring-beans.xsd</span><br><span class="line">    http://www.springframework.org/schema/context  </span><br><span class="line">    http://www.springframework.org/schema/context/spring-context.xsd</span><br><span class="line">    http://www.springframework.org/schema/task </span><br><span class="line">    http://www.springframework.org/schema/task/spring-task.xsd &quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 	&lt;task:annotation-driven /&gt;</span><br><span class="line">	&lt;context:annotation-config /&gt;</span><br><span class="line"> 	&lt;context:component-scan base-package=&quot;com.flyhero.demo&quot;/&gt;  --&gt;</span><br><span class="line">     &lt;bean id=&quot;job&quot; class=&quot;com.flyhero.demo.QuartzNewJob&quot; &gt;&lt;/bean&gt;  </span><br><span class="line">    &lt;!-- MethodInvokingJobDetailFactoryBean用来将一个Spring bean包装为一个job --&gt;  </span><br><span class="line">    &lt;!-- 使用MethodInvokingJobDetailFactoryBean包装的job不能被序列化 --&gt;   </span><br><span class="line">    &lt;bean id=&quot;myJobDetail&quot;   </span><br><span class="line">            class=&quot;org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean&quot;&gt;  </span><br><span class="line">        &lt;!-- 被包装的Spring bean --&gt;  </span><br><span class="line">        &lt;property name=&quot;targetObject&quot; ref=&quot;job&quot; /&gt;  </span><br><span class="line">        &lt;!-- job执行方法 --&gt;  </span><br><span class="line">        &lt;property name=&quot;targetMethod&quot; value=&quot;run&quot; /&gt;  </span><br><span class="line">        &lt;!-- 无状态job --&gt;  </span><br><span class="line">        &lt;property name=&quot;concurrent&quot; value=&quot;false&quot; /&gt;  </span><br><span class="line">    &lt;/bean&gt;  </span><br><span class="line">    &lt;!-- 计划触发器 两种触发器取其一 --&gt;</span><br><span class="line">    &lt;bean id=&quot;myCronTrigger&quot;   </span><br><span class="line">            class=&quot;org.springframework.scheduling.quartz.CronTriggerFactoryBean&quot;&gt;  </span><br><span class="line">        &lt;property name=&quot;jobDetail&quot; ref=&quot;myJobDetail&quot; /&gt;  </span><br><span class="line">        &lt;property name=&quot;cronExpression&quot;&gt;  </span><br><span class="line">            &lt;value&gt;0 0/1 * * * ?&lt;/value&gt;  </span><br><span class="line">        &lt;/property&gt;  </span><br><span class="line">    &lt;/bean&gt;  </span><br><span class="line">    </span><br><span class="line">    &lt;!-- 简单触发器 1s后每2s执行一次 --&gt;</span><br><span class="line">	&lt;bean class=&quot;org.springframework.scheduling.quartz.SimpleTriggerFactoryBean&quot; 	id=&quot;simpleTrigger&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;jobDetail&quot; ref=&quot;myJobDetail&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;startDelay&quot; value=&quot;1000&quot;&gt;</span><br><span class="line">    &lt;property name=&quot;repeatInterval&quot; value=&quot;2000&quot;&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;bean class=&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;&gt;  </span><br><span class="line">        &lt;property name=&quot;triggers&quot;&gt;  </span><br><span class="line">            &lt;list&gt;  </span><br><span class="line">                &lt;ref bean=&quot;myCronTrigger&quot; /&gt;  </span><br><span class="line">            &lt;/list&gt;  </span><br><span class="line">        &lt;/property&gt;  </span><br><span class="line">    &lt;/bean&gt;  </span><br><span class="line">   &lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>最后： 运行主程序，加载配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package com.flyhero.test;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line">public class TestQuartz &#123;</span><br><span class="line">	private static ApplicationContext context;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		//加载配置文件</span><br><span class="line">		context = new ClassPathXmlApplicationContext(&quot;spring-quartz.xml&quot;);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="cron表达式"><a href="#cron表达式" class="headerlink" title="cron表达式"></a>cron表达式</h2><p>举例说明：</p>
+<p><img src="http://7xv6ov.com1.z0.glb.clouddn.com/cron%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BE%8B%E5%AD%90.png" alt="cron表达式例子"></p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>简单demo代码：<a href="https://github.com/flyhero/spring-quartz" target="_blank" rel="noopener">https://github.com/flyhero/spring-quartz</a></p>
+
+                                    
+        </div>
+        
+            <div class="columns is-variable is-1 is-multiline is-mobile" style="padding-top: 2em;">
+                
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/Spring/">#
+                            Spring
+                        </a>
+                    </span>
+                    
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/Quartz/">#
+                            Quartz
+                        </a>
+                    </span>
+                    
+            </div>
+            
+
+    </article>
+
+    <!-- 
+
+
+<div class="comments">
+    <h3 class="title is-4">评论</h3>
+    
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2016/08/04/Spring整合Quartz任务调度/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+</div>
+ -->
+
+
+    <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            
+                flyhero
+            
+        </li>
+       
+        <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+                        
+                                <a target="_blank" href="/2016/08/04/Spring整合Quartz任务调度/" title="Spring整合Quartz任务调度">
+                                    http://iflyapi.cn/2016/08/04/Spring整合Quartz任务调度/
+                                </a>
+                        
+            
+        </li>
+        <li class="post-copyright-license">
+            <strong>版权： </strong>
+            本站文章均采用
+            <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+    </ul>
+    
+</div>
+
+<div class="author-right">
+    <div class="toc-fixed">
+        <h1>文章目录</h1>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Quartz？"><span class="toc-number">1.</span> <span class="toc-text">什么是Quartz？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quartz的特点？"><span class="toc-number">2.</span> <span class="toc-text">Quartz的特点？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#任务调度的实现方式"><span class="toc-number">3.</span> <span class="toc-text">任务调度的实现方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#纯注解方式"><span class="toc-number">3.1.</span> <span class="toc-text">纯注解方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XML配置方式"><span class="toc-number">3.2.</span> <span class="toc-text">XML配置方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cron表达式"><span class="toc-number">4.</span> <span class="toc-text">cron表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">5.</span> <span class="toc-text">示例</span></a></li></ol>
+    </div>
+
+</div>
+
+<!-- 百度站长推送 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+    
+        </div>
+
+        
+
+                
+                    <div class="comments">
+                        <h3 class="title is-4">
+                            评论
+                        </h3>
+                        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2016/08/04/Spring整合Quartz任务调度/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+                    </div>
+                    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2016 - 2018 flyhero&nbsp;
+                <a href="http://www.miitbeian.gov.cn/">皖ICP备18004846号</a>
+            </div>
+            
+            <div class="column is-hidden-mobile"></div>
+        </div>
+
+    <div class="columns">
+        <div class="column is-narrow has-text-centered">
+                            <span id="busuanzi_container_site_pv">
+                                <i class="fa fa-eye"></i>
+                                <span id="busuanzi_value_site_pv"></span>次
+                            </span>
+                            <span id="busuanzi_container_site_uv">
+                                <i class="fa fa-user"></i>
+                                <span id="busuanzi_value_site_uv"></span>人次
+                            </span>
+                    &nbsp;Powered by
+                    <a href="" target="_blank">Simele</a>&nbsp;&nbsp;
+                    base on
+                    <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+        </div>
+    
+        <div class="column is-hidden-mobile"></div>
+    
+        
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                    
+                        
+                            <a class="column is-narrow has-text-black" href="https://github.com/flyhero/hexo-theme-simele">
+                                
+                                    GitHub
+                                        
+                            </a>
+                            
+                </div>
+            </div>
+            
+                
+    </div>
+
+
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+
+
+<script src="//cdn1.lncld.net/static/js/3.6.8/av-min.js"></script>
+<script>AV.initialize("BofKiGH8KL9dm9JcFAOS5k2q-gzGzoHsz", "MfK5JCAY0d9Y2dLWKDfFMbeX");</script>
+<script>
+    function showTime(Counter) {
+        
+        document.querySelectorAll(".leancloud_visitors").forEach(function (item) {
+            console.log(item.id);
+            var url = item.id.trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find().then(function (results) {
+                    if (results.length == 0) {
+                        document.getElementById(url).innerHTML = 0;
+                        return;
+                    }
+                    for (var i = 0; i < results.length; i++) {
+                        var object = results[i];
+                        document.getElementById(url).innerHTML = object.get('hits');
+                    }
+                },function (object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                }
+            );
+        });
+    }
+    function addCount(Counter) {
+        var Counter = AV.Object.extend("Counter");
+        url = document.querySelector(".leancloud_visitors").id.trim();
+        title = document.querySelector(".leancloud_visitors").getAttribute('data-title').trim();
+        var query = new AV.Query(Counter);
+        query.equalTo("url", url);
+        query.find().then(function (results) {
+                if (results.length > 0) {
+                    var counter = results[0];
+                    counter.fetchWhenSave(true);
+                    counter.increment("hits");
+                    counter.save().then(function (counter) {
+                            document.getElementById(url).innerHTML = counter.get('hits');
+                        },function (counter, error) {
+                            console.log('Failed to save Visitor num, with error message: ' + error.message);
+                        }
+                    );
+                } else {
+                    var newcounter = new Counter();
+                    newcounter.set("title", title);
+                    newcounter.set("url", url);
+                    newcounter.set("hits", 1);
+                    newcounter.save().then(function (newcounter) {
+                            console.log("newcounter.get('hits')=" + newcounter.get('hits'));
+                            document.getElementById(url).innerHTML = newcounter.get('hits');
+                        },function (newcounter, error) {
+                            console.log('Failed to create');
+                        }
+                    );
+                }
+            },function (error) {
+                console.log('Error:' + error.code + " " + error.message);
+            }
+        );
+    }
+    (function () {
+        var Counter = AV.Object.extend("Counter");
+        // 如果页面只有一个 leancloud_visitors 则认为它是文章页面
+        // 如果有多个，认为它是列表页
+        if (document.querySelectorAll('.leancloud_visitors').length == 1) {
+            addCount(Counter);
+        } else if (document.querySelectorAll('.leancloud_visitors').length > 1) {
+            showTime(Counter);
+        }
+    })();
+    </script>
+    
+    
+
+
+<script src="/js/script.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+                <!-- 
+                    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                     -->
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索" />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
