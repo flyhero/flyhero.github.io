@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>设计模式-工厂方法模式 - flyapi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="baidu-site-verification" content="vuLJkgHfME" />
+<meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"> -->
+<link href="https://cdn.bootcss.com/lightgallery/1.6.10/css/lightgallery.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css"> -->
+<link href="https://cdn.bootcss.com/justifiedGallery/3.7.0/css/justifiedGallery.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- <script defer src="//use.fontawesome.com/releases/v5.0.13/js/all.js"></script> -->
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">归档</a>
+            
+            <a class="navbar-item "
+               href="/read">阅读</a>
+            
+            <a class="navbar-item "
+               href="/about">关于</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fa fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/flyhero">
+                
+                <i class="fa fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section" style="overflow: hidden;">
+    <div class="container" style="overflow: hidden;">
+        <div style="overflow: hidden;">
+        
+            <div class="article-left">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+        <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+            
+                    设计模式-工厂方法模式
+                        
+        </h1>
+        <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+            
+                    <span class="column is-narrow ">
+                        <span class="badge badge-pill badge-success">原创</span>
+                    </span>
+                
+
+                    <span class="column is-narrow">
+                        <i class="fa fa-calendar-o"></i>
+                        <time datetime="2018-07-28T03:17:00.000Z" itemprop="datePublished">
+                            2018-07-28 11:17
+                        </time>
+                    </span>
+
+                    
+                        <span style="display: none;" class="column is-narrow">
+                           <!--  <i class="fa fa-eye"></i> -->
+                            <span id="/2018/07/28/设计模式-工厂方法模式/" class="leancloud_visitors" data-title="设计模式-工厂方法模式">
+                            </span>
+                        </span>
+                        
+
+                            
+                                <span class="column is-narrow">
+                                    <i class="fa fa-clock-o"></i>
+                                    
+                                        
+                                            10 分钟 读完 (约 1465 字)
+                                </span>
+                                
+        </div>
+        <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+            
+                                <p>工厂方法模式是创建型模式之一。它结构清晰简单，是常用的一种模式，也比较适合我们入门学习。</p>
+<a id="more"></a>
+<h2 id="简单工厂（Simple-Factory-Pattern）"><a href="#简单工厂（Simple-Factory-Pattern）" class="headerlink" title="简单工厂（Simple Factory Pattern）"></a>简单工厂（Simple Factory Pattern）</h2><p>简单工厂模式又叫静态工厂方法。虽然它并不属于23种GOF设计模式之一。但是他是抽象工厂模式，工厂方法模式的基础，并且也有广泛的应用。</p>
+<p>先来看看是怎么实现简单工厂的，以现在性价比较好的手机厂商小米和魅族为例。</p>
+<ol>
+<li><p>两家都生产手机这个产品，所以可以抽象出来一个产品，两家有各自的具体产品。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: flyhero</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018-07-28 上午10:20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Phone</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> Double price;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 输出品牌</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">brand</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 运行手机</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//小米手机</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XiaoMiPhone</span> <span class="keyword">extends</span> <span class="title">Phone</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">XiaoMiPhone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        name = <span class="string">"小米"</span>;</span><br><span class="line">        price = <span class="number">1599</span>d;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">brand</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"品牌："</span> + name + <span class="string">" 价格："</span> + price);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"开启小米手机"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//魅族手机</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MeizuPhone</span> <span class="keyword">extends</span> <span class="title">Phone</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">MeizuPhone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        name = <span class="string">"魅族"</span>;</span><br><span class="line">        price = <span class="number">1999</span>d;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">brand</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"品牌："</span> + name + <span class="string">" 价格："</span> + price);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"开启魅族手机"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我要有一座工厂，可以生产不同的手机。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimplePhoneFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据不同参数生产不同实例</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> brand</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Phone <span class="title">produce</span><span class="params">(String brand)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Phone phone = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (brand) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"meizu"</span>:</span><br><span class="line">                phone = <span class="keyword">new</span> MeizuPhone();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"xiaomi"</span>:</span><br><span class="line">                phone = <span class="keyword">new</span> XiaoMiPhone();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> phone;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过反射机制生产</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> clazz</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Phone <span class="title">produceX</span><span class="params">(Class clazz)</span> </span>&#123;</span><br><span class="line">        Phone phone = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            phone = (Phone) clazz.newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InstantiationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> phone;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>现在我新建一个工厂，然后告诉工厂我想要生产小米或魅族手机就可以了。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SimplePhoneFactory simplePhoneFactory = <span class="keyword">new</span> SimplePhoneFactory();</span><br><span class="line">        simplePhoneFactory.produce(<span class="string">"xiaomi"</span>).brand();</span><br><span class="line">        simplePhoneFactory.produce(<span class="string">"meizu"</span>).brand();</span><br><span class="line">        simplePhoneFactory.produceX(XiaoMiPhone.class).brand();     </span><br><span class="line">        simplePhoneFactory.produceX(MeizuPhone.class).brand();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://p0y35f4y3.bkt.clouddn.com/simple-factory.png" alt="简单工厂"></p>
+<h3 id="为什么使用？"><a href="#为什么使用？" class="headerlink" title="为什么使用？"></a>为什么使用？</h3><p>我们一直强调要面向接口编程，尽量不要依赖于具体的类。这里我们抽象出了产品类，然后通过一个工厂类，输入不同的参数可以创建不同的产品，这大大解耦了客户端依赖过多的类。</p>
+<h3 id="有什么不好的地方？"><a href="#有什么不好的地方？" class="headerlink" title="有什么不好的地方？"></a>有什么不好的地方？</h3><ol>
+<li>增加产品，需要修改工厂类，不符合开闭原则</li>
+<li>工厂类集中了所有实例的创建逻辑，违反了高内聚责任分配原则</li>
+</ol>
+<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><p>  定义：一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类。</p>
+<p> <strong>何时使用</strong></p>
+<ul>
+<li>用户需要一个类的子类的实例，但不希望与该类的子类形成耦合</li>
+<li>用户需要一个类的子类的实例，但用户不知道该类有哪些子类可用</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>使用工厂方法可以让用户的代码和某个特定类的子类的代码解耦</li>
+<li>工厂方法使用户不必知道它所使用的对象是怎样被创建的，只需知道该对象有哪些方法即可。</li>
+</ul>
+<p>如何实现</p>
+<ol>
+<li>抽象一个产品，同简单工厂第一步。</li>
+<li>抽象出一个工厂类和n个具体工厂</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生产实例</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Phone <span class="title">produce</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//魅族工厂</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MeizuFactory</span> <span class="keyword">implements</span> <span class="title">IFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Phone <span class="title">produce</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MeizuPhone();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//小米工厂</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XiaoMiFactory</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Phone <span class="title">produce</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> XiaoMiPhone();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>现在我要生产魅族手机就新建魅族工厂，小米就新建小米工厂。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        IFactory meizu = <span class="keyword">new</span> MeizuFactory();</span><br><span class="line">        meizu.produce().brand();</span><br><span class="line"></span><br><span class="line">        IFactory xiaomi = <span class="keyword">new</span> XiaoMiFactory();</span><br><span class="line">        xiaomi.produce().brand();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="UML-1"><a href="#UML-1" class="headerlink" title="UML"></a>UML</h3><p><img src="http://p0y35f4y3.bkt.clouddn.com/method-factory.png" alt="简单工厂"></p>
+<h2 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2><p> 定义：提供一个创建一系列或相互依赖对象的接口，而无须指定他们的具体的类。</p>
+<p>现在每个工厂只生产了手机，但现在想要再生产耳机呢？于是我又抽象出来了“抽象类耳机”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Headset</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String name;   </span><br><span class="line">    <span class="keyword">public</span> Double price;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 播放 </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>; </span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XiaomiHeadset</span> <span class="keyword">extends</span> <span class="title">Headset</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"小米耳机播放音乐"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MeizuHeadset</span> <span class="keyword">extends</span> <span class="title">Headset</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"魅族耳机播放音乐"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>于是我在抽象工厂类中扩展类一个生产耳机的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生产实例</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Phone <span class="title">produce</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 生产耳机 </span></span><br><span class="line"><span class="comment">    * </span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">    */</span> </span><br><span class="line">    <span class="function">Headset <span class="title">produceHeadset</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MeizuFactory</span> <span class="keyword">implements</span> <span class="title">IFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Phone <span class="title">produce</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MeizuPhone();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span> </span><br><span class="line">  <span class="function"><span class="keyword">public</span> Headset <span class="title">produceHeadset</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MeizuHeadset(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XiaoMiFactory</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Phone <span class="title">produce</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> XiaoMiPhone();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span> </span><br><span class="line">  <span class="function"><span class="keyword">public</span> Headset <span class="title">produceHeadset</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> XiaoMiHeadset(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在魅族或小米无论想要生产手机或耳机，就可以新建自己的工厂，然后调用对应的生产方法就可以了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        IAbstractFactory meizu = <span class="keyword">new</span> MeizuFactory();</span><br><span class="line">        meizu.produceHeadset().play();</span><br><span class="line">        meizu.producePhone().run();</span><br><span class="line"></span><br><span class="line">        IAbstractFactory xiaomi = <span class="keyword">new</span> XiaomiFactory();</span><br><span class="line">        xiaomi.produceHeadset().play();</span><br><span class="line">        xiaomi.producePhone().run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="UML-2"><a href="#UML-2" class="headerlink" title="UML"></a>UML</h3><p><img src="http://p0y35f4y3.bkt.clouddn.com/abstract-factory.png" alt="简单工厂"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>真实的忠告：看三遍不如实践一遍，看三遍加实践效果更佳。</p>
+<p>结合UML图就可以知道三者的区别。</p>
+<ol>
+<li>简单工厂模式</li>
+</ol>
+<ul>
+<li>一个抽象的产品，n个具体的产品</li>
+<li>没有抽象工厂，1个具体工厂</li>
+<li>根据输入的参数不同，创建不同的具体产品</li>
+</ul>
+<ol start="2">
+<li>工厂方法模式</li>
+</ol>
+<ul>
+<li>一个抽象的产品，n个具体的产品</li>
+<li>一个抽象的工厂，n个具体的工厂</li>
+<li>每个工厂只生产一个产品</li>
+</ul>
+<ol start="3">
+<li>抽象工厂模式</li>
+</ol>
+<ul>
+<li>一个抽象的产品，n个具体的产品</li>
+<li>一个抽象的工厂，n个具体的工厂</li>
+<li>每个工厂只生产n个产品</li>
+</ul>
+
+                                    
+        </div>
+        
+
+    </article>
+
+    <!-- 
+
+
+<div class="comments">
+    <h3 class="title is-4">评论</h3>
+    
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2018/07/28/设计模式-工厂方法模式/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+</div>
+ -->
+
+
+    <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            
+                flyhero
+            
+        </li>
+       
+        <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+                        
+                                <a target="_blank" href="/2018/07/28/设计模式-工厂方法模式/" title="设计模式-工厂方法模式">
+                                    http://iflyapi.cn/2018/07/28/设计模式-工厂方法模式/
+                                </a>
+                        
+            
+        </li>
+        <li class="post-copyright-license">
+            <strong>版权： </strong>
+            本站文章均采用
+            <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+    </ul>
+    
+</div>
+
+<div class="author-right">
+    <div class="toc-fixed">
+        <h1>文章目录</h1>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简单工厂（Simple-Factory-Pattern）"><span class="toc-number">1.</span> <span class="toc-text">简单工厂（Simple Factory Pattern）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UML"><span class="toc-number">1.1.</span> <span class="toc-text">UML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么使用？"><span class="toc-number">1.2.</span> <span class="toc-text">为什么使用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有什么不好的地方？"><span class="toc-number">1.3.</span> <span class="toc-text">有什么不好的地方？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工厂方法模式"><span class="toc-number">2.</span> <span class="toc-text">工厂方法模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UML-1"><span class="toc-number">2.1.</span> <span class="toc-text">UML</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象工厂模式"><span class="toc-number">3.</span> <span class="toc-text">抽象工厂模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UML-2"><span class="toc-number">3.1.</span> <span class="toc-text">UML</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+
+</div>
+
+<!-- 百度站长推送 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+    
+        </div>
+
+        
+
+                
+                    <div class="comments">
+                        <h3 class="title is-4">
+                            评论
+                        </h3>
+                        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2018/07/28/设计模式-工厂方法模式/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+                    </div>
+                    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2016 - 2018 flyhero&nbsp;
+                <a href="http://www.miitbeian.gov.cn/">皖ICP备18004846号</a>
+            </div>
+            
+            <div class="column is-hidden-mobile"></div>
+        </div>
+
+    <div class="columns">
+        <div class="column is-narrow has-text-centered">
+                            <span id="busuanzi_container_site_pv">
+                                <i class="fa fa-eye"></i>
+                                <span id="busuanzi_value_site_pv"></span>次
+                            </span>
+                            <span id="busuanzi_container_site_uv">
+                                <i class="fa fa-user"></i>
+                                <span id="busuanzi_value_site_uv"></span>人次
+                            </span>
+                    &nbsp;Powered by
+                    <a href="" target="_blank">Simele</a>&nbsp;&nbsp;
+                    base on
+                    <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+        </div>
+    
+        <div class="column is-hidden-mobile"></div>
+    
+        
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                    
+                        
+                            <a class="column is-narrow has-text-black" href="https://github.com/flyhero/hexo-theme-simele">
+                                
+                                    GitHub
+                                        
+                            </a>
+                            
+                </div>
+            </div>
+            
+                
+    </div>
+
+
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+
+
+<script src="//cdn1.lncld.net/static/js/3.6.8/av-min.js"></script>
+<script>AV.initialize("BofKiGH8KL9dm9JcFAOS5k2q-gzGzoHsz", "MfK5JCAY0d9Y2dLWKDfFMbeX");</script>
+<script>
+    function showTime(Counter) {
+        
+        document.querySelectorAll(".leancloud_visitors").forEach(function (item) {
+            console.log(item.id);
+            var url = item.id.trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find().then(function (results) {
+                    if (results.length == 0) {
+                        document.getElementById(url).innerHTML = 0;
+                        return;
+                    }
+                    for (var i = 0; i < results.length; i++) {
+                        var object = results[i];
+                        document.getElementById(url).innerHTML = object.get('hits');
+                    }
+                },function (object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                }
+            );
+        });
+    }
+    function addCount(Counter) {
+        var Counter = AV.Object.extend("Counter");
+        url = document.querySelector(".leancloud_visitors").id.trim();
+        title = document.querySelector(".leancloud_visitors").getAttribute('data-title').trim();
+        var query = new AV.Query(Counter);
+        query.equalTo("url", url);
+        query.find().then(function (results) {
+                if (results.length > 0) {
+                    var counter = results[0];
+                    counter.fetchWhenSave(true);
+                    counter.increment("hits");
+                    counter.save().then(function (counter) {
+                            document.getElementById(url).innerHTML = counter.get('hits');
+                        },function (counter, error) {
+                            console.log('Failed to save Visitor num, with error message: ' + error.message);
+                        }
+                    );
+                } else {
+                    var newcounter = new Counter();
+                    newcounter.set("title", title);
+                    newcounter.set("url", url);
+                    newcounter.set("hits", 1);
+                    newcounter.save().then(function (newcounter) {
+                            console.log("newcounter.get('hits')=" + newcounter.get('hits'));
+                            document.getElementById(url).innerHTML = newcounter.get('hits');
+                        },function (newcounter, error) {
+                            console.log('Failed to create');
+                        }
+                    );
+                }
+            },function (error) {
+                console.log('Error:' + error.code + " " + error.message);
+            }
+        );
+    }
+    (function () {
+        var Counter = AV.Object.extend("Counter");
+        // 如果页面只有一个 leancloud_visitors 则认为它是文章页面
+        // 如果有多个，认为它是列表页
+        if (document.querySelectorAll('.leancloud_visitors').length == 1) {
+            addCount(Counter);
+        } else if (document.querySelectorAll('.leancloud_visitors').length > 1) {
+            showTime(Counter);
+        }
+    })();
+    </script>
+    
+    
+
+
+<script src="/js/script.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+                <!-- 
+                    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                     -->
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索" />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
