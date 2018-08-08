@@ -89,7 +89,8 @@
         <div style="overflow: hidden;">
 
             <article class="article content gallery" itemscope itemprop="blogPost">
-    <h2 id="态度篇"><a href="#态度篇" class="headerlink" title="态度篇"></a>态度篇</h2><ol>
+    <h1 id="工作手册"><a href="#工作手册" class="headerlink" title="工作手册"></a>工作手册</h1><p>总结工作中需要注意的方方面面</p>
+<h2 id="态度篇"><a href="#态度篇" class="headerlink" title="态度篇"></a>态度篇</h2><ol>
 <li>每日小会议总结是必须的（及时沟通）</li>
 <li>完不成要提前预警，降低上级部门的预期</li>
 <li>着手之前通观全局，决定架构和方案，不要走一步算一步。</li>
@@ -98,15 +99,22 @@
 <li>有个规划，每日任务</li>
 <li>主动承担责任（早晚有意想不到的结果）</li>
 </ol>
-<h2 id="技术篇"><a href="#技术篇" class="headerlink" title="技术篇"></a>技术篇</h2><ol>
-<li>不要在循坏语句内连接数据库。</li>
-</ol>
-<h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><ol>
+<h2 id="技术篇"><a href="#技术篇" class="headerlink" title="技术篇"></a>技术篇</h2><h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><ol>
 <li>入参一定要打印出来，方法中每个return前要打印说明原因。</li>
 </ol>
 <h3 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h3><ol>
 <li>暴露的服务仅提供的jar应是最简化版，仅包含暴露所需。</li>
 </ol>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ol>
+<li>不要在代码循坏语句内连接数据库。这会让数据库内存很快涨起来。</li>
+<li>修改mysql server 的最大连接数（默认150个），当你超过时会收到一个异常 <code>Too many connections</code>,有两个命令可以帮到你：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#查看进程</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">processlist</span>; </span><br><span class="line">#查看最大连接设置</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'max_connections'</span>; </span><br><span class="line">#设置最大连接数</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">GLOBAL</span> max_connections=<span class="number">1500</span>;</span><br></pre></td></tr></table></figure>
+<p>这种设置，一旦server重启后就失效了，最根本的是修改配置文件。</p>
+<ol start="2">
+<li>不要在 in 中放置过多内容，会导致程序出现<br><code>Caused by: com.mysql.jdbc.PacketTooBigException: Packet for query is too large (1379 &gt; 1024). You can change this value on the server by setting the max_allowed_packet&#39; variable.</code></li>
+</ol>
+<p>如果确实需要，你可以修改mysql server 的max_allowed_packet大小。</p>
 <h2 id="面试篇"><a href="#面试篇" class="headerlink" title="面试篇"></a>面试篇</h2><ol>
 <li>了解清楚公司的产品有多少？用到什么技术？有什么依赖？</li>
 <li>同语言开发不低于5人，各个层级是否有人（高中初级）？是否有技术积累（展示渠道，可回家看看）？</li>
