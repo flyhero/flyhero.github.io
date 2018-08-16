@@ -112,8 +112,13 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#查看进程</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">processlist</span>; </span><br><span class="line">#查看最大连接设置</span><br><span class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'max_connections'</span>; </span><br><span class="line">#设置最大连接数</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">GLOBAL</span> max_connections=<span class="number">1500</span>;</span><br></pre></td></tr></table></figure>
 <p>这种设置，一旦server重启后就失效了，最根本的是修改配置文件。</p>
 <ol start="2">
-<li>不要在 in 中放置过多内容，会导致程序出现<br><code>Caused by: com.mysql.jdbc.PacketTooBigException: Packet for query is too large (1379 &gt; 1024). You can change this value on the server by setting the max_allowed_packet&#39; variable.</code></li>
+<li><p>不要在 in 中放置过多内容，会导致程序出现<br><code>Caused by: com.mysql.jdbc.PacketTooBigException: Packet for query is too large (1379 &gt; 1024). You can change this value on the server by setting the max_allowed_packet&#39; variable.</code></p>
+</li>
+<li><p>不要把数组转成字符串在in中，如果这样，它只会匹配第一个逗号之前的数字（下面例子即只匹配id为1的）。<br>反例：</p>
+</li>
 </ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String ids = <span class="string">"1,2,3"</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="string">'1,2,3'</span>)</span><br></pre></td></tr></table></figure>
 <p>如果确实需要，你可以修改mysql server 的max_allowed_packet大小。</p>
 <h2 id="面试篇"><a href="#面试篇" class="headerlink" title="面试篇"></a>面试篇</h2><ol>
 <li>了解清楚公司的产品有多少？用到什么技术？有什么依赖？</li>

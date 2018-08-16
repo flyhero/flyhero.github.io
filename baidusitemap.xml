@@ -3,6 +3,46 @@
 
 
     
+  <url>
+    <loc>http://iflyapi.cn/2018/08/14/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2018-08-16T07:40:31.241Z</lastmod>
+    <data>
+        <display>
+        <title>Linux常用命令</title>
+        <pubTime>2018-08-14T04:17:00.000Z</pubTime>
+        
+        <tag>Shell</tag>
+         
+        <tag>Linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://iflyapi.cn/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://iflyapi.cn/2018/08/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-08-16T07:32:39.281Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式-单例模式</title>
+        <pubTime>2018-08-14T04:17:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://iflyapi.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://iflyapi.cn/2018/07/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</loc>
@@ -286,6 +326,28 @@
            
              
               <breadCrumb title="solr" url="http://iflyapi.cn/categories/solr/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://iflyapi.cn/2016/06/20/git%E4%B8%8A%E4%BC%A0%E4%BB%A3%E7%A0%81%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/</loc>
+    <lastmod>2018-05-26T02:42:06.973Z</lastmod>
+    <data>
+        <display>
+        <title>git上传代码的两种方式</title>
+        <pubTime>2016-06-20T13:14:25.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+        <tag>github</tag>
+         
+         
+           
+             
+              <breadCrumb title="git" url="http://iflyapi.cn/categories/git/"/>
           
         </display>
     </data>
