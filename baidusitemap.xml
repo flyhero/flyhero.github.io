@@ -3,6 +3,25 @@
 
 
     
+  <url>
+    <loc>http://iflyapi.cn/2018/08/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-08-17T08:10:18.940Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式-单例模式</title>
+        <pubTime>2018-08-14T04:17:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://iflyapi.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
     
   <url>
     <loc>http://iflyapi.cn/2018/08/05/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
@@ -27,24 +46,6 @@
 
     
   <url>
-    <loc>http://iflyapi.cn/2018/08/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-08-16T07:32:39.281Z</lastmod>
-    <data>
-        <display>
-        <title>设计模式-单例模式</title>
-        <pubTime>2018-08-14T04:17:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="设计模式" url="http://iflyapi.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://iflyapi.cn/2018/07/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2018-08-02T11:48:22.011Z</lastmod>
     <data>
@@ -61,7 +62,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>http://iflyapi.cn/2018/07/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BC%80%E7%AF%87/</loc>
