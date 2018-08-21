@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://iflyapi.cn/2018/08/05/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+    
+    <lastmod>2018-08-21T10:17:25.968Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://iflyapi.cn/2018/08/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
     
-    <lastmod>2018-08-17T08:10:18.940Z</lastmod>
+    <lastmod>2018-08-21T02:19:20.453Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://iflyapi.cn/about/index.html</loc>
+    
+    <lastmod>2018-08-18T02:42:41.440Z</lastmod>
     
   </url>
   
@@ -23,13 +37,6 @@
   </url>
   
   <url>
-    <loc>http://iflyapi.cn/2018/08/05/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
-    
-    <lastmod>2018-08-16T07:46:32.036Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://iflyapi.cn/2018/07/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</loc>
     
     <lastmod>2018-08-02T11:48:22.011Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://iflyapi.cn/2018/07/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BC%80%E7%AF%87/</loc>
     
     <lastmod>2018-07-27T10:13:54.508Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://iflyapi.cn/about/index.html</loc>
-    
-    <lastmod>2018-07-23T09:58:12.444Z</lastmod>
     
   </url>
   

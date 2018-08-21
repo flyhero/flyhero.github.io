@@ -122,7 +122,7 @@
                                     <i class="fa fa-clock-o"></i>
                                     
                                         
-                                            几秒 读完 (约 94 字)
+                                            1 分钟 读完 (约 190 字)
                                 </span>
                                 
         </div>
@@ -130,12 +130,20 @@
             
                                 <p>作为一个有理想有逼格的后端工程师，Linux的常用命令我们是必须掌握的。这句话只是显示逼格，真实的是，Linux命令是个后台工程师就必须会的。( I think so . )</p>
 <a id="more"></a>
-<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><h2 id="文件及文件夹"><a href="#文件及文件夹" class="headerlink" title="文件及文件夹"></a>文件及文件夹</h2><h3 id="创建文件及文件夹"><a href="#创建文件及文件夹" class="headerlink" title="创建文件及文件夹"></a>创建文件及文件夹</h3><ul>
-<li>mkdir<br>make directory的缩写</li>
-<li>touch</li>
+<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><h2 id="文件及文件夹"><a href="#文件及文件夹" class="headerlink" title="文件及文件夹"></a>文件及文件夹</h2><ul>
+<li><p>创建文件夹 mkdir<br><strong>功能:</strong><br>make directory的缩写,用于创建种子定名称的目录，要求当前用户具有写权限。<br><strong>格式</strong><br><code>mkdir [选项] 目录名称</code><br><strong>参数</strong></p>
+<pre><code>-m, --mode=MODE  设定权限&lt;模式&gt; (类似 chmod)
+-p, --parents    若父级目录不存在，自动创建
+-v, --verbose    创建后打印信息
+</code></pre><p><strong>示例</strong></p>
+<p>  mkdir -m 777 test1<br>  mkdir -p /home/qfwang/test2<br>  mkdir -v test3<br>  $ mkdir: created directory ‘test3’</p>
+</li>
 </ul>
 <ul>
-<li>cd<br>Change Directory</li>
+<li>创建文件 touch</li>
+</ul>
+<ul>
+<li>切换目录 cd<br>Change Directory</li>
 </ul>
 
                                     
@@ -215,7 +223,7 @@
 <div class="author-right">
     <div class="toc-fixed">
         <h1>文章目录</h1>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux权限"><span class="toc-number">1.</span> <span class="toc-text">Linux权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹"><span class="toc-number">2.</span> <span class="toc-text">文件及文件夹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件及文件夹"><span class="toc-number">2.1.</span> <span class="toc-text">创建文件及文件夹</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux权限"><span class="toc-number">1.</span> <span class="toc-text">Linux权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹"><span class="toc-number">2.</span> <span class="toc-text">文件及文件夹</span></a></li></ol>
     </div>
 
 </div>
