@@ -122,7 +122,7 @@
                                     <i class="fa fa-clock-o"></i>
                                     
                                         
-                                            2 分钟 读完 (约 302 字)
+                                            3 分钟 读完 (约 496 字)
                                 </span>
                                 
         </div>
@@ -151,8 +151,16 @@ $ mkdir: created directory &apos;test3&apos;
 <li><p><strong>示例</strong></p>
 </li>
 </ul>
-<ul>
-<li>切换目录 cd<br>Change Directory</li>
+<h3 id="文件的复制-cp"><a href="#文件的复制-cp" class="headerlink" title="文件的复制 cp"></a>文件的复制 cp</h3><ul>
+<li><strong>功能</strong><br>copy的缩写，用于文件的复制，也可以多个文件复制到同一目录下。</li>
+<li><strong>格式</strong><br><code>cp [选项] 源…… 目标</code></li>
+<li><p><strong>参数</strong></p>
+<p>  -a ：将文件的特性一起复制<br>  -p ：连同文件的属性一起复制，而非使用默认方式，与-a相似，常用于备份<br>  -i ：若目标文件已经存在时，在覆盖时会先询问操作的进行<br>  -r ：递归持续复制，用于目录的复制行为<br>  -u ：目标文件与源文件有差异时才会复制</p>
+</li>
+<li><p><strong>示例</strong></p>
+<pre><code>cp -a file1 file2 #连同文件的所有特性把文件file1复制成文件file2
+cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
+</code></pre></li>
 </ul>
 
                                     
@@ -232,7 +240,7 @@ $ mkdir: created directory &apos;test3&apos;
 <div class="author-right">
     <div class="toc-fixed">
         <h1>文章目录</h1>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux权限"><span class="toc-number">1.</span> <span class="toc-text">Linux权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹"><span class="toc-number">2.</span> <span class="toc-text">文件及文件夹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件夹-mkdir"><span class="toc-number">2.1.</span> <span class="toc-text">创建文件夹 mkdir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件-touch"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件 touch</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux权限"><span class="toc-number">1.</span> <span class="toc-text">Linux权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹"><span class="toc-number">2.</span> <span class="toc-text">文件及文件夹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件夹-mkdir"><span class="toc-number">2.1.</span> <span class="toc-text">创建文件夹 mkdir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件-touch"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件 touch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件的复制-cp"><span class="toc-number">2.3.</span> <span class="toc-text">文件的复制 cp</span></a></li></ol></li></ol>
     </div>
 
 </div>
