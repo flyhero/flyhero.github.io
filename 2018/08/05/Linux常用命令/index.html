@@ -122,7 +122,7 @@
                                     <i class="fa fa-clock-o"></i>
                                     
                                         
-                                            3 分钟 读完 (约 496 字)
+                                            5 分钟 读完 (约 718 字)
                                 </span>
                                 
         </div>
@@ -162,6 +162,19 @@ $ mkdir: created directory &apos;test3&apos;
 cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
 </code></pre></li>
 </ul>
+<h3 id="列出文件-ls"><a href="#列出文件-ls" class="headerlink" title="列出文件 ls"></a>列出文件 ls</h3><ul>
+<li><p><strong>功能</strong><br>list的缩写，用于列出当前或指定目录下的文件及文件夹- </p>
+</li>
+<li><p><strong>格式</strong><br><code>ls [选项] 指定目录</code></p>
+</li>
+<li><p><strong>参数</strong></p>
+<p>  -l ：列出长数据串，包含文件的属性与权限数据等<br>  -a ：列出全部的文件，连同隐藏文件（开头为.的文件）一起列出来（常用）<br>  -d ：仅列出目录本身，而不是列出目录的文件数据<br>  -h ：将文件容量以较易读的方式（GB，kB等）列出来<br>  -R ：连同子目录的内容一起列出（递归列出），等于该目录下的所有文件都会显示出来</p>
+</li>
+</ul>
+<ul>
+<li><strong>示例</strong></li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@java:~$ ls -l</span><br><span class="line">total 3240</span><br><span class="line">drwxrwxr-x 2 root root    4096 Jun 26 02:59 dashboard</span><br><span class="line">drwxrwxr-x 7 root root    4096 Aug 29 03:33 dashboard-src</span><br><span class="line">root@java:~$ ls -hl</span><br><span class="line">total 3.2M</span><br><span class="line">drwxrwxr-x 2 root root 4.0K Jun 26 02:59 dashboard</span><br><span class="line">drwxrwxr-x 7 root root 4.0K Aug 29 03:33 dashboard-src</span><br></pre></td></tr></table></figure>
 
                                     
         </div>
@@ -240,7 +253,7 @@ cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
 <div class="author-right">
     <div class="toc-fixed">
         <h1>文章目录</h1>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux权限"><span class="toc-number">1.</span> <span class="toc-text">Linux权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹"><span class="toc-number">2.</span> <span class="toc-text">文件及文件夹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件夹-mkdir"><span class="toc-number">2.1.</span> <span class="toc-text">创建文件夹 mkdir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件-touch"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件 touch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件的复制-cp"><span class="toc-number">2.3.</span> <span class="toc-text">文件的复制 cp</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux权限"><span class="toc-number">1.</span> <span class="toc-text">Linux权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹"><span class="toc-number">2.</span> <span class="toc-text">文件及文件夹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件夹-mkdir"><span class="toc-number">2.1.</span> <span class="toc-text">创建文件夹 mkdir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件-touch"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件 touch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件的复制-cp"><span class="toc-number">2.3.</span> <span class="toc-text">文件的复制 cp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列出文件-ls"><span class="toc-number">2.4.</span> <span class="toc-text">列出文件 ls</span></a></li></ol></li></ol>
     </div>
 
 </div>

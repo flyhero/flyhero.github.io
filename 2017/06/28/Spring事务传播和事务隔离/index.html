@@ -226,7 +226,43 @@
 </tr>
 </tbody>
 </table>
-<p>MySQL 事务隔离级别<br>名称| 脏读|幻读|不可重复读<br>—|—|—|—|—<br>读未提交 READ UNCOMMITTED|√ |√ |√<br>读已提交 READ COMMITTED|× |√ |√<br>可重复读 REPEATABLE READ|× |√ |×<br>可串行化 SERIALIZABLE|× |× |×</p>
+<p>MySQL 事务隔离级别</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>脏读</th>
+<th>幻读</th>
+<th>不可重复读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>读未提交 READ UNCOMMITTED</td>
+<td>√</td>
+<td>√</td>
+<td>√ </td>
+</tr>
+<tr>
+<td>读已提交 READ COMMITTED</td>
+<td>×</td>
+<td>√</td>
+<td>√ </td>
+</tr>
+<tr>
+<td>可重复读 REPEATABLE READ</td>
+<td>×</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>可串行化 SERIALIZABLE</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <ul>
 <li>在MySQL数据库中，支持上面四种隔离级别，默认的为Repeatable read (可重复读)；</li>
