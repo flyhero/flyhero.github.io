@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>设计模式-生成器模式 - flyapi</title>
+<title>设计模式-建造者模式 - flyapi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="baidu-site-verification" content="vuLJkgHfME" />
 <meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
@@ -92,7 +92,7 @@
     <article class="article content gallery" itemscope itemprop="blogPost">
         <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
             
-                    设计模式-生成器模式
+                    设计模式-建造者模式
                         
         </h1>
         <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -112,7 +112,7 @@
                     
                         <span style="display: none;" class="column is-narrow">
                            <!--  <i class="fa fa-eye"></i> -->
-                            <span id="/2018/08/30/设计模式-生成器模式/" class="leancloud_visitors" data-title="设计模式-生成器模式">
+                            <span id="/2018/08/30/设计模式-建造者模式/" class="leancloud_visitors" data-title="设计模式-建造者模式">
                             </span>
                         </span>
                         
@@ -122,13 +122,15 @@
                                     <i class="fa fa-clock-o"></i>
                                     
                                         
-                                            2 分钟 读完 (约 328 字)
+                                            4 分钟 读完 (约 565 字)
                                 </span>
                                 
         </div>
         <div class="article-entry is-size-6-mobile" itemprop="articleBody">
             
-                                <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>建造者模式(Builder Pattern)：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</strong></p>
+                                <p>软件是现实世界的抽象，现实中制造一个机器人是一个非常复杂的过程，同样在软件中也是，但我们仍然需要创建这个复杂的机器人对象，但怎么能让我们简单的创建出这个复杂的对象呢？</p>
+<a id="more"></a>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>建造者模式(Builder Pattern)：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</strong></p>
 <h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h3><ul>
 <li>Builder：抽象建造者<br>定义了产品的创建及返回方法。</li>
 <li>ConcreteBuilder：具体建造者<br>具体如何创建产品及返回产品</li>
@@ -143,7 +145,15 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: flyhero</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018-08-29 下午7:22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RobotBuilder</span> <span class="keyword">implements</span> <span class="title">Builder</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Robot robot = <span class="keyword">new</span> Robot();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildSkeleton</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        robot.setSkeleton(<span class="string">"构建机器骨架"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildMailboard</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        robot.setMainboard(<span class="string">"构建主板"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildBattery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        robot.setBattery(<span class="string">"构建电池"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Robot <span class="title">getResult</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.robot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>指挥者</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Director</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Builder builder;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Director</span><span class="params">(Builder builder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.builder = builder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生产机器人</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Robot <span class="title">build</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        builder.buildSkeleton();</span><br><span class="line">        builder.buildMailboard();</span><br><span class="line">        builder.buildBattery();</span><br><span class="line">        <span class="keyword">return</span> builder.getResult();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*    public static void main(String[] args) &#123;</span></span><br><span class="line"><span class="comment">        Builder builder = new RobotBuilder();</span></span><br><span class="line"><span class="comment">        Director director = new Director(builder);</span></span><br><span class="line"><span class="comment">        Robot robot = director.build();</span></span><br><span class="line"><span class="comment">        System.out.println(robot.toString());</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3>
+<h3 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h3><p><img src="http://p0y35f4y3.bkt.clouddn.com/builder.png" alt="建造者模式UML"></p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>客户端不需要知道产品的内部细节，将产品与产品的创建过程进行解耦，使得同样的创建过程可以创建不同的产品对象。</li>
+<li>每个具体建造者相对独立，可以很方便的增加新的建造者。</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>建造者模式所创建的产品一般具有较多的共同点，其组成部分也比较相似，如果产品之间差异性较大，就不太合适了。</li>
+</ol>
+<h2 id="变种"><a href="#变种" class="headerlink" title="变种"></a>变种</h2>
                                     
         </div>
         
@@ -161,7 +171,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 	var gitment = new Gitment({
-		id: '2018/08/30/设计模式-生成器模式/',
+		id: '2018/08/30/设计模式-建造者模式/',
 		owner: 'flyhero',
 		repo: 'flyhero.github.io',
 		oauth: {
@@ -187,8 +197,8 @@
         <li class="post-copyright-link">
             <strong>本文链接：</strong>
                         
-                                <a target="_blank" href="/2018/08/30/设计模式-生成器模式/" title="设计模式-生成器模式">
-                                    http://iflyapi.cn/2018/08/30/设计模式-生成器模式/
+                                <a target="_blank" href="/2018/08/30/设计模式-建造者模式/" title="设计模式-建造者模式">
+                                    http://iflyapi.cn/2018/08/30/设计模式-建造者模式/
                                 </a>
                         
             
@@ -205,7 +215,7 @@
 <div class="author-right">
     <div class="toc-fixed">
         <h1>文章目录</h1>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#角色"><span class="toc-number">2.</span> <span class="toc-text">角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例"><span class="toc-number">3.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UML"><span class="toc-number">4.</span> <span class="toc-text">UML</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#角色"><span class="toc-number">2.</span> <span class="toc-text">角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例"><span class="toc-number">3.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UML"><span class="toc-number">4.</span> <span class="toc-text">UML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优点"><span class="toc-number">5.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">6.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变种"><span class="toc-number"></span> <span class="toc-text">变种</span></a>
     </div>
 
 </div>
@@ -241,7 +251,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 	var gitment = new Gitment({
-		id: '2018/08/30/设计模式-生成器模式/',
+		id: '2018/08/30/设计模式-建造者模式/',
 		owner: 'flyhero',
 		repo: 'flyhero.github.io',
 		oauth: {
