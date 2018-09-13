@@ -122,7 +122,7 @@
                                     <i class="fa fa-clock-o"></i>
                                     
                                         
-                                            5 分钟 读完 (约 718 字)
+                                            6 分钟 读完 (约 883 字)
                                 </span>
                                 
         </div>
@@ -175,6 +175,16 @@ cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
 <li><strong>示例</strong></li>
 </ul>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@java:~$ ls -l</span><br><span class="line">total 3240</span><br><span class="line">drwxrwxr-x 2 root root    4096 Jun 26 02:59 dashboard</span><br><span class="line">drwxrwxr-x 7 root root    4096 Aug 29 03:33 dashboard-src</span><br><span class="line">root@java:~$ ls -hl</span><br><span class="line">total 3.2M</span><br><span class="line">drwxrwxr-x 2 root root 4.0K Jun 26 02:59 dashboard</span><br><span class="line">drwxrwxr-x 7 root root 4.0K Aug 29 03:33 dashboard-src</span><br></pre></td></tr></table></figure>
+<h3 id="文件的移动-mv"><a href="#文件的移动-mv" class="headerlink" title="文件的移动 mv"></a>文件的移动 mv</h3><p>mv是move的缩写，该命令用于移动文件、目录。</p>
+<ul>
+<li><strong>格式</strong><br><code>mv [选项] 指定文件/目录……  目标目录</code></li>
+<li><p><strong>参数</strong></p>
+<p>  -f ：force强制的意思，如果目标文件已经存在，不会询问而直接覆盖<br>  -i ：若目标文件已经存在，就会询问是否覆盖<br>  -u ：若目标文件已经存在，且比目标文件新，才会更新</p>
+</li>
+<li><p><strong>示例</strong></p>
+</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~/<span class="built_in">test</span> » ls                                                                                                                                      dfadmin@Java-test</span><br><span class="line">jm  jm.text</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">~/<span class="built_in">test</span> » cp -f jm.text jm/jm1.text                                                                                                               dfadmin@Java-test</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">~/<span class="built_in">test</span> » cp -i jm.text jm/jm1.text                                                                                                               dfadmin@Java-test</span><br><span class="line">cp: overwrite <span class="string">'jm/jm1.text'</span>? y</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">~/<span class="built_in">test</span> » cp -u jm.text jm/jm1.text</span><br></pre></td></tr></table></figure>
 
                                     
         </div>
@@ -253,7 +263,7 @@ cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
 <div class="author-right">
     <div class="toc-fixed">
         <h1>文章目录</h1>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux权限"><span class="toc-number">1.</span> <span class="toc-text">Linux权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹"><span class="toc-number">2.</span> <span class="toc-text">文件及文件夹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件夹-mkdir"><span class="toc-number">2.1.</span> <span class="toc-text">创建文件夹 mkdir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件-touch"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件 touch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件的复制-cp"><span class="toc-number">2.3.</span> <span class="toc-text">文件的复制 cp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列出文件-ls"><span class="toc-number">2.4.</span> <span class="toc-text">列出文件 ls</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux权限"><span class="toc-number">1.</span> <span class="toc-text">Linux权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹"><span class="toc-number">2.</span> <span class="toc-text">文件及文件夹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件夹-mkdir"><span class="toc-number">2.1.</span> <span class="toc-text">创建文件夹 mkdir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件-touch"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件 touch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件的复制-cp"><span class="toc-number">2.3.</span> <span class="toc-text">文件的复制 cp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列出文件-ls"><span class="toc-number">2.4.</span> <span class="toc-text">列出文件 ls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件的移动-mv"><span class="toc-number">2.5.</span> <span class="toc-text">文件的移动 mv</span></a></li></ol></li></ol>
     </div>
 
 </div>
