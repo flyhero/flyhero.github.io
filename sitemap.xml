@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://iflyapi.cn/2018/09/27/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%90%AD%E5%BB%BA/</loc>
+    <loc>http://iflyapi.cn/2018/09/29/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%90%AD%E5%BB%BA/</loc>
     
-    <lastmod>2018-09-29T09:59:10.611Z</lastmod>
+    <lastmod>2018-09-29T10:03:57.754Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://iflyapi.cn/2018/09/27/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
+    <loc>http://iflyapi.cn/2018/09/29/Redis%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
     
-    <lastmod>2018-09-29T07:53:50.453Z</lastmod>
+    <lastmod>2018-09-29T10:03:40.611Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://iflyapi.cn/2018/09/27/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2018-09-29T10:03:21.207Z</lastmod>
     
   </url>
   
@@ -19,13 +26,6 @@
     <loc>http://iflyapi.cn/2018/09/27/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
     
     <lastmod>2018-09-29T06:42:49.449Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://iflyapi.cn/2018/09/27/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
-    
-    <lastmod>2018-09-29T06:42:17.260Z</lastmod>
     
   </url>
   
