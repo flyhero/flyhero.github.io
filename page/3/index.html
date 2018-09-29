@@ -91,6 +91,61 @@
                 <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2016/06/20/git上传代码的两种方式/" itemprop="url">
+                git上传代码的两种方式
+            </a>
+            
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+                
+                        <span class="column is-narrow ">
+                            <span class="badge badge-pill badge-success">原创</span>
+                        </span>
+                        
+                <span class="column is-narrow">
+                    <i class="fa fa-calendar-o"></i>
+                    <time datetime="2016-06-20T13:14:25.000Z" itemprop="datePublished">
+                        2016-06-20 21:14
+                    </time>
+                </span>
+                <!-- 
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/git/">git</a>
+        </span>
+         -->
+                
+                    <span class="column is-narrow">
+                        <i class="fa fa-clock-o"></i>
+                        
+                            
+                                3 分钟 读完 (约 415 字)
+                    </span>
+                    
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+        
+                    <h2 id="第一种：先有远程代码，同步到本地仓库"><a href="#第一种：先有远程代码，同步到本地仓库" class="headerlink" title="第一种：先有远程代码，同步到本地仓库"></a>第一种：先有远程代码，同步到本地仓库</h2><p>第一步：克隆远程代码<br>cd到你的本地项目根目录下，执行git命令<br><code>git clone [远程代码地址]</code><br>如下：<br><code>git clone  https://github.com/flyhero/flyapi2.2.git</code></p>
+<p>第二步：修改代码后，将项目的所有文件添加到仓库中<br><code>git add . 注意后面的 . 号</code></p>
+<p>第三步：将添加或修改的文件，提交到仓库<br><code>git commit - m &quot;注释&quot;</code></p>
+<p>第四步，上传代码到远程仓库<br><code>git push -u origin master</code><br>之后会提示让输入用户名和密码</p>
+<h2 id="第二种：先有本地代码，上传到远程仓库"><a href="#第二种：先有本地代码，上传到远程仓库" class="headerlink" title="第二种：先有本地代码，上传到远程仓库"></a>第二种：先有本地代码，上传到远程仓库</h2><p>第一步：建立git仓库<br>cd到你的本地项目根目录下，执行初始化命令<br><code>git init</code><br>第二步：将项目的所有文件添加到仓库中<br><code>git add .</code><br>如果想添加某个特定的文件，只需把.换成特定的文件名即可</p>
+<p>第三步：将add的文件commit到仓库<br><code>git commit -m &quot;注释语句&quot;</code></p>
+<p>第四步：去github上创建自己的Repository</p>
+<p>第五步：复制github上的仓库地址</p>
+<p>第六步：将本地的仓库关联到远程仓库<br><code>git remote add origin https://github.com/flyhero/flyapi2.2.git</code></p>
+<p>第七步：上传远程仓库之前，要先pull（更新/拉下）到本地，执行如下命令：<br><code>git pull origin master</code></p>
+<p>第八步，上传代码到github远程仓库<br><code>git push -u origin master</code></p>
+<p>第九步：输入用户名和密码后，等待上传成功</p>
+<p><em>注意：如果多人合作，一定要先pull代码。</em></p>
+
+                        
+    </div>
+</article>
+                    
+                <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2016/06/08/Solr的搭建与使用（二）/" itemprop="url">
                 Solr的搭建与使用（二）
             </a>

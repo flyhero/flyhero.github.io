@@ -4,8 +4,32 @@
 
     
   <url>
+    <loc>http://iflyapi.cn/2018/08/27/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2018-09-29T04:33:21.395Z</lastmod>
+    <data>
+        <display>
+        <title>Kafka集群搭建</title>
+        <pubTime>2018-08-27T10:40:00.000Z</pubTime>
+        
+        <tag>服务器</tag>
+         
+        <tag>Kafka</tag>
+         
+        <tag>集群</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://iflyapi.cn/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://iflyapi.cn/2018/08/27/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2018-09-29T03:06:11.533Z</lastmod>
+    <lastmod>2018-09-29T03:36:23.189Z</lastmod>
     <data>
         <display>
         <title>zookeeper集群搭建</title>
@@ -13,9 +37,9 @@
         
         <tag>服务器</tag>
          
-        <tag>zookeeper</tag>
-         
         <tag>集群</tag>
+         
+        <tag>zookeeper</tag>
          
          
            

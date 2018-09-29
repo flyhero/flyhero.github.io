@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://iflyapi.cn/2018/08/27/Kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2018-09-29T04:33:21.395Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://iflyapi.cn/2018/08/27/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
     
-    <lastmod>2018-09-29T03:06:11.533Z</lastmod>
+    <lastmod>2018-09-29T03:36:23.189Z</lastmod>
     
   </url>
   
