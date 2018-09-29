@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>Linux常用命令 - flyapi</title>
+<title>zookeeper集群搭建 - flyapi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="baidu-site-verification" content="vuLJkgHfME" />
 <meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
@@ -92,7 +92,7 @@
     <article class="article content gallery" itemscope itemprop="blogPost">
         <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
             
-                    Linux常用命令
+                    zookeeper集群搭建
                         
         </h1>
         <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -104,15 +104,15 @@
 
                     <span class="column is-narrow">
                         <i class="fa fa-calendar-o"></i>
-                        <time datetime="2018-08-05T10:22:00.000Z" itemprop="datePublished">
-                            2018-08-05 18:22
+                        <time datetime="2018-08-27T10:40:00.000Z" itemprop="datePublished">
+                            2018-08-27 18:40
                         </time>
                     </span>
 
                     
                         <span style="display: none;" class="column is-narrow">
                            <!--  <i class="fa fa-eye"></i> -->
-                            <span id="/2018/08/05/Linux常用命令/" class="leancloud_visitors" data-title="Linux常用命令">
+                            <span id="/2018/08/27/zookeeper集群搭建/" class="leancloud_visitors" data-title="zookeeper集群搭建">
                             </span>
                         </span>
                         
@@ -122,84 +122,103 @@
                                     <i class="fa fa-clock-o"></i>
                                     
                                         
-                                            6 分钟 读完 (约 884 字)
+                                            3 分钟 读完 (约 409 字)
                                 </span>
                                 
         </div>
         <div class="article-entry is-size-6-mobile" itemprop="articleBody">
             
-                                <p>作为一个有理想有逼格的后端工程师，Linux的常用命令我们是必须掌握的。这句话只是显示逼格，真实的是，Linux命令是个后台工程师就必须会的。( I think so . )</p>
+                                <p>中小公司或许没有专门的Linux运维工程师，掌握基础的Linux操作对我们来说成为必须的要求。zookeeper是dubbo,kafka等常依赖的环境，所以安装一个zookeeper集群是必不可少的。</p>
 <a id="more"></a>
-<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><h2 id="文件及文件夹"><a href="#文件及文件夹" class="headerlink" title="文件及文件夹"></a>文件及文件夹</h2><h3 id="创建文件夹-mkdir"><a href="#创建文件夹-mkdir" class="headerlink" title="创建文件夹 mkdir"></a>创建文件夹 mkdir</h3><ul>
-<li><strong>功能</strong><br>make directory的缩写,用于创建种子定名称的目录，要求当前用户具有写权限。</li>
-<li><strong>格式</strong><br><code>mkdir [选项] 目录名称</code></li>
-<li><p><strong>参数</strong></p>
-<p>  -m, –mode=MODE  设定权限&lt;模式&gt; (类似 chmod)<br>  -p, –parents    若父级目录不存在，自动创建<br>  -v, –verbose    创建后打印信息</p>
-</li>
-<li><strong>示例</strong><pre><code>mkdir -m 777 test1
-mkdir -p /home/qfwang/test2
-mkdir -v test3  
-$ mkdir: created directory &apos;test3&apos;
-</code></pre></li>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Zookeeper是一个分布式协调服务；就是为用户的分布式应用程序提供协调服务。<br>其中集群中有几种角色：<br><img src="http://p0y35f4y3.bkt.clouddn.com/zookeeper-role.png" alt="zookeeper角色-图片来自网络"><br>本文不对zookeeper做过多的介绍，详情请Google.</p>
+<h3 id="zk-service节点列表"><a href="#zk-service节点列表" class="headerlink" title="zk service节点列表"></a>zk service节点列表</h3><table>
+<thead>
+<tr>
+<th>host</th>
+<th>IP</th>
+<th>Software</th>
+<th>Port</th>
+<th>OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server-1</td>
+<td>192.168.1.1</td>
+<td>zookeeper 3.4.8</td>
+<td>2181</td>
+<td>CentOS 6.8</td>
+</tr>
+<tr>
+<td>server-2</td>
+<td>192.168.1.2</td>
+<td>zookeeper 3.4.8</td>
+<td>2181</td>
+<td>CentOS 6.8</td>
+</tr>
+<tr>
+<td>server-3</td>
+<td>192.168.1.3</td>
+<td>zookeeper 3.4.8</td>
+<td>2181</td>
+<td>CentOS 6.8</td>
+</tr>
+</tbody>
+</table>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[192.168.1.1]~$ wget http://archive.apache.org/dist/zookeeper/zookeeper-3.4.8/zookeeper-3.4.8.tar.gz</span><br><span class="line"></span><br><span class="line">[192.168.1.1]~$ tar -zxvf zookeeper-3.3.1.tar.gz -C /usr/<span class="built_in">local</span>/</span><br><span class="line"></span><br><span class="line">[192.168.1.1]~$ mv /usr/<span class="built_in">local</span>/zookeeper-3.3.1 /usr/<span class="built_in">local</span>/zookeeper</span><br><span class="line"></span><br><span class="line">[192.168.1.1]~$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/zookeeper/conf </span><br><span class="line">[192.168.1.1]~$ cp zoo_sample.cfg zoo.cfg</span><br><span class="line">[192.168.1.1]~$ <span class="built_in">cd</span> .. &amp;&amp; mkdir data &amp;&amp; mkdir <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其它两个机器同样执行上面过程</p>
+</blockquote>
+<h3 id="配置文件修改"><a href="#配置文件修改" class="headerlink" title="配置文件修改"></a>配置文件修改</h3><ul>
+<li>打开配置文件</li>
 </ul>
-<h3 id="创建文件-touch"><a href="#创建文件-touch" class="headerlink" title="创建文件 touch"></a>创建文件 touch</h3><ul>
-<li><strong>功能</strong><br>新建一个文件，或修改文件的时间戳，不是很常用。</li>
-<li><strong>格式</strong><br><code>touch [选项] 文件名称</code></li>
-<li><p><strong>参数</strong></p>
-<p>  -a                     仅更改存取时间<br>  -c, –no-create        不创建任何文档<br>  -d, –date=STRING      使用指定的日期时间代替当前日期时间<br>  -m  –time=modify      只更改修改时间<br>  -r, –reference=FILE   使用指定文档的时间代替当前时间<br>  -t STAMP               使用指定时间</p>
-</li>
-<li><p><strong>示例</strong></p>
-</li>
-</ul>
-<h3 id="文件的复制-cp"><a href="#文件的复制-cp" class="headerlink" title="文件的复制 cp"></a>文件的复制 cp</h3><ul>
-<li><strong>功能</strong><br>copy的缩写，用于文件的复制，也可以多个文件复制到同一目录下。</li>
-<li><strong>格式</strong><br><code>cp [选项] 源…… 目标</code></li>
-<li><p><strong>参数</strong></p>
-<p>  -a ：将文件的特性一起复制<br>  -p ：连同文件的属性一起复制，而非使用默认方式，与-a相似，常用于备份<br>  -i ：若目标文件已经存在时，在覆盖时会先询问操作的进行<br>  -r ：递归持续复制，用于目录的复制行为<br>  -u ：目标文件与源文件有差异时才会复制</p>
-</li>
-<li><p><strong>示例</strong></p>
-<pre><code>cp -a file1 file2 #连同文件的所有特性把文件file1复制成文件file2
-cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
-</code></pre></li>
-</ul>
-<h3 id="列出文件-ls"><a href="#列出文件-ls" class="headerlink" title="列出文件 ls"></a>列出文件 ls</h3><ul>
-<li><p><strong>功能</strong><br>list的缩写，用于列出当前或指定目录下的文件及文件夹- </p>
-</li>
-<li><p><strong>格式</strong><br><code>ls [选项] 指定目录</code></p>
-</li>
-<li><p><strong>参数</strong></p>
-<p>  -l ：列出长数据串，包含文件的属性与权限数据等<br>  -a ：列出全部的文件，连同隐藏文件（开头为.的文件）一起列出来（常用）<br>  -d ：仅列出目录本身，而不是列出目录的文件数据<br>  -h ：将文件容量以较易读的方式（GB，kB等）列出来<br>  -R ：连同子目录的内容一起列出（递归列出），等于该目录下的所有文件都会显示出来</p>
-</li>
-</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/<span class="built_in">local</span>/zookeeper/conf/zoo.cfg</span><br></pre></td></tr></table></figure>
 <ul>
-<li><strong>示例</strong></li>
+<li>修改以下内容：</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@java:~$ ls -l</span><br><span class="line">total 3240</span><br><span class="line">drwxrwxr-x 2 root root    4096 Jun 26 02:59 dashboard</span><br><span class="line">drwxrwxr-x 7 root root    4096 Aug 29 03:33 dashboard-src</span><br><span class="line">root@java:~$ ls -hl</span><br><span class="line">total 3.2M</span><br><span class="line">drwxrwxr-x 2 root root 4.0K Jun 26 02:59 dashboard</span><br><span class="line">drwxrwxr-x 7 root root 4.0K Aug 29 03:33 dashboard-src</span><br></pre></td></tr></table></figure>
-<h3 id="文件的移动-mv"><a href="#文件的移动-mv" class="headerlink" title="文件的移动 mv"></a>文件的移动 mv</h3><p>mv是move的缩写，该命令用于移动文件、目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataDir=/usr/local/zookeeper/data</span><br><span class="line">dataLogDir=/usr/local/zookeeper/log</span><br></pre></td></tr></table></figure>
 <ul>
-<li><strong>格式</strong><br><code>mv [选项] 指定文件/目录……  目标目录</code></li>
-<li><p><strong>参数</strong></p>
-<p>  -f ：force强制的意思，如果目标文件已经存在，不会询问而直接覆盖<br>  -i ：若目标文件已经存在，就会询问是否覆盖<br>  -u ：若目标文件已经存在，且比目标文件新，才会更新</p>
-</li>
-<li><p><strong>示例</strong></p>
-</li>
+<li>在文件最后增加节点信息：</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~/<span class="built_in">test</span> » ls                                                                                                                                      dfadmin@Java-test</span><br><span class="line">jm  jm.text</span><br><span class="line">------------------------------------------------</span><br><span class="line">~/<span class="built_in">test</span> » cp -f jm.text jm/jm1.text                                                                                                               dfadmin@Java-test</span><br><span class="line">------------------------------------------------</span><br><span class="line">~/<span class="built_in">test</span> » cp -i jm.text jm/jm1.text                                                                                                               dfadmin@Java-test</span><br><span class="line">cp: overwrite <span class="string">'jm/jm1.text'</span>? y</span><br><span class="line">------------------------------------------------</span><br><span class="line">~/<span class="built_in">test</span> » cp -u jm.text jm/jm1.text</span><br></pre></td></tr></table></figure>
-<h3 id="wen"><a href="#wen" class="headerlink" title="wen"></a>wen</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server.1=192.168.1.1:2888:3888</span><br><span class="line"></span><br><span class="line">server.2=192.168.1.2:2888:3888</span><br><span class="line"></span><br><span class="line">server.3=192.168.1.3:2888:3888</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其它两个机器同样执行上面过程</p>
+</blockquote>
+<h3 id="建立配置路径"><a href="#建立配置路径" class="headerlink" title="建立配置路径"></a>建立配置路径</h3><p>myid中的内容为上面配置文件中的server.n的n数字。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[192.168.1.1]$ <span class="built_in">echo</span> 1 &gt; /usr/<span class="built_in">local</span>/zookeeper/data/myid</span><br><span class="line">[192.168.1.2]$ <span class="built_in">echo</span> 2 &gt; /usr/<span class="built_in">local</span>/zookeeper/data/myid</span><br><span class="line">[192.168.1.3]$ <span class="built_in">echo</span> 3 &gt; /usr/<span class="built_in">local</span>/zookeeper/data/myid</span><br></pre></td></tr></table></figure>
+<h3 id="zk状态"><a href="#zk状态" class="headerlink" title="zk状态"></a>zk状态</h3><ul>
+<li>启动</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[192.168.1.1]$ /usr/<span class="built_in">local</span>/zookeeper/bin/zkServer.sh start</span><br><span class="line">[192.168.1.2]$ /usr/<span class="built_in">local</span>/zookeeper/bin/zkServer.sh start</span><br><span class="line">[192.168.1.3]$ /usr/<span class="built_in">local</span>/zookeeper/bin/zkServer.sh start</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看状态</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看是leader还是follower</span></span><br><span class="line">/usr/<span class="built_in">local</span>/zookeeper/bin/zkServer.sh status</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看输出</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 客户端命令查看输出信息</span></span><br><span class="line">[192.168.1.1]$ /usr/<span class="built_in">local</span>/zookeeper/bin/zkCli.sh -server 192.168.1.1:2181</span><br></pre></td></tr></table></figure>
+
                                     
         </div>
         
             <div class="columns is-variable is-1 is-multiline is-mobile" style="padding-top: 2em;">
                 
                     <span class="column is-narrow">
-                        <a class="tag is-light article-tag" href="/tags/Shell/">#
-                            Shell
+                        <a class="tag is-light article-tag" href="/tags/服务器/">#
+                            服务器
                         </a>
                     </span>
                     
                     <span class="column is-narrow">
-                        <a class="tag is-light article-tag" href="/tags/Linux/">#
-                            Linux
+                        <a class="tag is-light article-tag" href="/tags/zookeeper/">#
+                            zookeeper
+                        </a>
+                    </span>
+                    
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/集群/">#
+                            集群
                         </a>
                     </span>
                     
@@ -219,7 +238,7 @@ cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 	var gitment = new Gitment({
-		id: '2018/08/05/Linux常用命令/',
+		id: '2018/08/27/zookeeper集群搭建/',
 		owner: 'flyhero',
 		repo: 'flyhero.github.io',
 		oauth: {
@@ -245,8 +264,8 @@ cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
         <li class="post-copyright-link">
             <strong>本文链接：</strong>
                         
-                                <a target="_blank" href="/2018/08/05/Linux常用命令/" title="Linux常用命令">
-                                    http://iflyapi.cn/2018/08/05/Linux常用命令/
+                                <a target="_blank" href="/2018/08/27/zookeeper集群搭建/" title="zookeeper集群搭建">
+                                    http://iflyapi.cn/2018/08/27/zookeeper集群搭建/
                                 </a>
                         
             
@@ -263,7 +282,7 @@ cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
 <div class="author-right">
     <div class="toc-fixed">
         <h1>文章目录</h1>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux权限"><span class="toc-number">1.</span> <span class="toc-text">Linux权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件及文件夹"><span class="toc-number">2.</span> <span class="toc-text">文件及文件夹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件夹-mkdir"><span class="toc-number">2.1.</span> <span class="toc-text">创建文件夹 mkdir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建文件-touch"><span class="toc-number">2.2.</span> <span class="toc-text">创建文件 touch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件的复制-cp"><span class="toc-number">2.3.</span> <span class="toc-text">文件的复制 cp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列出文件-ls"><span class="toc-number">2.4.</span> <span class="toc-text">列出文件 ls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件的移动-mv"><span class="toc-number">2.5.</span> <span class="toc-text">文件的移动 mv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wen"><span class="toc-number">2.6.</span> <span class="toc-text">wen</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zk-service节点列表"><span class="toc-number">2.</span> <span class="toc-text">zk service节点列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件修改"><span class="toc-number">4.</span> <span class="toc-text">配置文件修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建立配置路径"><span class="toc-number">5.</span> <span class="toc-text">建立配置路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zk状态"><span class="toc-number">6.</span> <span class="toc-text">zk状态</span></a></li></ol>
     </div>
 
 </div>
@@ -299,7 +318,7 @@ cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 	var gitment = new Gitment({
-		id: '2018/08/05/Linux常用命令/',
+		id: '2018/08/27/zookeeper集群搭建/',
 		owner: 'flyhero',
 		repo: 'flyhero.github.io',
 		oauth: {

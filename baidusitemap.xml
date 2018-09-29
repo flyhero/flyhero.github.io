@@ -4,8 +4,33 @@
 
     
   <url>
+    <loc>http://iflyapi.cn/2018/08/27/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2018-09-29T03:06:11.533Z</lastmod>
+    <data>
+        <display>
+        <title>zookeeper集群搭建</title>
+        <pubTime>2018-08-27T10:40:00.000Z</pubTime>
+        
+        <tag>服务器</tag>
+         
+        <tag>zookeeper</tag>
+         
+        <tag>集群</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://iflyapi.cn/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
     <loc>http://iflyapi.cn/2018/08/05/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2018-09-13T09:20:59.877Z</lastmod>
+    <lastmod>2018-09-18T09:01:38.712Z</lastmod>
     <data>
         <display>
         <title>Linux常用命令</title>
@@ -27,7 +52,7 @@
     
   <url>
     <loc>http://iflyapi.cn/2018/08/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-09-10T11:43:52.800Z</lastmod>
+    <lastmod>2018-09-18T09:01:20.622Z</lastmod>
     <data>
         <display>
         <title>设计模式-建造者模式</title>
@@ -44,8 +69,48 @@
 
     
   <url>
+    <loc>http://iflyapi.cn/2018/07/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-09-18T08:59:40.015Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式-工厂方法模式</title>
+        <pubTime>2018-07-28T03:17:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://iflyapi.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://iflyapi.cn/2018/08/25/%E8%81%8A%E8%81%8A%E4%BD%A0%E5%BA%94%E8%AF%A5%E7%9F%A5%E9%81%93%E7%9A%84Java8/</loc>
+    <lastmod>2018-09-18T08:59:34.113Z</lastmod>
+    <data>
+        <display>
+        <title>聊聊你应该知道的Java8</title>
+        <pubTime>2018-08-25T03:10:00.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>函数式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java8实战" url="http://iflyapi.cn/categories/Java8%E5%AE%9E%E6%88%98/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://iflyapi.cn/2017/06/28/Spring%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E5%92%8C%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB/</loc>
-    <lastmod>2018-09-10T10:44:09.501Z</lastmod>
+    <lastmod>2018-09-18T08:58:58.213Z</lastmod>
     <data>
         <display>
         <title>Spring事务传播和事务隔离</title>
@@ -62,7 +127,6 @@
 
     
     
-    
   <url>
     <loc>http://iflyapi.cn/2017/06/06/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7%E9%9B%86%E5%90%88/</loc>
     <lastmod>2018-08-29T06:08:38.753Z</lastmod>
@@ -75,28 +139,6 @@
            
              
               <breadCrumb title="工具" url="http://iflyapi.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://iflyapi.cn/2018/08/25/%E8%81%8A%E8%81%8A%E4%BD%A0%E5%BA%94%E8%AF%A5%E7%9F%A5%E9%81%93%E7%9A%84Java8/</loc>
-    <lastmod>2018-08-28T06:54:19.820Z</lastmod>
-    <data>
-        <display>
-        <title>聊聊你应该知道的Java8</title>
-        <pubTime>2018-08-25T03:10:00.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>函数式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java8实战" url="http://iflyapi.cn/categories/Java8%E5%AE%9E%E6%88%98/"/>
           
         </display>
     </data>
@@ -121,24 +163,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>http://iflyapi.cn/2018/07/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-08-02T11:48:22.011Z</lastmod>
-    <data>
-        <display>
-        <title>设计模式-工厂方法模式</title>
-        <pubTime>2018-07-28T03:17:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="设计模式" url="http://iflyapi.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://iflyapi.cn/2018/07/26/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%BC%80%E7%AF%87/</loc>
