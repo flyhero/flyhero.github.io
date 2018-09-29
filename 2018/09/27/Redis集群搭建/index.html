@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>Kafka集群搭建 - flyapi</title>
+<title>Redis集群搭建 - flyapi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="baidu-site-verification" content="vuLJkgHfME" />
 <meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
@@ -92,7 +92,7 @@
     <article class="article content gallery" itemscope itemprop="blogPost">
         <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
             
-                    Kafka集群搭建
+                    Redis集群搭建
                         
         </h1>
         <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -104,15 +104,15 @@
 
                     <span class="column is-narrow">
                         <i class="fa fa-calendar-o"></i>
-                        <time datetime="2018-08-27T10:40:00.000Z" itemprop="datePublished">
-                            2018-08-27 18:40
+                        <time datetime="2018-09-27T10:40:00.000Z" itemprop="datePublished">
+                            2018-09-27 18:40
                         </time>
                     </span>
 
                     
                         <span style="display: none;" class="column is-narrow">
                            <!--  <i class="fa fa-eye"></i> -->
-                            <span id="/2018/08/27/Kafka集群搭建/" class="leancloud_visitors" data-title="Kafka集群搭建">
+                            <span id="/2018/09/27/Redis集群搭建/" class="leancloud_visitors" data-title="Redis集群搭建">
                             </span>
                         </span>
                         
@@ -122,69 +122,116 @@
                                     <i class="fa fa-clock-o"></i>
                                     
                                         
-                                            4 分钟 读完 (约 559 字)
+                                            6 分钟 读完 (约 889 字)
                                 </span>
                                 
         </div>
         <div class="article-entry is-size-6-mobile" itemprop="articleBody">
             
-                                <p>分布式系统中，提起消息队列估计大家想到的都是Kafka这家伙，因为这家伙快速持久化，高吞吐，性能好。</p>
+                                <p>Redis是使用缓存必不可少的服务，一方面是因为redis读写速度比较快，另一方面是支持的数据类型比较多。</p>
 <a id="more"></a>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Apache kafka是由Apache软件基金会开发的一个开源流处理平台，由Scala和Java编写。Kafka是一种高吞吐量的分布式发布订阅消息系统，是消息中间件的一种，用于构建实时数据管道和流应用程序。<br>本文不对kafka做过多的介绍，详情请Google.</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Redis 是一个开源的 key-value 存储系统，由于出众的性能，大部分互联网企业都用来做服务器端缓存。Redis 在3.0版本前只支持单实例模式，虽然支持主从模式、哨兵模式部署来解决单点故障，但是现在互联网企业动辄大几百G的数据，可完全是没法满足业务的需求，所以，Redis 在 3.0 版本以后就推出了集群模式。</p>
 <h2 id="节点列表"><a href="#节点列表" class="headerlink" title="节点列表"></a>节点列表</h2><table>
 <thead>
 <tr>
-<th>host</th>
+<th>Host</th>
 <th>IP</th>
 <th>Software</th>
 <th>Port</th>
 <th>OS</th>
+<th>Master/Slave</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>server-1</td>
 <td>192.168.1.1</td>
-<td>kafka-2.11-2.0.0</td>
-<td>9092</td>
+<td>Redis 3.2.2</td>
+<td>7000</td>
 <td>CentOS 6.8</td>
+<td>Master</td>
 </tr>
 <tr>
 <td>server-2</td>
 <td>192.168.1.2</td>
-<td>kafka-2.11-2.0.0</td>
-<td>9092</td>
+<td>Redis 3.2.2</td>
+<td>7001</td>
 <td>CentOS 6.8</td>
+<td>Master</td>
 </tr>
 <tr>
 <td>server-3</td>
 <td>192.168.1.3</td>
-<td>kafka-2.11-2.0.0</td>
-<td>9092</td>
+<td>Redis 3.2.2</td>
+<td>7002</td>
 <td>CentOS 6.8</td>
+<td>Master</td>
+</tr>
+<tr>
+<td>server-4</td>
+<td>192.168.1.4</td>
+<td>Redis 3.2.2</td>
+<td>7003</td>
+<td>CentOS 6.8</td>
+<td>Slave</td>
+</tr>
+<tr>
+<td>server-5</td>
+<td>192.168.1.5</td>
+<td>Redis 3.2.2</td>
+<td>7004</td>
+<td>CentOS 6.8</td>
+<td>Slave</td>
+</tr>
+<tr>
+<td>server-6</td>
+<td>192.168.1.6</td>
+<td>Redis 3.2.2</td>
+<td>7005</td>
+<td>CentOS 6.8</td>
+<td>Slave</td>
 </tr>
 </tbody>
 </table>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[192.168.1.1]~$ wget http://archive.apache.org/dist/kafka/2.0.0/kafka_2.11-2.0.0.tgz</span><br><span class="line"></span><br><span class="line">[192.168.1.1]~$ tar -zxvf kafka_2.11-2.0.0.tgz -C /usr/<span class="built_in">local</span>/</span><br><span class="line"></span><br><span class="line">[192.168.1.1]~$ mv /usr/<span class="built_in">local</span>/kafka_2.11-2.0.0 /usr/<span class="built_in">local</span>/kafka</span><br><span class="line"></span><br><span class="line">[192.168.1.1]~$ mkdir /usr/<span class="built_in">local</span>/kafka/logs</span><br></pre></td></tr></table></figure>
+<h2 id="安装Redis"><a href="#安装Redis" class="headerlink" title="安装Redis"></a>安装Redis</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> wget http://download.redis.io/releases/redis-3.2.2.tar.gz</span><br><span class="line"><span class="meta">#</span> tar -zxvf redis-3.2.2.tar.gz -C /usr/local/</span><br><span class="line"><span class="meta">#</span> cd /usr/local/</span><br><span class="line"><span class="meta">#</span> mv redis-3.2.2 redis-cluster</span><br><span class="line"><span class="meta">#</span> cd redis-cluster &amp; mkdir -p 7000/data</span><br><span class="line"><span class="meta">#</span> cp /usr/local/redis-cluster/* /usr/local/redis-cluster/7000</span><br></pre></td></tr></table></figure>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>解压后的redis是没有启动redis-server等命令的，所以需要make编译。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>先确保安装了make命令</span><br><span class="line"><span class="meta">#</span>make是gcc的编译器</span><br><span class="line"><span class="meta">#</span>安装：</span><br><span class="line">yum -y install gcc automake autoconf libtool make</span><br><span class="line"><span class="meta">#</span>安装g++:</span><br><span class="line">yum install gcc gcc-c++</span><br><span class="line"></span><br><span class="line">cd redis-cluster</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>其它两个机器同样执行上面过程</p>
+<p>其他机器同样执行上面步骤（更改端口号）</p>
 </blockquote>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ul>
-<li>打开配置</li>
+<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><ul>
+<li><p>打开配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/redis-cluster/7000/conf/redis.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 关闭保护模式</span><br><span class="line">protected-mode no</span><br><span class="line"><span class="meta">#</span> 每个节点的端口号</span><br><span class="line">port  7000  </span><br><span class="line"><span class="meta">#</span>redis后台运行</span><br><span class="line">daemonize  yes  </span><br><span class="line"><span class="meta">#</span> 绑定当前机器IP</span><br><span class="line">bind  192.168.1.1</span><br><span class="line"><span class="meta">#</span> 数据文件存放位置</span><br><span class="line">dir  /usr/local/redis-cluster/7000/data/  </span><br><span class="line"><span class="meta">#</span> pid 7000和port要对应</span><br><span class="line">pidfile  /var/run/redis_7000.pid</span><br><span class="line"><span class="meta">#</span> 启动集群模式</span><br><span class="line">cluster-enabled  yes  </span><br><span class="line">cluster-config-file  /usr/local/redis-cluster/7000/conf/nodes_7000.conf  </span><br><span class="line">cluster-node-timeout  15000  </span><br><span class="line"><span class="meta">#</span> aof日志开启，有需要就开启，它会每次写操作都记录一条日志</span><br><span class="line">appendonly  yes</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[192.168.1.1]~$ vim server.properties</span><br></pre></td></tr></table></figure>
-<ul>
-<li>修改</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#唯一值，每个server填写不一样。</span><br><span class="line">broker.id=1</span><br><span class="line"></span><br><span class="line">#修改；协议、当前broker机器ip、端口，此值可以配置多个，跟SSL等有关系。</span><br><span class="line">listeners=PLAINTEXT://192.168.1.1:9092</span><br><span class="line"></span><br><span class="line">#修改；kafka数据的存放地址，多个地址的话用逗号分割</span><br><span class="line">log.dirs=/usr/local/kafka/logs</span><br><span class="line"></span><br><span class="line">#每个topic的分区个数，若是在topic创建时候没有指定的话会被topic创建时的指定参数覆盖。</span><br><span class="line">num.partitions=3</span><br><span class="line"></span><br><span class="line">#kafka连接的zk地址，各个broker配置一致。</span><br><span class="line">zookeeper.connect=192.168.1.1:2181,192.168.1.2:2181,192.168.1.3:2181</span><br></pre></td></tr></table></figure>
-<ul>
-<li>新增</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#新增；表示消息体的最大大小，单位是字节。</span><br><span class="line">message.max.bytes=5242880</span><br><span class="line"></span><br><span class="line">#新增；是否允许自动创建topic，若是false，就需要通过命令创建topic。</span><br><span class="line">default.replication.factor=2</span><br><span class="line"></span><br><span class="line">#新增；replicas每次获取数据的最大大小。</span><br><span class="line">replica.fetch.max.bytes=5242880</span><br><span class="line"></span><br><span class="line">#新增；配置文件中必须使用以下配置，否则只会标记为删除，而不是真正删除。</span><br><span class="line">delete.topic.enable=true</span><br><span class="line"></span><br><span class="line">#新增；是否允许 leader 进行自动平衡，boolean 值，默认为 true。</span><br><span class="line">auto.leader.rebalance.enable=true</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>其它两个机器同样执行上面过程</p>
+<p>其他机器同样，只需要更改对应端口</p>
 </blockquote>
-<h2 id="集群状态"><a href="#集群状态" class="headerlink" title="集群状态"></a>集群状态</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[192.168.1.1]~$ /usr/<span class="built_in">local</span>/kafka/bin/kafka-server-start.sh /usr/<span class="built_in">local</span>/kafka/config/server.properties</span><br><span class="line"></span><br><span class="line">[192.168.1.2]~$ /usr/<span class="built_in">local</span>/kafka/bin/kafka-server-start.sh /usr/<span class="built_in">local</span>/kafka/config/server.properties</span><br><span class="line"></span><br><span class="line">[192.168.1.3]~$ /usr/<span class="built_in">local</span>/kafka/bin/kafka-server-start.sh /usr/<span class="built_in">local</span>/kafka/config/server.properties</span><br></pre></td></tr></table></figure>
+<h2 id="启动单节点"><a href="#启动单节点" class="headerlink" title="启动单节点"></a>启动单节点</h2><p>每一个节点都这样启动：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/redis-cluster/7000/bin/redis-server     /usr/local/redis-cluster/7000/conf/redis.conf</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h2><ul>
+<li>新建一个文件redis-auth.conf，内容如下,替换密码：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config set masterauth [密码]</span><br><span class="line">config set requirepass [密码]</span><br><span class="line">auth [密码]</span><br><span class="line">config rewrite</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置密码</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> cat redis-auth.conf | /usr/local/redis-cluster/7000/bin/redis-cli -c -p 7000</span><br><span class="line"><span class="meta">#</span> cat redis-auth.conf | /usr/local/redis-cluster/7000/bin/redis-cli -c -p 7001</span><br><span class="line"><span class="meta">#</span> 以此类推其他机器</span><br></pre></td></tr></table></figure>
+<h2 id="构建集群"><a href="#构建集群" class="headerlink" title="构建集群"></a>构建集群</h2><h3 id="安装Ruby"><a href="#安装Ruby" class="headerlink" title="安装Ruby"></a>安装Ruby</h3><p>构建集群的 redis-trib.rb 命令是用Ruby写的,所以需要安装Ruby运行环境。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> yum -y install ruby ruby-devel rubygems rpm-build</span><br><span class="line"><span class="meta">$</span> gem install redis</span><br><span class="line"><span class="meta">$</span> ruby -v</span><br><span class="line">ruby 2.3.1p112 (2016-04-26) [x86_64-linux-gnu]</span><br></pre></td></tr></table></figure>
+<h3 id="启动集群"><a href="#启动集群" class="headerlink" title="启动集群"></a>启动集群</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis-trib.rb create --replicas 1  192.168.1.1:7000  </span><br><span class="line">192.168.1.2:7001  </span><br><span class="line">192.168.1.3:7002  </span><br><span class="line">192.168.1.4:7003  </span><br><span class="line">192.168.1.5:7004  </span><br><span class="line">192.168.1.6:7005</span><br></pre></td></tr></table></figure>
+<p>命令中<code>--replicas 1</code>表示主从复制比例为 1:1，即一个主节点对应一个从节点；然后，默认给我们分配好了每个主节点和对应从节点服务。</p>
+<h3 id="验证集群"><a href="#验证集群" class="headerlink" title="验证集群"></a>验证集群</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> /usr/local/redis-cluster/7000/bin/redis-cli -c -h 192.168.1.1 -p 7000</span><br><span class="line">192.168.1.1:7000 &gt; auth 密码</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查找一个不存在的key</span><br><span class="line">192.168.1.1:7000 &gt; get abc</span><br><span class="line">192.168.1.4:7003 &gt;</span><br></pre></td></tr></table></figure>
+<p>当获取本节点不存在的key时，redis会跳转到其他节点。</p>
+<h2 id="排错"><a href="#排错" class="headerlink" title="排错"></a>排错</h2><ul>
+<li><p>编译redis时，make出错<br>解决： <code>make MALLOC=libc</code></p>
+</li>
+<li><p>redis-trib.rb 构建redis集群的时候<br>问题：<code>redis requires Ruby version &gt;= 2.2.2</code><br>解决：<br>此时需要安装更高的Ruby，方法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 会在/etc/yum.repos.d/目录下多出一个CentOS-SCLo-scl-rh.repo源</span><br><span class="line"><span class="meta">$</span> yum install centos-release-scl-rh　　　　</span><br><span class="line"><span class="meta">#</span> 直接yum安装即可　　</span><br><span class="line"><span class="meta">$</span> yum install rh-ruby23  -y　　　　</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> scl  enable  rh-ruby23 bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看安装版本</span><br><span class="line"><span class="meta">$</span> ruby -v　　</span><br><span class="line"><span class="meta">$</span> gem install redis</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
                                     
         </div>
@@ -198,8 +245,8 @@
                     </span>
                     
                     <span class="column is-narrow">
-                        <a class="tag is-light article-tag" href="/tags/Kafka/">#
-                            Kafka
+                        <a class="tag is-light article-tag" href="/tags/Redis/">#
+                            Redis
                         </a>
                     </span>
                     
@@ -225,7 +272,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 	var gitment = new Gitment({
-		id: '2018/08/27/Kafka集群搭建/',
+		id: '2018/09/27/Redis集群搭建/',
 		owner: 'flyhero',
 		repo: 'flyhero.github.io',
 		oauth: {
@@ -251,8 +298,8 @@
         <li class="post-copyright-link">
             <strong>本文链接：</strong>
                         
-                                <a target="_blank" href="/2018/08/27/Kafka集群搭建/" title="Kafka集群搭建">
-                                    http://iflyapi.cn/2018/08/27/Kafka集群搭建/
+                                <a target="_blank" href="/2018/09/27/Redis集群搭建/" title="Redis集群搭建">
+                                    http://iflyapi.cn/2018/09/27/Redis集群搭建/
                                 </a>
                         
             
@@ -269,7 +316,7 @@
 <div class="author-right">
     <div class="toc-fixed">
         <h1>文章目录</h1>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#节点列表"><span class="toc-number">2.</span> <span class="toc-text">节点列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">4.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群状态"><span class="toc-number">5.</span> <span class="toc-text">集群状态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#启动"><span class="toc-number">5.1.</span> <span class="toc-text">启动</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#节点列表"><span class="toc-number">2.</span> <span class="toc-text">节点列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Redis"><span class="toc-number">3.</span> <span class="toc-text">安装Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译"><span class="toc-number">3.1.</span> <span class="toc-text">编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改配置"><span class="toc-number">4.</span> <span class="toc-text">修改配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动单节点"><span class="toc-number">5.</span> <span class="toc-text">启动单节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置密码"><span class="toc-number">6.</span> <span class="toc-text">设置密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构建集群"><span class="toc-number">7.</span> <span class="toc-text">构建集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Ruby"><span class="toc-number">7.1.</span> <span class="toc-text">安装Ruby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动集群"><span class="toc-number">7.2.</span> <span class="toc-text">启动集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证集群"><span class="toc-number">7.3.</span> <span class="toc-text">验证集群</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排错"><span class="toc-number">8.</span> <span class="toc-text">排错</span></a></li></ol>
     </div>
 
 </div>
@@ -305,7 +352,7 @@
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 	var gitment = new Gitment({
-		id: '2018/08/27/Kafka集群搭建/',
+		id: '2018/09/27/Redis集群搭建/',
 		owner: 'flyhero',
 		repo: 'flyhero.github.io',
 		oauth: {
