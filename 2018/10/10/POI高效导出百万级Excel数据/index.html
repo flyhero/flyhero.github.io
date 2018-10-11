@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>标签: zookeeper - flyapi</title>
+<title>POI高效导出百万级Excel数据 - flyapi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="baidu-site-verification" content="vuLJkgHfME" />
 <meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
@@ -84,132 +84,292 @@
     </div>
 </nav>
 
-    <section class="section section-heading">
-    <div class="container">
-        <div class="content">
-            <h5>#zookeeper</h5>
-        </div>
-    </div>
-</section>
-<section class="section" style="overflow: hidden;">
-    <div class="container">
-        <div class="article-left">
-            
-                <article class="article content gallery" itemscope itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+    <section class="section" style="overflow: hidden;">
+    <div class="container" style="overflow: hidden;">
+        <div style="overflow: hidden;">
         
-            <a href="/2018/09/27/zookeeper集群搭建/" itemprop="url">
-                zookeeper集群搭建
-            </a>
+            <div class="article-left">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+        <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
             
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-                
-                        <span class="column is-narrow ">
-                            <span class="badge badge-pill badge-success">原创</span>
-                        </span>
+                    POI高效导出百万级Excel数据
                         
-                <span class="column is-narrow">
-                    <i class="fa fa-calendar-o"></i>
-                    <time datetime="2018-09-27T10:40:00.000Z" itemprop="datePublished">
-                        2018-09-27 18:40
-                    </time>
-                </span>
-                <!-- 
-        <span class="column is-narrow article-category">
-            <i class="far fa-folder"></i>
-            <a class="article-category-link" href="/categories/Linux/">Linux</a>
-        </span>
-         -->
-                
-                    <span class="column is-narrow">
-                        <i class="fa fa-clock-o"></i>
-                        
-                            
-                                3 分钟 读完 (约 457 字)
+        </h1>
+        <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+            
+                    <span class="column is-narrow ">
+                        <span class="badge badge-pill badge-success">原创</span>
                     </span>
-                    
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-        
-            <p>中小公司或许没有专门的Linux运维工程师，掌握基础的Linux操作对我们来说成为必须的要求。zookeeper是dubbo,kafka等常依赖的环境，所以安装一个zookeeper集群是必不可少的。</p>
-                <!-- <p class="article-more-link">
-            <a href="/2018/09/27/zookeeper集群搭建/#more">阅读更多</a>
-        </p> -->
+                
 
-                <div class="is-1 is-multiline is-mobile is-size-7-mobile" style="font-size: 0.8rem">
+                    <span class="column is-narrow">
+                        <i class="fa fa-calendar-o"></i>
+                        <time datetime="2018-10-10T12:30:00.000Z" itemprop="datePublished">
+                            2018-10-10 20:30
+                        </time>
+                    </span>
+
                     
-                        <span class="is-narrow article-category">
-                            <!-- <i class="far fa-folder"></i> -->
-                            <a class="article-category-span" href="/categories/Linux/">Linux</a>
+                        <span style="display: none;" class="column is-narrow">
+                           <!--  <i class="fa fa-eye"></i> -->
+                            <span id="/2018/10/10/POI高效导出百万级Excel数据/" class="leancloud_visitors" data-title="POI高效导出百万级Excel数据">
+                            </span>
                         </span>
                         
+
                             
-                                <span style="padding-left: 10px" class="is-narrow">
-                                    <i class="fa fa-eye"></i>
-                                    <span id="/2018/09/27/zookeeper集群搭建/" class="leancloud_visitors" data-title="zookeeper集群搭建">
-                                    </span>
+                                <span class="column is-narrow">
+                                    <i class="fa fa-clock-o"></i>
+                                    
+                                        
+                                            4 分钟 读完 (约 627 字)
                                 </span>
                                 
+        </div>
+        <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+            
+                                <p>在一个具有统计功能的系统中，导出excel功能几乎是一定的，如何导出excel？导出的数据有多少？如何高效的导出？</p>
+<a id="more"></a>
+<h2 id="Excel简介"><a href="#Excel简介" class="headerlink" title="Excel简介"></a>Excel简介</h2><p>什么是excel旧不用介绍了，这里主要说明不同版本下每个sheet下的行列限制。</p>
+<table>
+<thead>
+<tr>
+<th>版本区间</th>
+<th>行数</th>
+<th>列数</th>
+<th>生成文件后缀</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> Excel 2003及以下</td>
+<td>65535</td>
+<td>256</td>
+<td>xls</td>
+</tr>
+<tr>
+<td> Excel 2007及以上</td>
+<td>1048576</td>
+<td>16384</td>
+<td>xlsx</td>
+</tr>
+</tbody>
+</table>
+<p>由上面可知 Excel 2003及以下是无法实现单sheet百万级的数据。</p>
+<h2 id="Apache-POI"><a href="#Apache-POI" class="headerlink" title="Apache POI"></a>Apache POI</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Apache POI 简介是用Java编写的免费开源的跨平台的 Java API，Apache POI提供API给Java程式对Microsoft Office（Excel、WORD、PowerPoint、Visio等）格式档案读和写的功能。POI为“Poor Obfuscation Implementation”的首字母缩写，意为“可怜的模糊实现”。</p>
+<h3 id="常用类"><a href="#常用类" class="headerlink" title="常用类"></a>常用类</h3><ul>
+<li>HSSF － 提供读写Microsoft Excel XLS格式档案的功能。</li>
+<li>XSSF － 提供读写Microsoft Excel OOXML XLSX格式档案的功能。</li>
+<li>SXSSF － 一种基于XSSF的低内存占用的API（3.8版本开始出现）。</li>
+<li>HWPF － 提供读写Microsoft Word DOC97格式档案的功能。</li>
+<li>XWPF － 提供读写Microsoft Word DOC2003格式档案的功能。</li>
+<li>HSLF － 提供读写Microsoft PowerPoint格式档案的功能。</li>
+<li>HDGF － 提供读Microsoft Visio格式档案的功能。</li>
+<li>HPBF － 提供读Microsoft Publisher格式档案的功能。</li>
+<li>HSMF － 提供读Microsoft Outlook格式档案的功能。</li>
+</ul>
+<p><strong>我们这里是导出Excel，所以使用的是前三个。</strong></p>
+<h2 id="导出策略"><a href="#导出策略" class="headerlink" title="导出策略"></a>导出策略</h2><h3 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h3><ol>
+<li>使用XSSF和SXSSF分别导入1w,10w,100w数据</li>
+<li>使用SXSSF，SXSSF以10w分页，SXSSF多线程以10w分页导入100w数据</li>
+</ol>
+<h3 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h3><blockquote>
+<p>时间不包含网络耗时</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>1w条/时间</th>
+<th>10w条/时间</th>
+<th>100w条/时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> XSSF</td>
+<td>1331ms</td>
+<td>10496ms</td>
+<td>小心电脑💥    </td>
+</tr>
+<tr>
+<td> SXSSF</td>
+<td>1568ms</td>
+<td>600ms</td>
+<td>5824ms</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>100w条/时间</th>
+<th>200w/时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SXSSF</td>
+<td>5824ms</td>
+<td>超过最大行数     </td>
+</tr>
+<tr>
+<td>SXSSF Page</td>
+<td>6040ms</td>
+<td>12473ms</td>
+</tr>
+<tr>
+<td>SXSSF Page Thread</td>
+<td>3410ms</td>
+<td>6217ms   </td>
+</tr>
+</tbody>
+</table>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h4 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h4><ul>
+<li>数据在万条时XSSF和SXSSF相差不大</li>
+<li>数据上十万后SXSSF性能开始突出</li>
+<li>数据到达百万时，XSSF已不适合使用</li>
+</ul>
+<h4 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h4><ul>
+<li>不进行分表时，SXSSF最多可存储1048576行</li>
+<li>百万级数据分表存储时，使用多线程导出几乎是不使用多线程导出的一半时间</li>
+</ul>
+<p><strong>最终我得出一个导出百万级数据的最高效方案：多线程分表导出</strong></p>
+<p>##</p>
 
-                </div>
+                                    
+        </div>
+        
+            <div class="columns is-variable is-1 is-multiline is-mobile" style="padding-top: 2em;">
+                
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/Java/">#
+                            Java
+                        </a>
+                    </span>
+                    
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/POI/">#
+                            POI
+                        </a>
+                    </span>
+                    
+                    <span class="column is-narrow">
+                        <a class="tag is-light article-tag" href="/tags/Excel/">#
+                            Excel
+                        </a>
+                    </span>
+                    
+            </div>
+            
 
+    </article>
+
+    <!-- 
+
+
+<div class="comments">
+    <h3 class="title is-4">评论</h3>
+    
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2018/10/10/POI高效导出百万级Excel数据/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+</div>
+ -->
+
+
+    <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            
+                flyhero
+            
+        </li>
+       
+        <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+                        
+                                <a target="_blank" href="/2018/10/10/POI高效导出百万级Excel数据/" title="POI高效导出百万级Excel数据">
+                                    http://iflyapi.cn/2018/10/10/POI高效导出百万级Excel数据/
+                                </a>
+                        
+            
+        </li>
+        <li class="post-copyright-license">
+            <strong>版权： </strong>
+            本站文章均采用
+            <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+    </ul>
+    
+</div>
+
+<div class="author-right">
+    <div class="toc-fixed">
+        <h1>文章目录</h1>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Excel简介"><span class="toc-number">1.</span> <span class="toc-text">Excel简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-POI"><span class="toc-number">2.</span> <span class="toc-text">Apache POI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用类"><span class="toc-number">2.2.</span> <span class="toc-text">常用类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导出策略"><span class="toc-number">3.</span> <span class="toc-text">导出策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方案"><span class="toc-number">3.1.</span> <span class="toc-text">方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#性能对比"><span class="toc-number">3.2.</span> <span class="toc-text">性能对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">3.3.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#方案一"><span class="toc-number">3.3.1.</span> <span class="toc-text">方案一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方案二"><span class="toc-number">3.3.2.</span> <span class="toc-text">方案二</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+</div>
+
+<!-- 百度站长推送 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+    
+        </div>
+
+        
 
                 
-    </div>
-</article>
-                    
+                    <div class="comments">
+                        <h3 class="title is-4">
+                            评论
+                        </h3>
                         
-        </div>
-        <div class="author-right">
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2018/10/10/POI高效导出百万级Excel数据/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
 
-            <section class="right-section">
-                <fieldset>
-                    <section class="avatar-section">
-                        <img src="http://7xv6ov.com2.z0.glb.qiniucdn.com/flyhero.png">
-                    </section>
-                    <div style="margin: 8px 8px 3px; line-height: 1.4;">
-                        <span>flyhero</span>
                     </div>
-                    <div class="right-desc">
-                        <span>前路慢慢，稳打稳扎</span>
-                    </div>
-                    <hr></hr>
-                    <!-- <div class="right-desc">
-            <span>微信号：xwintop</span>
-    </div>
-    <img class="wx-img" src=""> -->
-                    <ul class="list-inline">
-
-                        <li>
-                            <a target="_blank" href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-stack-1x fa-inverse">知</i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-stack-1x fa-inverse">简</i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="https://github.com/flyhero">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </fieldset>
-            </section>
-
-        </div>
+                    
     </div>
 </section>
     <footer class="footer">
