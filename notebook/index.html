@@ -105,6 +105,8 @@
 </li>
 <li><p>别人指出的问题，不要反感，除非你有理由说服别人你是正确的。</p>
 </li>
+<li><p>请假要尽量提前一些天，让领导能提前协调大家工作的进展。</p>
+</li>
 </ol>
 <h2 id="技术篇"><a href="#技术篇" class="headerlink" title="技术篇"></a>技术篇</h2><h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><ol>
 <li>入参一定要打印出来，方法中每个return前要打印说明原因。</li>
@@ -127,7 +129,10 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String ids = <span class="string">"1,2,3"</span>;</span><br></pre></td></tr></table></figure>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="string">'1,2,3'</span>)</span><br></pre></td></tr></table></figure>
-<p>如果确实需要，你可以修改mysql server 的max_allowed_packet大小。</p>
+<p>如果确实需要，你可以修改mysql server 的max_allowed_packet大小。方式如下：</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show variables like '%max_allowed_packet%';</span><br><span class="line"><span class="meta">#</span><span class="bash"> 扩大配置限制，将1024（1M）增大，将其修改为20M</span></span><br><span class="line">set global max_allowed_packet = 2*1024*1024*10;</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="面试篇"><a href="#面试篇" class="headerlink" title="面试篇"></a>面试篇</h2><ol>
 <li>了解清楚公司的产品有多少？用到什么技术？有什么依赖？</li>
 <li>同语言开发不低于5人，各个层级是否有人（高中初级）？是否有技术积累（展示渠道，可回家看看）？</li>
