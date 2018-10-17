@@ -109,6 +109,9 @@
 </li>
 <li>周五结束工作时，列出下周一要做的事情，这样可以减少休息到工作的过度时间。</li>
 </ol>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ol>
+<li>IDEA 插件下载失败<br>System Setting -&gt; Updates  -&gt; 取消 Use secure connection</li>
+</ol>
 <h2 id="技术篇"><a href="#技术篇" class="headerlink" title="技术篇"></a>技术篇</h2><h3 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h3><ol>
 <li>入参一定要打印出来，方法中每个return前要打印说明原因。</li>
 <li>循环中谨慎打印日志</li>
@@ -137,7 +140,7 @@
 </ol>
 <ul>
 <li>库表列名称：windows下默认不区分大小写，linux下默认是区分大小写的。</li>
-<li>字段内容：mysql默认的字符检索策略：utf8mb4_general_ci，表示不区分大小写; utf8mb4_bin表示二进制比较，同样也区分大小写。</li>
+<li>字段内容：mysql默认的字符检索策略：utf8mb4_general_ci，表示不区分大小写; utf8mb4_bin表示二进制比较，同样也区分大小写。<br>可通过下面来修改表及列的字符集：<br><code>ALTER TABLE table_name DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci</code></li>
 </ul>
 <h2 id="面试篇"><a href="#面试篇" class="headerlink" title="面试篇"></a>面试篇</h2><ol>
 <li>了解清楚公司的产品有多少？用到什么技术？有什么依赖？</li>
