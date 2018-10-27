@@ -3,19 +3,18 @@
 
 
     
-    
   <url>
-    <loc>http://iflyapi.cn/2018/10/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-10-16T05:23:05.611Z</lastmod>
+    <loc>http://iflyapi.cn/2016/07/25/Java%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</loc>
+    <lastmod>2018-10-27T06:51:10.181Z</lastmod>
     <data>
         <display>
-        <title>设计模式-原型模式</title>
-        <pubTime>2018-10-15T10:15:00.000Z</pubTime>
+        <title>Java的代码执行顺序</title>
+        <pubTime>2016-07-25T13:44:12.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="设计模式" url="http://iflyapi.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+              <breadCrumb title="Java" url="http://iflyapi.cn/categories/Java/"/>
           
         </display>
     </data>
@@ -24,7 +23,7 @@
     
   <url>
     <loc>http://iflyapi.cn/2018/10/10/POI%E9%AB%98%E6%95%88%E5%AF%BC%E5%87%BA%E7%99%BE%E4%B8%87%E7%BA%A7Excel%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2018-10-12T07:15:58.329Z</lastmod>
+    <lastmod>2018-10-19T07:51:28.682Z</lastmod>
     <data>
         <display>
         <title>POI高效导出百万级Excel数据</title>
@@ -40,6 +39,43 @@
            
              
               <breadCrumb title="工作实战" url="http://iflyapi.cn/categories/%E5%B7%A5%E4%BD%9C%E5%AE%9E%E6%88%98/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://iflyapi.cn/2018/10/15/%E8%BF%9B%E9%98%B6%E5%BF%85%E4%BC%9A%E7%9A%84Java%E5%8F%8D%E5%B0%84/</loc>
+    <lastmod>2018-10-19T03:48:52.795Z</lastmod>
+    <data>
+        <display>
+        <title>进阶必会的Java反射</title>
+        <pubTime>2018-10-15T10:15:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Java" url="http://iflyapi.cn/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://iflyapi.cn/2018/10/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-10-16T05:23:05.611Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式-原型模式</title>
+        <pubTime>2018-10-15T10:15:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://iflyapi.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
           
         </display>
     </data>

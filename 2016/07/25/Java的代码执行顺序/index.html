@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Java的代码执行顺序 - flyapi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="baidu-site-verification" content="vuLJkgHfME" />
+<meta name="google-site-verification" content="8cFR3XeusGH3CQHrS83cX-JArtnAT1yQF8s-sCSYbQ0" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"> -->
+<link href="https://cdn.bootcss.com/lightgallery/1.6.10/css/lightgallery.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css"> -->
+<link href="https://cdn.bootcss.com/justifiedGallery/3.7.0/css/justifiedGallery.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- <script defer src="//use.fontawesome.com/releases/v5.0.13/js/all.js"></script> -->
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">归档</a>
+            
+            <a class="navbar-item "
+               href="/read">阅读</a>
+            
+            <a class="navbar-item "
+               href="/notebook">工作手册</a>
+            
+            <a class="navbar-item "
+               href="/about">关于</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fa fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/flyhero">
+                
+                <i class="fa fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section" style="overflow: hidden;">
+    <div class="container" style="overflow: hidden;">
+        <div style="overflow: hidden;">
+        
+            <div class="article-left">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+        <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+            
+                    Java的代码执行顺序
+                        
+        </h1>
+        <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+            
+                    <span class="column is-narrow ">
+                        <span class="badge badge-pill badge-success">原创</span>
+                    </span>
+                
+
+                    <span class="column is-narrow">
+                        <i class="fa fa-calendar-o"></i>
+                        <time datetime="2016-07-25T13:44:12.000Z" itemprop="datePublished">
+                            2016-07-25 21:44
+                        </time>
+                    </span>
+
+                    
+                        <span style="display: none;" class="column is-narrow">
+                           <!--  <i class="fa fa-eye"></i> -->
+                            <span id="/2016/07/25/Java的代码执行顺序/" class="leancloud_visitors" data-title="Java的代码执行顺序">
+                            </span>
+                        </span>
+                        
+
+                            
+                                <span class="column is-narrow">
+                                    <i class="fa fa-clock-o"></i>
+                                    
+                                        
+                                            16 分钟 读完 (约 2467 字)
+                                </span>
+                                
+        </div>
+        <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+            
+                                <p>程序中代码执行的顺序非常重要，稍有不慎便会是程序运行出错，那么我将结合实例来分析代码中的执行。</p>
+<a id="more"></a>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>首先了解几个名词：</p>
+<h3 id="非静态代码块"><a href="#非静态代码块" class="headerlink" title="非静态代码块"></a>非静态代码块</h3><pre><code>直接由 { } 包起来的代码，称为非静态代码块
+</code></pre><h3 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h3><pre><code>直接由 static { } 包起来的代码，称为静态代码块
+</code></pre><h3 id="形参"><a href="#形参" class="headerlink" title="形参"></a>形参</h3><p>比如你定义一个函数void add（int a, int b），这里的a和b就是形参。<br>当你进行函数调用的时候，add（1, 2），这里的1和2就是实参。</p>
+<h3 id="向前引用"><a href="#向前引用" class="headerlink" title="向前引用"></a>向前引用</h3><p>所谓向前引用，就是在定义类、接口、方法、变量之前使用它们。</p>
+<h3 id="成员变量"><a href="#成员变量" class="headerlink" title="成员变量"></a>成员变量</h3><pre><code>在类体里面定义的变量称为成员变量；
+如果该成员变量有 static 关键字修饰，则该成员变量称为 静态变量 或 类变量；
+如果该成员变量没有 static 关键字修饰，则该成员变量被称为 非静态变量 或 实例变量。
+</code></pre><h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><pre><code>形参、方法内定义的变量、代码块中定义的变量，都属于局部变量。
+</code></pre><h3 id="类变量-（静态变量）"><a href="#类变量-（静态变量）" class="headerlink" title="类变量 （静态变量）"></a>类变量 （静态变量）</h3><pre><code>1. 可以向前引用
+2. 变量属于类本身
+3. 类变量不依赖类的实例，类变量只在初始化时候在方法区中被分配一次空间，无论类的实例被创建几次，都不再为类变量分配空间
+4. 通过类的任意一个实例来访问类变量，底层都将将其转为通过类本身来访问类变量，它们的效果是一样的
+5. 一旦类变量的值被改变，通过类或类的任意一个实例来访问类变量，得到的都将是被改变后的值
+6. 将在类的初始化之前初始化
+</code></pre><h3 id="实例变量（非静态变量）"><a href="#实例变量（非静态变量）" class="headerlink" title="实例变量（非静态变量）"></a>实例变量（非静态变量）</h3><pre><code>1. 不能向前引用，如果向前引用，则称为非法向前引用，这是不允许的
+2. 变量属于类的实例对象
+3. 随着类的实例被创建而分配内存空间
+</code></pre><h2 id="实例演示"><a href="#实例演示" class="headerlink" title="实例演示"></a>实例演示</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> parentNum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> staticParentNum=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"Parent---执行非静态代码块了1！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"Parent---执行非静态代码块了2！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Parent---执行静态代码块了1！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Parent---执行静态代码块了2！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Parent</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Parent---无参构造函数！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Parent</span><span class="params">(<span class="keyword">int</span> parentNum)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.parentNum=parentNum;</span><br><span class="line">		System.out.println(<span class="string">"Parent---有参构造函数！"</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ParentMethod</span><span class="params">(<span class="keyword">int</span> parentNum)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.parentNum=parentNum;</span><br><span class="line">		System.out.println(<span class="string">"Parent---非静态方法/parentNum="</span>+parentNum);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">staticParentMethod</span><span class="params">(<span class="keyword">int</span> staticParentNum)</span></span>&#123;</span><br><span class="line">		Parent.staticParentNum=staticParentNum;</span><br><span class="line">		System.out.println(<span class="string">"Parent---静态方法/staticParentNum="</span>+staticParentNum);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> childNum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> staticChildNum=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"Child---执行非静态代码块了1！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(<span class="string">"Child---执行非静态代码块了2！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Child---执行静态代码块了1！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Child---执行静态代码块了2！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Child</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		System.out.println(<span class="string">"Child---无参构造函数！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Child</span><span class="params">(<span class="keyword">int</span> childNum)</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(childNum);</span><br><span class="line">		System.out.println(<span class="string">"Child---有参构造函数！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">childMethod</span><span class="params">(<span class="keyword">int</span> childNum)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.childNum=childNum;</span><br><span class="line">		System.out.println(<span class="string">"Child--非静态方法/childNum="</span>+childNum);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">staticChildMethod</span><span class="params">(<span class="keyword">int</span> staticChildNum)</span></span>&#123;</span><br><span class="line">		Child.staticChildNum=staticChildNum;</span><br><span class="line">		System.out.println(<span class="string">"Child---静态方法/staticChildNum="</span>+staticChildNum);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"></span><br><span class="line">public class Test &#123;</span><br><span class="line"></span><br><span class="line">//	static&#123;</span><br><span class="line">//		System.out.println(&quot;Test---静态代码块！&quot;);</span><br><span class="line">//	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		int key=10;</span><br><span class="line">		switch (key) &#123;</span><br><span class="line">		case 0:</span><br><span class="line">			Parent parent=new Parent();</span><br><span class="line">			break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			Parent---执行非静态代码块了1！</span><br><span class="line">//			Parent---执行非静态代码块了2！</span><br><span class="line">//			Parent---无参构造函数！</span><br><span class="line">//          说明：先加载静态代码块，后加载非静态代码块</span><br><span class="line">		case 1:</span><br><span class="line">			Child b= new Child();</span><br><span class="line">			break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			Child---执行静态代码块了1！</span><br><span class="line">//			Child---执行静态代码块了2！</span><br><span class="line">//			Parent---执行非静态代码块了1！</span><br><span class="line">//			Parent---执行非静态代码块了2！</span><br><span class="line">//			Parent---无参构造函数！</span><br><span class="line">//			Child---执行非静态代码块了1！</span><br><span class="line">//			Child---执行非静态代码块了2！</span><br><span class="line">//			Child---无参构造函数！</span><br><span class="line">//			说明：创建子类，会先执行父类，先执行父类静态——&gt;子类静态——&gt;父类非静态——&gt;父类构造——&gt;子类非静态——&gt;子类构造</span><br><span class="line">		case 2:</span><br><span class="line">			Child c= new Child(4);</span><br><span class="line">            //这个构造函数中指明了调用父类的有参构造函数，若不指定，则调用父类无参构造函数</span><br><span class="line">            break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			Child---执行静态代码块了1！</span><br><span class="line">//			Child---执行静态代码块了2！</span><br><span class="line">//			Parent---执行非静态代码块了1！</span><br><span class="line">//			Parent---执行非静态代码块了2！</span><br><span class="line">//			Parent---有参构造函数！</span><br><span class="line">//			Child---执行非静态代码块了1！</span><br><span class="line">//			Child---执行非静态代码块了2！</span><br><span class="line">//			Child---有参构造函数！</span><br><span class="line">			说明：静态代码块或非静态代码块执行顺序，按照代码前后编写顺序。</span><br><span class="line">		case 3:</span><br><span class="line">			Child d= new Child();</span><br><span class="line">			Child e= new Child(4);</span><br><span class="line">            break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			Child---执行静态代码块了1！</span><br><span class="line">//			Child---执行静态代码块了2！</span><br><span class="line">//			Parent---执行非静态代码块了1！</span><br><span class="line">//			Parent---执行非静态代码块了2！</span><br><span class="line">//			Parent---无参构造函数！</span><br><span class="line">//			Child---执行非静态代码块了1！</span><br><span class="line">//			Child---执行非静态代码块了2！</span><br><span class="line">//			Child---无参构造函数！</span><br><span class="line">//			Parent---执行非静态代码块了1！</span><br><span class="line">//			Parent---执行非静态代码块了2！</span><br><span class="line">//			Parent---有参构造函数！</span><br><span class="line">//			Child---执行非静态代码块了1！</span><br><span class="line">//			Child---执行非静态代码块了2！</span><br><span class="line">//			Child---有参构造函数！</span><br><span class="line">			说明：创建多个子类，但父类静态代码块只执行一次。</span><br><span class="line">		case 4:</span><br><span class="line">			Child.staticChildMethod(4);</span><br><span class="line">            break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			Child---执行静态代码块了1！</span><br><span class="line">//			Child---执行静态代码块了2！</span><br><span class="line">//			Child---静态方法/staticChildNum=4</span><br><span class="line">			说明：静态方法只可以调用静态变量。</span><br><span class="line">		case 5:</span><br><span class="line">			Parent.staticParentMethod(5);</span><br><span class="line">            break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			Parent---静态方法/staticParentNum=5</span><br><span class="line">			说明：静态方法可通过 父类名.静态方法() 调用。</span><br><span class="line">		case 6:</span><br><span class="line">			System.out.println(&quot;父类的静态变量值staticParentNum=&quot;+Parent.staticParentNum);</span><br><span class="line">            break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			父类的静态变量值staticParentNum=0</span><br><span class="line">			说明：调用静态变量时，静态代码块会执行。</span><br><span class="line">		case 7:</span><br><span class="line">			System.out.println(&quot;子类的静态变量值staticChildNum=&quot;+Child.staticChildNum);</span><br><span class="line">            break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			Child---执行静态代码块了1！</span><br><span class="line">//			Child---执行静态代码块了2！</span><br><span class="line">//			子类的静态变量值staticChildNum=0</span><br><span class="line">			说明：调用子类静态变量，父类静态代码块和子类静态代码块会被执行。</span><br><span class="line">		case 8:</span><br><span class="line">			System.out.println(&quot;父类的静态变量值staticParentNum=&quot;+Parent.staticParentNum);</span><br><span class="line">			System.out.println(&quot;子类的静态变量值staticChildNum=&quot;+Child.staticChildNum);</span><br><span class="line">            break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			父类的静态变量值staticParentNum=0</span><br><span class="line">//			Child---执行静态代码块了1！</span><br><span class="line">//			Child---执行静态代码块了2！</span><br><span class="line">//			子类的静态变量值staticChildNum=0</span><br><span class="line">			</span><br><span class="line">		case 9:</span><br><span class="line">			Child f= new Child();</span><br><span class="line">			f.ParentMethod(3);</span><br><span class="line">            break;</span><br><span class="line">//			Parent---执行静态代码块了1！</span><br><span class="line">//			Parent---执行静态代码块了2！</span><br><span class="line">//			Child---执行静态代码块了1！</span><br><span class="line">//			Child---执行静态代码块了2！</span><br><span class="line">//			Parent---执行非静态代码块了1！</span><br><span class="line">//			Parent---执行非静态代码块了2！</span><br><span class="line">//			Parent---无参构造函数！</span><br><span class="line">//			Child---执行非静态代码块了1！</span><br><span class="line">//			Child---执行非静态代码块了2！</span><br><span class="line">//			Child---无参构造函数！</span><br><span class="line">//			Parent---非静态方法/parentNum=3</span><br><span class="line">			说明：创建子类，用子类调用父类方法，非静态方法可以调用静态变量。</span><br><span class="line"></span><br><span class="line">		default:</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Java代码初始化顺序：</p>
+<pre><code>1. 由 static 关键字修饰的（如：类变量(静态变量)、静态代码块）将在类被初始化创建实例对象之前被初始化，而且是按顺序从上到下依次被执行。静态（类变量、静态代码块）属于类本身，不依赖于类的实例。
+2. 没有 static 关键字修饰的（如：实例变量(非静态变量)、非静态代码块）初始化实际上是会被提取到类的构造器中被执行的，但是会比类构造器中的代码块优先执行到，非静态（实例变量、非静态代码块）的地位是相等的，它们将按顺序被执行。
+</code></pre><p>类变量（静态变量）、实例变量（非静态变量）、静态代码块、非静态代码块的初始化时机<br>    由 static 关键字修饰的（如：类变量[静态变量]、静态代码块）将在类被初始化创建实例对象之前被初始化，而且是按顺序从上到下依次被执行；<br>    没有 static 关键字修饰的（如：实例变量[非静态变量]、非静态代码块）初始化实际上是会被提取到类的构造器中被执行的，但是会比类构造器中的 代码块优先执行到，其也是按顺序从上到下依次被执行。</p>
+<ul>
+<li>容易混淆的一个知识点<br>  静态方法只允许直接访问静态成员，而实例方法中可以访问静态成员和实例成员，原因是类还没有实例化，所实例成员也没有被创建，静态方法中因此也不能用this。</li>
+</ul>
+
+                                    
+        </div>
+        
+
+    </article>
+
+    <!-- 
+
+
+<div class="comments">
+    <h3 class="title is-4">评论</h3>
+    
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2016/07/25/Java的代码执行顺序/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+</div>
+ -->
+
+
+    <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <strong>本文作者：</strong>
+            
+                flyhero
+            
+        </li>
+       
+        <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+                        
+                                <a target="_blank" href="/2016/07/25/Java的代码执行顺序/" title="Java的代码执行顺序">
+                                    http://iflyapi.cn/2016/07/25/Java的代码执行顺序/
+                                </a>
+                        
+            
+        </li>
+        <li class="post-copyright-license">
+            <strong>版权： </strong>
+            本站文章均采用
+            <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+    </ul>
+    
+</div>
+
+<div class="author-right">
+    <div class="toc-fixed">
+        <h1>文章目录</h1>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#名词解释"><span class="toc-number">1.</span> <span class="toc-text">名词解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#非静态代码块"><span class="toc-number">1.1.</span> <span class="toc-text">非静态代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态代码块"><span class="toc-number">1.2.</span> <span class="toc-text">静态代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#形参"><span class="toc-number">1.3.</span> <span class="toc-text">形参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向前引用"><span class="toc-number">1.4.</span> <span class="toc-text">向前引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#成员变量"><span class="toc-number">1.5.</span> <span class="toc-text">成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#局部变量"><span class="toc-number">1.6.</span> <span class="toc-text">局部变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类变量-（静态变量）"><span class="toc-number">1.7.</span> <span class="toc-text">类变量 （静态变量）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例变量（非静态变量）"><span class="toc-number">1.8.</span> <span class="toc-text">实例变量（非静态变量）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例演示"><span class="toc-number">2.</span> <span class="toc-text">实例演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+    </div>
+
+</div>
+
+<!-- 百度站长推送 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+    
+        </div>
+
+        
+
+                
+                    <div class="comments">
+                        <h3 class="title is-4">
+                            评论
+                        </h3>
+                        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2016/07/25/Java的代码执行顺序/',
+		owner: 'flyhero',
+		repo: 'flyhero.github.io',
+		oauth: {
+			client_id: 'ef78f87594d94e06cfac',
+			client_secret: '0dea0269b913607af01fc8ab19115b89bdca6235',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+                    </div>
+                    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2016 - 2018 flyhero&nbsp;
+                <a href="http://www.miitbeian.gov.cn/">皖ICP备18004846号</a>
+            </div>
+            
+            <div class="column is-hidden-mobile"></div>
+        </div>
+
+    <div class="columns">
+        <div class="column is-narrow has-text-centered">
+                            <span id="busuanzi_container_site_pv">
+                                <i class="fa fa-eye"></i>
+                                <span id="busuanzi_value_site_pv"></span>次
+                            </span>
+                            <span id="busuanzi_container_site_uv">
+                                <i class="fa fa-user"></i>
+                                <span id="busuanzi_value_site_uv"></span>人次
+                            </span>
+                    &nbsp;Powered by
+                    <a href="" target="_blank">Simele</a>&nbsp;&nbsp;
+                    base on
+                    <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+        </div>
+    
+        <div class="column is-hidden-mobile"></div>
+    
+        
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                    
+                        
+                            <a class="column is-narrow has-text-black" href="https://github.com/flyhero/hexo-theme-simele">
+                                
+                                    GitHub
+                                        
+                            </a>
+                            
+                </div>
+            </div>
+            
+                
+    </div>
+
+
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+
+
+<script src="//cdn1.lncld.net/static/js/3.6.8/av-min.js"></script>
+<script>AV.initialize("BofKiGH8KL9dm9JcFAOS5k2q-gzGzoHsz", "MfK5JCAY0d9Y2dLWKDfFMbeX");</script>
+<script>
+    function showTime(Counter) {
+        
+        document.querySelectorAll(".leancloud_visitors").forEach(function (item) {
+            console.log(item.id);
+            var url = item.id.trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find().then(function (results) {
+                    if (results.length == 0) {
+                        document.getElementById(url).innerHTML = 0;
+                        return;
+                    }
+                    for (var i = 0; i < results.length; i++) {
+                        var object = results[i];
+                        document.getElementById(url).innerHTML = object.get('hits');
+                    }
+                },function (object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                }
+            );
+        });
+    }
+    function addCount(Counter) {
+        var Counter = AV.Object.extend("Counter");
+        url = document.querySelector(".leancloud_visitors").id.trim();
+        title = document.querySelector(".leancloud_visitors").getAttribute('data-title').trim();
+        var query = new AV.Query(Counter);
+        query.equalTo("url", url);
+        query.find().then(function (results) {
+                if (results.length > 0) {
+                    var counter = results[0];
+                    counter.fetchWhenSave(true);
+                    counter.increment("hits");
+                    counter.save().then(function (counter) {
+                            document.getElementById(url).innerHTML = counter.get('hits');
+                        },function (counter, error) {
+                            console.log('Failed to save Visitor num, with error message: ' + error.message);
+                        }
+                    );
+                } else {
+                    var newcounter = new Counter();
+                    newcounter.set("title", title);
+                    newcounter.set("url", url);
+                    newcounter.set("hits", 1);
+                    newcounter.save().then(function (newcounter) {
+                            console.log("newcounter.get('hits')=" + newcounter.get('hits'));
+                            document.getElementById(url).innerHTML = newcounter.get('hits');
+                        },function (newcounter, error) {
+                            console.log('Failed to create');
+                        }
+                    );
+                }
+            },function (error) {
+                console.log('Error:' + error.code + " " + error.message);
+            }
+        );
+    }
+    (function () {
+        var Counter = AV.Object.extend("Counter");
+        // 如果页面只有一个 leancloud_visitors 则认为它是文章页面
+        // 如果有多个，认为它是列表页
+        if (document.querySelectorAll('.leancloud_visitors').length == 1) {
+            addCount(Counter);
+        } else if (document.querySelectorAll('.leancloud_visitors').length > 1) {
+            showTime(Counter);
+        }
+    })();
+    </script>
+    
+    
+
+
+<script src="/js/script.js"></script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+                <!-- 
+                    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                     -->
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="站内搜索" />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
