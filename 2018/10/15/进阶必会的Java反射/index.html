@@ -122,7 +122,7 @@
                                     <i class="fa fa-clock-o"></i>
                                     
                                         
-                                            2 分钟 读完 (约 246 字)
+                                            8 分钟 读完 (约 1166 字)
                                 </span>
                                 
         </div>
@@ -135,6 +135,52 @@
 <p>Reflection enables Java code to discover information about the fields, methods and constructors of loaded classes, and to use reflected fields, methods, and constructors to operate on their underlying counterparts, within security restrictions.The API accommodates applications that need access to either the public members of a target object (based on its runtime class) or the members declared by a given class. It also allows programs to suppress default reflective access control.</p>
 </blockquote>
 <p>反射 (Reflection) 是 Java 的特征之一，它允许运行中的 Java 程序获取自身的信息，并且可以操作类或对象的内部属性。</p>
+<p>以上归纳起来就是：</p>
+<ol>
+<li>在运行时判断任意一个对象所属的类；</li>
+<li>在运行时构造任意一个类的对象；</li>
+<li>在运行时判断任意一个类的所有成员变量和方法；</li>
+<li>在运行时调用任意一个对象的方法。</li>
+</ol>
+<h2 id="反射操作"><a href="#反射操作" class="headerlink" title="反射操作"></a>反射操作</h2><h3 id="常用的反射相关类"><a href="#常用的反射相关类" class="headerlink" title="常用的反射相关类"></a>常用的反射相关类</h3><p>常用的类除Class都在java.lang.reflect包下：</p>
+<ul>
+<li>Class</li>
+<li>Constructor</li>
+<li>Method</li>
+<li>Field</li>
+</ul>
+<h3 id="Class类"><a href="#Class类" class="headerlink" title="Class类"></a>Class类</h3><p>怎么理解Class类呢？首先，Class类和class定义类的关键字是不一样的。其实Class类和其他普通类同样是一个实实在在的类，只不过它所表示的是在运行时各个类的类型信息，所以任何类都可以得到一个Class类（相同类的不对对象得到的是同一个Class对象）。</p>
+<h4 id="getClass本地方法"><a href="#getClass本地方法" class="headerlink" title="getClass本地方法"></a>getClass本地方法</h4><p>Object类拥有一个本地方法getClass()方法，通过它可直接获取一个Class类对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = object.getClass();</span><br></pre></td></tr></table></figure></p>
+<h4 id="Class-forName-方法"><a href="#Class-forName-方法" class="headerlink" title="Class.forName 方法"></a>Class.forName 方法</h4><p>有一个行代码估计你闭上眼都能想到这段加载数据库驱动的代码，它就是用到了反射。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Class字面常量"><a href="#Class字面常量" class="headerlink" title="Class字面常量"></a>Class字面常量</h4><p>这种方式最为方便，无论基本类型还是引用类型都可以通过下面类获得，但前提是在编译时就知道所要获取的类名称并且类存在。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = <span class="keyword">int</span>.class;</span><br></pre></td></tr></table></figure></p>
+<h4 id="三种对比"><a href="#三种对比" class="headerlink" title="三种对比"></a>三种对比</h4><ul>
+<li>第一种需要持有该类的实例对象</li>
+<li>第二三种不需要持有实例对象</li>
+<li>第三种效率更高也更方便，不需要调用任何方法。</li>
+</ul>
+<h3 id="Constructor构造器类"><a href="#Constructor构造器类" class="headerlink" title="Constructor构造器类"></a>Constructor构造器类</h3><p>获取Constructor类的目的就是创建对象，下面我们看如何创建类的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: flyhero</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span>: 2018-10-29 6:50 PM</span></span><br><span class="line"><span class="comment"> */</span> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String name = <span class="string">"wang"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String say = <span class="string">"hello , everybody"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(<span class="keyword">int</span> age, String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//getter and setter</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Class clazz = User.class;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//方式一</span></span><br><span class="line">            User user = (User) clazz.newInstance();</span><br><span class="line">            System.out.println(user.getName());</span><br><span class="line"></span><br><span class="line">            <span class="comment">//方式二</span></span><br><span class="line">            Constructor constructor = clazz.getConstructor(<span class="keyword">int</span>.class, String.class);</span><br><span class="line">            User user1 = (User) constructor.newInstance(<span class="number">10</span>, <span class="string">"flyhero"</span>);</span><br><span class="line">            System.out.println(user1.getName());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>方式一<br><code>User user = (User) clazz.newInstance();</code>Class类提供类一个创建实例的方法，但这是有条件的，首先该类要有无參构造函数，否则会抛出一样。</p>
+</li>
+<li><p>方式二</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Constructor constructor = clazz.getConstructor(<span class="keyword">int</span>.class, String.class);</span><br><span class="line">            User user1 = (User) constructor.newInstance(<span class="number">10</span>, <span class="string">"flyhero"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这是获取类的指定有参构造器，然后调用newInstance依次传入指定的参数。</p>
+<h3 id="Method类"><a href="#Method类" class="headerlink" title="Method类"></a>Method类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    User user = (User) clazz.newInstance();</span><br><span class="line">    Method[] publicMethods = clazz.getMethods();</span><br><span class="line">    Method publicMethod = clazz.getMethod(<span class="string">"setAge"</span>, <span class="keyword">int</span>.class);</span><br><span class="line">    publicMethod.invoke(user,<span class="number">22</span>);</span><br><span class="line">    Method[] allMethods = clazz.getDeclaredMethods();</span><br><span class="line">    Method allMethod = clazz.getDeclaredMethod(<span class="string">"setName"</span>, String.class);</span><br><span class="line">&#125; <span class="keyword">catch</span> (NoSuchMethodException | IllegalAccessException |InstantiationException |InvocationTargetException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>getMethods方法<br>我们主要使用上面这四个方法来获取Method对象,方法名称中含有<code>Declared</code>的，表示可以获取所有方法，包括私有方法。</p>
+</li>
+<li><p>invoke方法<br><code>publicMethod.invoke(user,22)</code>Method通过invoke方法来执行本方法，不过要注意它的参数，它需要本方法所在的类的实例，以及本方法所需要的参数。</p>
+</li>
+</ul>
+<h3 id="Field类"><a href="#Field类" class="headerlink" title="Field类"></a>Field类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    User user = (User) clazz.newInstance();</span><br><span class="line">    Field field = clazz.getField(<span class="string">"name"</span>);</span><br><span class="line">    Field[] fields = clazz.getFields();</span><br><span class="line">    field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">    field.set(user,<span class="string">"flyhero"</span>);</span><br><span class="line">    Class&lt;?&gt; fieldClazz = field.getType();</span><br><span class="line">   &#125; <span class="keyword">catch</span> (NoSuchFieldException | IllegalAccessException |InstantiationException e) &#123;</span><br><span class="line">       e.printStackTrace();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>getFields方法<br>方法名称中含有<code>Declared</code>的，表示可以获取所有属性，包括私有属性。</p>
+</li>
+<li><p>set方法<br>如果需要设置私有属性的值，则需要先设置属性的<code>field.setAccessible(true);</code><br>然后<code>field.set(user,&quot;flyhero&quot;);</code>需要本属性的类对象，和具体值作为参数。</p>
+</li>
+</ul>
 
                                     
         </div>
@@ -197,7 +243,7 @@
 <div class="author-right">
     <div class="toc-fixed">
         <h1>文章目录</h1>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是反射？"><span class="toc-number">1.</span> <span class="toc-text">什么是反射？</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是反射？"><span class="toc-number">1.</span> <span class="toc-text">什么是反射？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射操作"><span class="toc-number">2.</span> <span class="toc-text">反射操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用的反射相关类"><span class="toc-number">2.1.</span> <span class="toc-text">常用的反射相关类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Class类"><span class="toc-number">2.2.</span> <span class="toc-text">Class类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#getClass本地方法"><span class="toc-number">2.2.1.</span> <span class="toc-text">getClass本地方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Class-forName-方法"><span class="toc-number">2.2.2.</span> <span class="toc-text">Class.forName 方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Class字面常量"><span class="toc-number">2.2.3.</span> <span class="toc-text">Class字面常量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三种对比"><span class="toc-number">2.2.4.</span> <span class="toc-text">三种对比</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Constructor构造器类"><span class="toc-number">2.3.</span> <span class="toc-text">Constructor构造器类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method类"><span class="toc-number">2.4.</span> <span class="toc-text">Method类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Field类"><span class="toc-number">2.5.</span> <span class="toc-text">Field类</span></a></li></ol></li></ol>
     </div>
 
 </div>

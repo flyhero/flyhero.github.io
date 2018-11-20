@@ -119,252 +119,36 @@
                         <i class="fa fa-clock-o"></i>
                         
                             
-                                20 分钟 读完 (约 2934 字)
+                                20 分钟 读完 (约 2935 字)
                     </span>
                     
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
         
-                    <p>事务可以帮助我们避免许多数据不一致性的问题。</p>
-<h3 id="什么是事务传播？"><a href="#什么是事务传播？" class="headerlink" title="什么是事务传播？"></a>什么是事务传播？</h3><p>就是一个事务中遇到其它事务，spring该如何来处理这些事务的行为。</p>
-<h3 id="什么是事务隔离？"><a href="#什么是事务隔离？" class="headerlink" title="什么是事务隔离？"></a>什么是事务隔离？</h3><p>假若两个事务同时对同一数据进行操作，为了有效保证并发读取数据的正确性，spring对这些情况的进行处理。</p>
-<h3 id="两者对比"><a href="#两者对比" class="headerlink" title="两者对比"></a>两者对比</h3><p>对比事务传播和事务隔离来讲：（如有不妥，请指出）</p>
-<ul>
-<li>传播是顺序进行的</li>
-<li>隔离是同时进行的</li>
-<li>用图来说明获取更加形象<img src="http://" alt="对比图片"></li>
-</ul>
-<blockquote>
-<p>如果你了解脏读，幻读，不可重复读的话，那事务隔离更加容易理解了。</p>
-</blockquote>
-<p>知道了什么是事务传播和隔离，那么我们来看事务传播和隔离都有哪些？</p>
-<h3 id="事务的传播行为"><a href="#事务的传播行为" class="headerlink" title="事务的传播行为"></a>事务的传播行为</h3><p>在Spring 的事务中， 可以通过 propagation 来定义事务的传播行为：</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>PROPAGATION_REQUIRED</td>
-<td>若当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中（常用）</td>
-</tr>
-<tr>
-<td>PROPAGATION_SUPPORTS</td>
-<td>支持当前事务，如果当前没有事务，就以非事务方式执行（常用）</td>
-</tr>
-<tr>
-<td>PROPAGATION_REQUIRES_NEW</td>
-<td>新建事务，如果当前存在事务，把当前事务挂起（常用）</td>
-</tr>
-<tr>
-<td>PROPAGATION_MANDATORY</td>
-<td>使用当前的事务，如果当前没有事务，就抛出异常。</td>
-</tr>
-<tr>
-<td>PROPAGATION_NOT_SUPPORTED</td>
-<td>以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。</td>
-</tr>
-<tr>
-<td>PROPAGATION_NEVER</td>
-<td>以非事务方式执行，如果当前存在事务，则抛出异常</td>
-</tr>
-<tr>
-<td>PROPAGATION_NESTED</td>
-<td>如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与 PROPAGATION_REQUIRED类似的操作。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="隔离界别"><a href="#隔离界别" class="headerlink" title="隔离界别"></a>隔离界别</h3><p>在Spring 的事务中， 可以通过 isolation 来定义。 该隔离界别主要定义了一个事务和其他事务进行的资源或者数据更改相隔离的程度。</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>意义</th>
-<th>脏读</th>
-<th>幻读</th>
-<th>不可重复读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ISOLATION_DEFAULT</td>
-<td>默认的隔离级别，使用数据库默认的事务隔离级别.</td>
-</tr>
-<tr>
-<td>ISOLATION_READ_UNCOMMITTED</td>
-<td>这是事务最低的隔离级别，它充许令外一个事务可以看到这个事务未提交的数据。</td>
-<td>√</td>
-<td>√</td>
-<td>√ </td>
-</tr>
-<tr>
-<td>OLATION_READ_COMMITTED</td>
-<td>保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据。</td>
-<td>×</td>
-<td>√</td>
-<td>√ </td>
-</tr>
-<tr>
-<td>ISOLATION_REPEATABLE_READ</td>
-<td>它保证一个事务不能读取另一个事务未提交的数据外，还避免不可重复读的情况产生。</td>
-<td>×</td>
-<td>√</td>
-<td>×</td>
-</tr>
-<tr>
-<td>ISOLATION_SERIALIZABLE</td>
-<td>这是花费最高代价但是最可靠的事务隔离级别，事务被处理为顺序执行。除了防止脏读，不可重复读外，还避免了幻像读。</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-</tr>
-</tbody>
-</table>
-<p>MySQL 事务隔离级别</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>脏读</th>
-<th>幻读</th>
-<th>不可重复读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>读未提交 READ UNCOMMITTED</td>
-<td>√</td>
-<td>√</td>
-<td>√ </td>
-</tr>
-<tr>
-<td>读已提交 READ COMMITTED</td>
-<td>×</td>
-<td>√</td>
-<td>√ </td>
-</tr>
-<tr>
-<td>可重复读 REPEATABLE READ</td>
-<td>×</td>
-<td>√</td>
-<td>×</td>
-</tr>
-<tr>
-<td>可串行化 SERIALIZABLE</td>
-<td>×</td>
-<td>×</td>
-<td>×</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<ul>
-<li>在MySQL数据库中，支持上面四种隔离级别，默认的为Repeatable read (可重复读)；</li>
-<li>在Oracle数据库中，只支持Serializable (串行化)级别和Read committed (读已提交)这两种级别，其中默认的为Read committed级别。</li>
-</ul>
-</blockquote>
-<h3 id="脏读，幻读，不可重复读"><a href="#脏读，幻读，不可重复读" class="headerlink" title="脏读，幻读，不可重复读"></a>脏读，幻读，不可重复读</h3><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>脏读</td>
-<td>指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。因为这个数据是还没有提交的数据，那么另外一个事务读到的这个数据是脏数据，依据脏数据所做的操作可能是不正确的。</td>
-</tr>
-<tr>
-<td>幻读</td>
-<td>指当事务不是独立执行时发生的一种现象，例如第一个事务对一个表中的数据进行了修改，这种修改涉及到表中的全部数据行。同时，第二个事务也修改这个表中的数据，这种修改是向表中插入一行新数据。那么，以后就会发生操作第一个事务的用户发现表中还有没有修改的数据行，就好象发生了幻觉一样。</td>
-</tr>
-<tr>
-<td>不可重复读</td>
-<td>指在一个事务内，多次读同一数据。在这个事务还没有结束时，另外一个事务也访问该同一数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改，那么第一个事务两次读到的数据可能是不一样的。这样就发生了在一个事务内两次读到的数据是不一样的，因此称为是不可重复读。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="举例-理解spring事务传播"><a href="#举例-理解spring事务传播" class="headerlink" title="举例 理解spring事务传播"></a>举例 理解spring事务传播</h3><p>假如userService.deleteUser()事务中调用了scoreService.deleteScore()方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//UserService.java</span><br><span class="line"></span><br><span class="line">public void deleteUser(int id)&#123;</span><br><span class="line">    userDao.delete(id);</span><br><span class="line">    scoreService.deleteScore(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li><p>若两个方都是spring默认事务传播，当执行userService.deleteUser()的时候spring已经起了事务，这时调用 scoreService.deleteScore()，scoreService.deleteScore() 看到自己已经运行在 userService.deleteUser()的事务内部，就不再起新的事务。</p>
-</li>
-<li><p>若userService.deleteUser()没有事务，那么scoreService.deleteScore() 运行的时候发现自己没有在事务中，它就会为自己分配一个事务。</p>
-</li>
-</ol>
-<blockquote>
-<p>这样，在userService.deleteUser() 或者在scoreService.deleteScore() 内的任何地方出现异常，事务都会被回滚。</p>
-</blockquote>
-<ol start="3">
-<li>若userService.deleteUser()的事务级别为 PROPAGATION_REQUIRED；<br>scoreService.deleteScore() 的事务级别为 PROPAGATION_REQUIRES_NEW。<blockquote>
-<p>那么当执行到scoreService.deleteScore() 的时候，userService.deleteUser() 所在的事务就会挂起，scoreService.deleteScore() 会起一个新的事务，等待 scoreService.deleteScore()的事务完成以后，它才继续执行。</p>
-</blockquote>
-</li>
-</ol>
-<blockquote>
-<p>PROPAGATION_REQUIRES_NEW与 PROPAGATION_REQUIRED 的事务区别在于事务的回滚程度了。因为 scoreService.deleteScore() 是新起一个事务，那么就是存在两个不同的事务。如果 scoreService.deleteScore()已经提交，那么userService.deleteUser() 失败回滚，scoreService.deleteScore()是不会回滚的。如果scoreService.deleteScore() 失败回滚，如果他抛出的异常被userService.deleteUser()捕获，userService.deleteUser()事务仍然可能提交(主要看B抛出的异常是不是A会回滚的异常)。</p>
-</blockquote>
-<ol start="4">
-<li>scoreService.deleteScore()的事务级别为 PROPAGATION_SUPPORTS，那么当执行到scoreService.deleteScore()时，如果发现userService.deleteUser()已经开启了一个事务，则加入当前的事务，如果发现userService.deleteUser()没有开启事务，则自己也不开启事务。这种时候，内部方法的事务性完全依赖于最外层的事务。</li>
-</ol>
-<p>5.若scoreService.deleteScore()的事务属性被配置为 PROPAGATION_NESTED, 此时两者之间又将如何协作呢? scoreService.deleteScore()如果回滚, 那么内部事务(即 scoreService.deleteScore()) 将回滚到它执行前的 SavePoint 而外部事务(即 userService.deleteUser()) 可以有以下两种处理方式:</p>
-<p>a、捕获异常，执行异常分支逻辑</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void deleteUser() &#123; </span><br><span class="line">        try &#123; </span><br><span class="line">           scoreService.deleteScore(); </span><br><span class="line">        &#125; catch (Exception e) &#123; </span><br><span class="line">            // 执行其他业务</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>这种方式也是嵌套事务最有价值的地方, 它起到了分支执行的效果, 如果scoreService.deleteScore()失败, 那么执行其他业务, 而scoreService.deleteScore()已经回滚到它执行之前的保存点(SavePoint), 所以不会产生脏数据(相当于此方法从未执行过), 这种特性可以用在某些特殊的业务中, 而 PROPAGATION_REQUIRED 和 PROPAGATION_REQUIRES_NEW 都没有办法做到这一点。</p>
-<p>b、 外部事务回滚/提交 代码不做任何修改, 如果内部事务回滚, 那么首先它将回滚到它执行之前的 保存点(SavePoint)(在任何情况下都会如此), 外部事务将根据具体的配置决定自己是提交还是回滚。</p>
-<blockquote>
-<p>保存点（savepoint）是事务过程中的一个逻辑点，我们可以把事务回退到这个点，而不必回退整个事务。</p>
-</blockquote>
-<h3 id="如何在Spring框架中使用声明式事务？"><a href="#如何在Spring框架中使用声明式事务？" class="headerlink" title="如何在Spring框架中使用声明式事务？"></a>如何在Spring框架中使用声明式事务？</h3><p>Spring的声明式事务管理是基于AOP的，而AOP是通过动态代理实现的。动态代理的一个重要特征是：它是针对接口的，所以如果dao或者service要通过动态代理让Spring接管事务，就必须在dao或者service抽象一个接口。常见的形式比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">接口类：UserService</span><br><span class="line">实现类：UserServiceImpl</span><br></pre></td></tr></table></figure>
-<p>当然如果没有这样的接口，那么Spring会使用CGLib来解决问题，但这不是Spring推荐的方式。</p>
-<h4 id="基于-Transactional的声明式事务管理"><a href="#基于-Transactional的声明式事务管理" class="headerlink" title="基于@Transactional的声明式事务管理"></a>基于@Transactional的声明式事务管理</h4><p>Spring引入了基于 Annotation 的方式，具体主要涉及 @Transactional 标注。</p>
-<blockquote>
-<p>在spring的xml配置文件中加入以下内容：<br>spring-service.xml</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 扫描service包下所有使用注解的类型 --&gt;</span><br><span class="line">&lt;context:component-scan base-package=&quot;com.flyhero.flyapi.service.impl&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 配置事务管理器 --&gt;</span><br><span class="line">&lt;bean id=&quot;transactionManager&quot;</span><br><span class="line">    class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">    &lt;!-- 注入数据库连接池 --&gt;</span><br><span class="line">    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 配置基于注解的声明式事务 --&gt;</span><br><span class="line">&lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot; /&gt;</span><br></pre></td></tr></table></figure>
-<p>@Transactional 可以作用于接口、接口方法、类以及类方法上。当作用于类上时，该类的所有 public 方法将都具有该类型的事务属性，同时，我们也可以在方法级别使用该标注来覆盖类级别的定义。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Transactional</span><br><span class="line">public interface UserService &#123;</span><br><span class="line">    //将覆盖接口上的事务</span><br><span class="line">    @Transactional(propagation=Propagation.REQUIRED) </span><br><span class="line">    User findById(int id);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Transactional</span><br><span class="line">public class ScoreServiceImpl&#123;</span><br><span class="line">    //将覆盖类上的事务</span><br><span class="line">    @Transactional(propagation=Propagation.REQUIRED)</span><br><span class="line">    public int insert(User user) &#123;</span><br><span class="line">        int num=userMapper.insertSelective(user);</span><br><span class="line">        return num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p> 虽然 @Transactional 注解可以作用于接口、接口方法、类以及类方法上，但是 Spring 建议不要在接口或者接口方法上使用该注解，因为这只有在使用基于接口的代理时它才会生效。另外， @Transactional 注解应该只被应用到 public 方法上，这是由 Spring AOP 的本质决定的。如果你在 protected、private 或者默认可见性的方法上使用 @Transactional 注解，这将被忽略，也不会抛出任何异常。</p>
-</blockquote>
-<h4 id="基于tx命名空间的声明式事务管理"><a href="#基于tx命名空间的声明式事务管理" class="headerlink" title="基于tx命名空间的声明式事务管理"></a>基于tx命名空间的声明式事务管理</h4><p>在spring的xml配置文件中加入以下内容：<br>spring-service.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">   &lt;!--配置事务管理器 --&gt;</span><br><span class="line">   &lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;dataSource&quot; ref=&quot;defaultDataSource&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;!--拦截器方式配置事物 --&gt;</span><br><span class="line">   &lt;tx:advice id=&quot;transactionAdvice&quot; transaction-manager=&quot;transactionManager&quot;&gt;</span><br><span class="line">       &lt;tx:attributes&gt;</span><br><span class="line">           &lt;tx:method name=&quot;add*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">           &lt;tx:method name=&quot;save*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">           &lt;tx:method name=&quot;insert*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">           &lt;tx:method name=&quot;delete*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">           &lt;tx:method name=&quot;modify*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">           &lt;tx:method name=&quot;update*&quot; propagation=&quot;REQUIRED&quot; /&gt;</span><br><span class="line">           &lt;tx:method name=&quot;find*&quot; propagation=&quot;SUPPORTS&quot; /&gt;</span><br><span class="line">           &lt;tx:method name=&quot;query*&quot; propagation=&quot;SUPPORTS&quot; /&gt;</span><br><span class="line">           &lt;tx:method name=&quot;search*&quot; propagation=&quot;SUPPORTS&quot; /&gt;</span><br><span class="line">           &lt;tx:method name=&quot;*&quot; propagation=&quot;SUPPORTS&quot; /&gt;</span><br><span class="line">       &lt;/tx:attributes&gt;</span><br><span class="line">   &lt;/tx:advice&gt;</span><br><span class="line">&lt;aop:config expose-proxy=&quot;true&quot;&gt;</span><br><span class="line">       &lt;!-- 只对业务逻辑层实施事务 --&gt;</span><br><span class="line">       &lt;aop:pointcut id=&quot;transactionPointcut&quot; expression=&quot;execution(* com.flyhero.flyapi.service.*.*(..))&quot; /&gt;</span><br><span class="line">       &lt;!--Advisor定义，切入点和通知分别为transactionPointcut、transactionAdvice --&gt;</span><br><span class="line">       &lt;aop:advisor pointcut-ref=&quot;transactionPointcut&quot; advice-ref=&quot;transactionAdvice&quot;/&gt;</span><br><span class="line">   &lt;/aop:config&gt;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p><code>execution(* com.flyhero.flyapi.service.*.*(..))</code><br>代码当中第一个 <em> 为定义通配 返回值类型；第二个 </em> 为定义通配 com.flyhero.flyapi.service包中所有类；第三个* 为定义通配 类中的任意方法。第四(..) 为定义方法中可以有任意参数。</p>
-</blockquote>
-<p>这样我们就不需要在方法上使用@Transactional注解了。</p>
-<h4 id="注解方式和命名空间方式对比"><a href="#注解方式和命名空间方式对比" class="headerlink" title="注解方式和命名空间方式对比"></a>注解方式和命名空间方式对比</h4><table>
-<thead>
-<tr>
-<th>方式</th>
-<th>优点</th>
-<th>缺点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>注解方式</td>
-<td>使用起来非常简单明了，没有学习成本</td>
-<td>必须在每一个需要使用事务的方法或者类上用 @Transactional 标注</td>
-</tr>
-<tr>
-<td>命名空间方式</td>
-<td>与切点表达式结合，功能强大，利用切点表达式，一个配置可以匹配多个方法</td>
-<td>配置较多，对于新手易出错</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>项目中遇到的问题：</p>
-<p>@Transactional 遇上 try catch</p>
-</blockquote>
+            <p>事务可以帮助我们避免许多数据不一致性的问题。</p>
+                <!-- <p class="article-more-link">
+            <a href="/2017/06/28/Spring事务传播和事务隔离/#more">阅读更多</a>
+        </p> -->
 
+                <div class="is-1 is-multiline is-mobile is-size-7-mobile" style="font-size: 0.8rem">
+                    
+                        <span class="is-narrow article-category">
+                            <!-- <i class="far fa-folder"></i> -->
+                            <a class="article-category-span" href="/categories/Spring/">Spring</a>
+                        </span>
                         
+                            
+                                <span style="padding-left: 10px" class="is-narrow">
+                                    <i class="fa fa-eye"></i>
+                                    <span id="/2017/06/28/Spring事务传播和事务隔离/" class="leancloud_visitors" data-title="Spring事务传播和事务隔离">
+                                    </span>
+                                </span>
+                                
+
+                </div>
+
+
+                
     </div>
 </article>
                     
