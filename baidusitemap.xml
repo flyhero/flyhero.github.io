@@ -4,8 +4,26 @@
 
     
   <url>
+    <loc>http://iflyapi.cn/2019/03/11/%E5%AE%9E%E6%88%98%E8%BF%90%E7%94%A8-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2019-03-12T03:36:01.448Z</lastmod>
+    <data>
+        <display>
+        <title>实战运用-观察者模式</title>
+        <pubTime>2019-03-11T10:20:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://iflyapi.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://iflyapi.cn/2019/03/07/%E5%AE%9E%E6%88%98%E8%BF%90%E7%94%A8-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2019-03-08T10:59:49.620Z</lastmod>
+    <lastmod>2019-03-12T03:34:07.080Z</lastmod>
     <data>
         <display>
         <title>实战运用-策略模式</title>

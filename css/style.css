@@ -262,7 +262,7 @@ a.tag.article-tag {
   border-radius: 50%; }
 
 .avatar-section > img {
-  border-radius: 50%;
+  /*  border-radius: 50%;  */
   box-sizing: border-box;
   width: 120px;
   height: 120px; }
