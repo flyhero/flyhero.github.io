@@ -43,7 +43,7 @@ sidebar: auto
 
 **背景：** 接口中的入参和出参，往往是有实体类的部分属性组成的，以往的做法是打开实体类选中部分需要的属性进行复制，然后创建一个新的类，粘贴其中，再定义其他额外的属性，然后生成Getter/Setter 方法。有了此功能你只要选择部分属性就可以自动生成类或属性的Getter/Setter 方法。
 
-**使用：**  右键 出现 Toolbox 选择 `Generate POJO from Another` 后指定包，定义类名，选择不分属性后确定即可自动生成目标POJO类了。
+**使用：**  右键 出现 Toolbox 选择 `Generate Another POJO ` 后指定包，定义类名，选择不分属性后确定即可自动生成目标POJO类了。
 
 ![](images/pojo2pojo.png)
 
