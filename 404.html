@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.66">
+    <style>
+      :root {
+        --c-bg: #fff;
+      }
+      html.dark {
+        --c-bg: #22272e;
+      }
+      html, body {
+        background-color: var(--c-bg);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem('vuepress-color-scheme');
+			const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+			if (userMode === 'dark' || (userMode !== 'light' && systemDarkMode)) {
+				document.documentElement.classList.toggle('dark', true);
+			}
+    </script>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png"><link rel="manifest" href="/manifest.webmanifest"><meta name="application-name" content="VuePress"><meta name="apple-mobile-web-app-title" content="VuePress"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png"><link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#3eaf7c"><meta name="msapplication-TileColor" content="#3eaf7c"><meta name="theme-color" content="#3eaf7c"><title>王多鱼</title><meta name="description" content="这项目我「王多鱼」投了！">
+    <link rel="preload" href="/assets/style-843e6c8f.css" as="style"><link rel="stylesheet" href="/assets/style-843e6c8f.css">
+    <link rel="modulepreload" href="/assets/app-3e757445.js"><link rel="modulepreload" href="/assets/404.html-e6491279.js"><link rel="modulepreload" href="/assets/404.html-f9875e7b.js"><link rel="prefetch" href="/assets/index.html-25fac639.js" as="script"><link rel="prefetch" href="/assets/index.html-9ae0fb29.js" as="script"><link rel="prefetch" href="/assets/index.html-8f011032.js" as="script"><link rel="prefetch" href="/assets/toolbox-handbook.html-e66055c7.js" as="script"><link rel="prefetch" href="/assets/index.html-2a661918.js" as="script"><link rel="prefetch" href="/assets/index.html-380f0874.js" as="script"><link rel="prefetch" href="/assets/index.html-ca550d11.js" as="script"><link rel="prefetch" href="/assets/toolbox-handbook.html-83647e2c.js" as="script"><link rel="prefetch" href="/assets/NpmBadge-c3971f11.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><main class="page"><div class="theme-default-content"><h1>404</h1><blockquote>这里什么都没有</blockquote><a href="/" class="">返回首页</a></div></main></div><!----><!--]--></div>
+    <script type="module" src="/assets/app-3e757445.js" defer></script>
+  </body>
+</html>

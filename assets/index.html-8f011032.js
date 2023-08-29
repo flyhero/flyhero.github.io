@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-50cb12f2","path":"/donate/","title":"捐赠/支持","lang":"zh-CN","frontmatter":{"title":"捐赠/支持"},"headers":[{"level":2,"title":"赞助/支持","slug":"赞助-支持","link":"#赞助-支持","children":[]}],"git":{"updatedTime":1692281637000,"contributors":[{"name":"王清飞","email":"qingfei.wang@lengli.com.cn","commits":2}]},"filePathRelative":"donate/index.md"}');export{e as data};
